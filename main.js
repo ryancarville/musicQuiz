@@ -35,18 +35,18 @@ function playSong(songJson) {
     preview.play();
     userAnswerBtn.addEventListener('click', event => {
         preview.currentTime = 30;
-        checkUserAnswer(correctAnswer, correctArtistWithSong);
+        checkUserAnswer(correctAnswer, correctArtistWithSong, saveJson);
         console.log(userScore);
     });
     nextSongClick(saveJson);
 }
 
-function checkUserAnswer(correctAnswer, correctArtistWithSong) {
+function checkUserAnswer(correctAnswer, correctArtistWithSong, saveJson) {
     const answer = correctAnswer;
     const resultsArtistAndSong = correctArtistWithSong;
     const userAnswer = getUserAnswer();
     console.log(`Users Answer: ${userAnswer}`);
-    
+    roundNum++;
     if (userAnswer == answer) {
         userScore++;
         $('.container').empty();
@@ -68,55 +68,77 @@ function checkUserAnswer(correctAnswer, correctArtistWithSong) {
             </div>`
         )
     }
+    if (roundNum <= 10) {
+        $('.container').on('click', '.nextSong', event => {
+            nextSong(saveJson);
+        });
+    }
+    else if (roundNum = 11){
+        userScore++;
+        if (userAnswer == answer){
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Well Done!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+            </div>`
+            )
+        }
+    
+        else {
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Bummer! You answered incorrectly.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 0 points this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+                </div>`
+            )
+        }
+        $('.container').on('click', '.fianlResultsBtn', event => {
+            finalResults();
+        });
+    }
+}
+    
+function finalResults() {
+    if (userScore >=7) {
+        $('.container').empty();
+        $('.container').append(
+            `<div class="finalResults">
+            Well played! You know your music.<br><br>Your total score is<br>${userScore}<br>
+            <button type="button" name="gameOver" class="gameOver" value="gameOver">Game Over</button>
+            </div>`
+        )
+    }
+    else if (userScore >= 2 && userScore <= 6) {
+        $('.container').empty();
+        $('.container').append(
+            `<div class="finalResults">
+            Not bad, but no Grammy's for you.<br><br>Your total score is<br>${userScore}<br>
+            <button type="button" name="gameOver" class="gameOver" value="gameOver">Game Over</button>
+            </div>`
+        )
+    }
+    else {
+        $('.container').empty();
+        $('.container').append(
+            `<div class="finalResults">
+            Not so hot. Maybe list to the radio more?<br><br>Your total score is<br>${userScore}<br>
+            <button type="button" name="gameOver" class="gameOver" value="gameOver">Game Over</button>
+            </div>`
+        )
+    }
+    $('.container').on('click', '.gameOver', event => {
+        reset();
+    });
 }
 
 function getUserAnswer() {
     const str = $('#userAnswer').val();
     const userInput = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
     return userInput;
-}
-
-function nextSongClick(saveJson) {
-    roundNum++;
-    if (roundNum < 10) {
-        $('.container').on('click', '.nextSong', event => {
-            nextSong(saveJson);
-        });
-    }
-    else {
-        if (userScore >=7) {
-            $('.container').empty();
-            $('.container').append(
-                `<div class="finalResults">
-                Well played! You know your music.<br><br>Your total score is<br>${userScore}<br>
-                <button type="button" name="gameOver" class="gameOver" value="gameOver">Game Over</button>
-                </div>`
-            )
-        }
-        else if (userScore >= 2 && userScore <= 6) {
-            $('.container').empty();
-            $('.container').append(
-                `<div class="finalResults">
-                Not bad, but no Grammy's for you.<br><br>Your total score is<br>${userScore}<br>
-                <button type="button" name="gameOver" class="gameOver" value="gameOver">Game Over</button>
-                </div>`
-            )
-        }
-        else {
-            $('.container').empty();
-            $('.container').append(
-                `<div class="finalResults">
-                Not so hot. Maybe list to the radio more?<br><br>Your total score is<br>${userScore}<br>
-                <button type="button" name="gameOver" class="gameOver" value="gameOver">Game Over</button>
-                </div>`
-            )
-        }
-        $('.container').on('click', '.gameOver', event => {
-            reset();
-        });
-    }
-    
-
 }
 
 function nextSong(saveJson) {
@@ -316,6 +338,7 @@ function startApp() {
 
     });
 }
+
 function reset() {
     roundNum = 1;
     userScore = 0;
@@ -331,8 +354,8 @@ function reset() {
         </div>`)
     startApp();
 }
+
 $(function(){
-    reset();
-    
+    reset(); 
 })
 
