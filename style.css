@@ -168,14 +168,7 @@ button.loginButton {
     margin-top: 10%;
 }
 
-button#playAgain {
-    width: 200px;
-    height: 50px;
-    border: 1px solid black;
-    font-size: 20px;
-}
-
-button#gameOver {
+.gameOver {
     width: 200px;
     height: 50px;
     border: 1px solid black;
