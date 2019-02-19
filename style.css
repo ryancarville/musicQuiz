@@ -127,6 +127,8 @@ button.loginButton {
     font-size: 15px;
 }
 
+
+
 #userAnswer {
     width: 80%;
     height: 40px;
@@ -152,7 +154,7 @@ button.loginButton {
     font-size: 20px;
 }
 
-#nextSong {
+.nextSong {
     width: 200px;
     height: 50px;
     border: 1px solid black;

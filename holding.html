@@ -50,5 +50,39 @@
 
 
 
+    $('.container').empty();
+    $('.container').append(
+    `<div class="finalResults">
+    Well played!  You know your music.<br><br>Your total score is<br>${userScore}
+    </div>
+    <button type="button" name="playAgain" id="playAgain" value="playAgain">Play Again</button>
+    <button type="button" name="gameOver" id="gameOver" value="gameOver">Game Over</button>`
+    )
+
+
+
+
+
+
 //JS
 Math.floor((Math.random() * 10) + 1);
+
+
+$('.container').on('click', event => {
+    event.preventDefault();
+    if (document.getElementById('topTracks')) {
+        getTopTracks();
+    }
+    else if (onclick(document.getElementById('classicTracks'))) {
+        getClassicTracks();
+    }
+    else if (soundtrackTracksGame){
+        getSoundtrackTracks();
+    }
+    else if (kidTracksGame) {
+        getKidTracks();
+    }
+    else if (randomTracksGame) {
+        getRandomTracks();
+    }
+})
