@@ -54,9 +54,9 @@ function finalResults() {
     });
 }
 
-function checkUserAnswer(correctAnswer, correctArtistWithSong) {
+function checkUserAnswer(correctAnswer, correctAnswerDisplay) {
     const answer = correctAnswer;
-    const resultsArtistAndSong = correctArtistWithSong;
+    const resultsArtistAndSong = correctAnswerDisplay;
     const userAnswer = getUserAnswer();
     console.log(`Users Answer: ${userAnswer}`);
     roundNum++;
@@ -82,7 +82,7 @@ function checkUserAnswer(correctAnswer, correctArtistWithSong) {
         )
     }
     if (roundNum <= 10) {
-        console.log(userScore);
+        console.log(`User Current Score: ${userScore}`);
         $('.container').on('click', '.nextSong', event => {
             getTopTracks();
         });
@@ -122,10 +122,10 @@ function getUserAnswer() {
     return userInput;
 }
 
-function userSubmitAnswer (songPreview, correctAnswer, correctArtistWithSong) {
+function userSubmitAnswer (songPreview, correctAnswer, correctAnswerDisplay) {
     userAnswerBtn.addEventListener('click', event => {
         songPreview.currentTime = 30;
-        checkUserAnswer(correctAnswer, correctArtistWithSong);
+        checkUserAnswer(correctAnswer, correctAnswerDisplay);
     });
 }
 
@@ -133,22 +133,21 @@ function playSong(songPreview) {
     $('.container').on('click','#playSong', event => {
         songPreview.play();
     });
-    
 }
 
 function getSongInfo (songJson) {
-    let songObject = songJson;
+    const songObject = songJson;
     console.log(songObject);
     let i = getRandomIndex();
-    console.log(i);
+    console.log(`Random Generated Index Number: ${i}`);
     let correctArtist = songObject.tracks[i].artistName;
     let correctSong = songObject.tracks[i].name;
-    let correctArtistWithSong = 'Artist: '+correctArtist+'<br>Song: '+correctSong;
+    let correctAnswerDisplay = 'Artist: '+correctArtist+'<br>Song: '+correctSong;
     let correctAnswer = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"") + correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
     console.log(`Correct Answer: ${correctAnswer}`);
     let songPreview = new Audio (songObject.tracks[i].previewURL);    
-    playSong(songPreview, correctAnswer, correctArtistWithSong);
-    userSubmitAnswer(songPreview, correctAnswer, correctArtistWithSong);
+    playSong(songPreview, correctAnswer, correctAnswerDisplay);
+    userSubmitAnswer(songPreview, correctAnswer, correctAnswerDisplay);
 }
 
 function gameTopStart() {
