@@ -114,20 +114,33 @@ button.loginButton {
     background-color: red;
 }
 
-#timer {
-    margin-top: 20px;
-    font-size: 20px;
-    
-}
-.playBtn {
-    width: 35%;
-    margin-top: 10%;
+button.playSong {
+    background-image: url('images/playButton.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    width: 150px;
+    height: 150px;
+    margin-top: 2%;
     background-color: white;
     cursor: pointer;
     font-size: 15px;
+    border: none;
 }
 
-
+button.playNextSong {
+    background-image: url('images/playButton.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    width: 150px;
+    height: 150px;
+    margin-top: 2%;
+    background-color: white;
+    cursor: pointer;
+    font-size: 15px;
+    border: none;
+}
 
 #userAnswer {
     width: 80%;

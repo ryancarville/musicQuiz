@@ -14,36 +14,19 @@
                 <div class="dropDown">
                     <button type="button" class="menubtn"><img src="images/menu.png" alt="menuIcon"></button>
                     <div class="menuContent">
-                        <a id="jsHome" class="menuElement">Home</a>
-                        <a id="jsPlay" class="menuElement">Play</a>
-                        <a id="jsInstructions" class="menuElement">Instruction</a>
-                        <a id="jsContact" class="menuElement">Contact Us</a>
+                        <a id="jsHome" class="menuElement" onclick="reset();">Home</a>
+                        <a id="jsInstructions" class="menuElement" onclick="instructions();">Instruction</a>
+                        <a id="jsContact" class="menuElement" onclick="contact();">Contact Us</a>
                     </div>    
                 </div>
-                <a class="userName">UserName</a>
             </div>
             
             
             
         </nav>
         <main class="main">
-            <div class="container" id="container">
-                    <h2>Catagories</h2>
-                    <div class="gameCatagory">
-                        <button type="button" id="topTracks" class="gameStart" value="topTracksGame">Top Songs</button>
-                        <button type="button" id="classicTracks" class="gameStart" value="classicSongs">Classic Songs</button>
-                        <button type="button" id="soundTracks" class="gameStart" value="movietracks">Sound Tracks</button>
-                        <button type="button" id="RnbTracks" class="gameStart" value="RnBSongs">RnB Songs</button>
-                        <button type="button" id="randomTracks" class="gameStart" value="randomSongs">Random Songs</button>
-                    </div>
-            </div>
-
+            <div class="container" id="container"></div>
         </main>
-
-
-
-
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="main.js"></script>
     </body>
