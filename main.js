@@ -1,26 +1,28 @@
 'use strict';
+//user score counter
 let userScore = 0;
+//rounder counter
 let roundNum = 1;
+//API authorization key
 const apiKey ='ZTk2YjY4MjMtMDAzYy00MTg4LWE2MjYtZDIzNjJmMmM0YTdm';
-
-
+//generates a random number to use as a index for the Json Object from the API
 function getRandomIndex() {
     const i = Math.floor((Math.random() * 199) + 0);
     return i;
 }
-
+//generates a random number for the gerne game to be plugged into the API url
 function generateRandomGenreNum() {
     let num = Math.floor((Math.random() * 500) + 1);
     return num;
 }
-
+//error message for catch
 function failureCallback(errMessage) {
     $('.container').empty();
     console.log(errMessage)
     $('.container').append(
         `We are sorry but somthing went wrong.<br> ${errMessage}`)
 }
-
+//displays the final results for a round, different pages load dependant on the users final score
 function finalResults() {
     if (userScore >=7) {
         $('.container').empty();
@@ -53,7 +55,7 @@ function finalResults() {
         reset();
     });
 }
-
+//checks if the users answer matches the correct answer
 function checkUserAnswer(correctAnswer, correctAnswerDisplay) {
     const answer = correctAnswer;
     const resultsArtistAndSong = correctAnswerDisplay;
@@ -115,27 +117,27 @@ function checkUserAnswer(correctAnswer, correctAnswerDisplay) {
         });
     }
 }
-
+//sets the users answer to a variable, coverts it to lowercase and removes all non char inputs
 function getUserAnswer() {
     const str = $('#userAnswer').val();
     const userInput = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
     return userInput;
 }
-
+//event lisener for the submit button for the user answer
 function userSubmitAnswer (songPreview, correctAnswer, correctAnswerDisplay) {
     userAnswerBtn.addEventListener('click', event => {
         songPreview.currentTime = 30;
         checkUserAnswer(correctAnswer, correctAnswerDisplay);
     });
 }
-
+//plays the song when play button clicked
 function playSong(songPreview) {
     $('.container').on('click','#playSong', event => {
         songPreview.play();
     });
 }
-
-function getSongInfo (songJson) {
+//extracts all needed data from the Json API object
+function getSongInfo(songJson) {
     const songObject = songJson;
     console.log(songObject);
     let i = getRandomIndex();
@@ -149,7 +151,7 @@ function getSongInfo (songJson) {
     playSong(songPreview, correctAnswer, correctAnswerDisplay);
     userSubmitAnswer(songPreview, correctAnswer, correctAnswerDisplay);
 }
-
+//gets the API object for top hits
 function gameTopStart() {
     const url = 'https://api.napster.com/v2.2/tracks/top?limit=200&apikey='+apiKey;
     console.log(url);
@@ -164,7 +166,7 @@ function gameTopStart() {
     .then(responseJson => getSongInfo(responseJson))
     .catch(err => failureCallback(err))
 }
-
+//appends the user interface for the top hits game
 function getTopTracks() {
     $('.container').empty();
     $('.container').append(
@@ -175,11 +177,10 @@ function getTopTracks() {
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
         <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here" requiered>
         <button type="button" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>`
-    
     )
     gameTopStart();
 }
-
+//gets the API object for classic hits
 function gameClassicStart() {
     let url = 'https://api.napster.com/v2.2/genres/g.4/tracks/top?limit=200&apikey='+apiKey;
     $('.container').on('click','playSong', event => {
@@ -196,7 +197,7 @@ function gameClassicStart() {
         .catch(err => failureCallback(err))
     })
 }
-
+//appends the user interface for the classic hits game
 function getClassicTracks() {
     $('.container').empty();
     $('.container').append(
@@ -210,7 +211,7 @@ function getClassicTracks() {
     )
     gameClassicStart();
 }
-
+//gets the API object for rnb hits
 function gameRnbStart() {
     let url = 'https://api.napster.com/v2.2/genres/g.146/tracks/top?limit=200&apikey='+apiKey;
     $('.container').on('click','playSong', event => {
@@ -227,7 +228,7 @@ function gameRnbStart() {
         .catch(err => failureCallback(err))
     })
 }
-
+//appends the user interface for the rnb hits game
 function getRnbTracks() {
     $('.container').empty();
     $('.container').append(
@@ -241,7 +242,7 @@ function getRnbTracks() {
     )
     gameRnbStart();
 }
-
+//gets the API object for random songs
 function gameRandomStart() {
     let num = generateRandomGenreNum();
     console.log(num);
@@ -260,7 +261,7 @@ function gameRandomStart() {
         .catch(err => failureCallback(err))
     })
 }
-
+//appends the user interface for the random song game
 function getRandomTracks() {
     $('.container').empty();
     $('.container').append(
@@ -274,7 +275,7 @@ function getRandomTracks() {
     )
     gameRandomStart();
 }
-
+//event listeners for the game catagories
 function startApp() {
     document.getElementById("topTracks").addEventListener("click", function() {
         event.preventDefault();
@@ -295,7 +296,7 @@ function startApp() {
 
     });
 }
-
+//appends the instructions page
 function instructions() {
     $('.container').empty();
     $('.container').append(
@@ -310,6 +311,7 @@ function instructions() {
         8. At the end of the 10 rounds you will be given your total score.<br>
         <button type="button" id="home" class="nextSong" value="backToHome" onclick="reset();">Back to Home</button>`)
 }
+//resests the app to the start page
 function reset() {
     roundNum = 1;
     userScore = 0;
@@ -324,7 +326,7 @@ function reset() {
         </div>`)
     startApp();
 }
-
+//calls the JS once page loaded
 $(function(){
     reset(); 
 })
