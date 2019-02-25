@@ -305,6 +305,17 @@ function getRandomTracks() {
 
 //event listeners for the game catagories
 function startCatagoryGame() {
+    $('.container').empty();
+    $('.container').append(
+        `<h2>Catagories</h2>
+        <div class="gameCatagory">
+            <button type="button" id="topTracks" class="gameStart" value="topTracksGame">Top Songs</button>
+            <button type="button" id="classicTracks" class="gameStart" value="classicSongs">Classic Songs</button>
+            <button type="button" id="RnbTracks" class="gameStart" value="RnBSongs">RnB Songs</button>
+            <button type="button" id="randomTracks" class="gameStart" value="randomSongs">Random Songs</button>
+            <button type="button" id="home" class="homeBtn" value="backToHome" onclick="reset();">Back to Home</button>
+        </div>`);
+
     document.getElementById("topTracks").addEventListener("click", function() {
         event.preventDefault();
         getTopTracks();
@@ -347,15 +358,13 @@ function reset() {
     userScore = 0;
     $('.container').empty();
     $('.container').append(
-        `<h2>Catagories</h2>
-        <div class="gameCatagory">
-            <button type="button" id="topTracks" class="gameStart" value="topTracksGame">Top Songs</button>
-            <button type="button" id="classicTracks" class="gameStart" value="classicSongs">Classic Songs</button>
-            <button type="button" id="RnbTracks" class="gameStart" value="RnBSongs">RnB Songs</button>
-            <button type="button" id="randomTracks" class="gameStart" value="randomSongs">Random Songs</button>
-            <button type="button" id="home" class="homeBtn" value="backToHome" onclick="reset();">Back to Home</button>
+        `<h2>Music Quiz</h2>
+        <div class="home">
+        <button type="button" id="homePlay" class="homeBtn" value="homePlayBtn" onclick="startCatagoryGame();">Play Game</button>
+        <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructions();">Instructions</button>
+        <button type="button" id="homeContact" class="homeBtn" value="homeContactBtn">Contact Us</button>
         </div>`)
-        startCatagoryGame();
+    
 }
 
 //calls the JS once page loaded
