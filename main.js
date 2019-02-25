@@ -5,16 +5,19 @@ let userScore = 0;
 let roundNum = 1;
 //API authorization key
 const apiKey ='ZTk2YjY4MjMtMDAzYy00MTg4LWE2MjYtZDIzNjJmMmM0YTdm';
+
 //generates a random number to use as a index for the Json Object from the API
 function getRandomIndex() {
     const i = Math.floor((Math.random() * 199) + 0);
     return i;
 }
+
 //generates a random number for the gerne game to be plugged into the API url
 function generateRandomGenreNum() {
     let num = Math.floor((Math.random() * 500) + 1);
     return num;
 }
+
 //error message for catch
 function failureCallback(errMessage) {
     $('.container').empty();
@@ -22,6 +25,7 @@ function failureCallback(errMessage) {
     $('.container').append(
         `We are sorry but somthing went wrong.<br> ${errMessage}`)
 }
+
 //displays the final results for a round, different pages load dependant on the users final score
 function finalResults() {
     if (userScore >=7) {
@@ -56,23 +60,12 @@ function finalResults() {
     });
 }
 
-function nextSong() {
-    $('.container').empty();
-    $('.container').append(
-        `<br>
-        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
-        <button type="button" name="playSong" id="playNextSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start song and timer.<br><br>Use the format<br>
-        Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
-        <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here" required>
-        <button type="button" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>`)
-    gameTopStart();
-}
+
 function checkRoundNum() {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
         $('.container').on('click', '.nextSong', event => {
-            nextSong();
+            getTopTracks();
         });
     }
     else if (roundNum = 11){
@@ -102,6 +95,13 @@ function checkRoundNum() {
             finalResults();
         });
     }
+}
+
+//sets the users answer to a variable, coverts it to lowercase and removes all non char inputs
+function getUserAnswer() {
+    const str = $('#userAnswer').val();
+    const userInput = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
+    return userInput;
 }
 
 //checks if the users answer matches the correct answer
@@ -134,12 +134,7 @@ function checkUserAnswer(correctAnswer, correctAnswerDisplay) {
     }
     checkRoundNum();
 }
-//sets the users answer to a variable, coverts it to lowercase and removes all non char inputs
-function getUserAnswer() {
-    const str = $('#userAnswer').val();
-    const userInput = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
-    return userInput;
-}
+
 //event lisener for the submit button for the user answer
 function userSubmitAnswer (song, correctAnswer, correctAnswerDisplay) {
     userAnswerBtn.addEventListener('click', event => {
@@ -151,6 +146,7 @@ function userSubmitAnswer (song, correctAnswer, correctAnswerDisplay) {
 //plays the song when play button clicked
 function playSong(song) {
     $('.container').on('click', '.playSong', event => {
+        $( "button.playSong" ).toggleClass("pauseSong");
         if(song.paused){
             song.play();
         }
@@ -195,6 +191,7 @@ function gameTopStart() {
     .then(responseJson => getSongInfo(responseJson))
     .catch(err => failureCallback(err))
 }
+
 //appends the user interface for the top hits game
 function getTopTracks() {
     $('.container').empty();
@@ -202,13 +199,14 @@ function getTopTracks() {
         `<br>
         Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
         <button type="button" name="playSong" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start song and timer.<br><br>Use the format<br>
+        <a><br><br>Press play to start song.<br><br>Use the format<br>
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
         <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here" required>
         <button type="button" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>`);
     
-    gameTopStart();
+        gameTopStart();
 }
+
 //gets the API object for classic hits
 function gameClassicStart() {
     const url = 'https://api.napster.com/v2.2/genres/g.4/tracks/top?limit=200&apikey='+apiKey;
@@ -304,6 +302,7 @@ function getRandomTracks() {
     )
     gameRandomStart();
 }
+
 //event listeners for the game catagories
 function startCatagoryGame() {
     document.getElementById("topTracks").addEventListener("click", function() {
@@ -325,6 +324,7 @@ function startCatagoryGame() {
 
     });
 }
+
 //appends the instructions page
 function instructions() {
     $('.container').empty();
@@ -340,7 +340,6 @@ function instructions() {
         8. At the end of the 10 rounds you will be given your total score.<br>
         <button type="button" id="home" class="nextSong" value="backToHome" onclick="reset();">Back to Home</button>`)
 }
-
 
 //resests the app to the start page
 function reset() {
@@ -358,6 +357,7 @@ function reset() {
         </div>`)
         startCatagoryGame();
 }
+
 //calls the JS once page loaded
 $(function(){
     reset(); 
