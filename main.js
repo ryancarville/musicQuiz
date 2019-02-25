@@ -340,10 +340,10 @@ function getClassicTracks() {
         <form>
         <fieldset>
         <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
-        <button type="button" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
+        <button type="submit" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
         </fieldset>
         </form>
-        <button type="button" name="userAnswerBtn" id="reload" value="quitGame" onclick="reload();">Quit Game</button>`
+        <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>`
     );
     gameClassicStart();
 }
