@@ -162,6 +162,7 @@ function checkUserTopAnswer(correctAnswer, correctAnswerDisplay) {
 //event lisener for the submit button for the user answer
 function userSubmitTopAnswer (song, correctAnswer, correctAnswerDisplay) {
     userAnswerBtn.addEventListener('click', event => {
+        event.preventDefault();
         song.currentTime = 30;
         checkUserTopAnswer(correctAnswer, correctAnswerDisplay);
     });
@@ -208,10 +209,10 @@ function getTopTracks() {
         <a><br><br>Press play to start song.<br><br>Use the format<br>
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
         <form>
-        <fieldset>
-        <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
-        <button type="submit" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
-        </fieldset>
+            <fieldset>
+                <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
+            </fieldset>
         </form>
         <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>`
     );
@@ -292,6 +293,7 @@ function checkUserClassicAnswer(correctAnswer, correctAnswerDisplay) {
 //event lisener for the classic hits game submit button for the user answer
 function userSubmitClassicAnswer (song, correctAnswer, correctAnswerDisplay) {
     userAnswerBtn.addEventListener('click', event => {
+        event.preventDefault();
         song.currentTime = 30;
         checkUserClassicAnswer(correctAnswer, correctAnswerDisplay);
     });
@@ -338,10 +340,10 @@ function getClassicTracks() {
         <a><br><br>Press play to start song and timer.<br><br>Use the format<br>
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
         <form>
-        <fieldset>
-        <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
-        <button type="submit" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
-        </fieldset>
+            <fieldset>
+                <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
+            </fieldset>
         </form>
         <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>`
     );
@@ -422,6 +424,7 @@ function checkUserRnbAnswer(correctAnswer, correctAnswerDisplay) {
 //event lisener for the rnb hits game submit button for the user answer
 function userSubmitRnbAnswer (song, correctAnswer, correctAnswerDisplay) {
     userAnswerBtn.addEventListener('click', event => {
+        event.preventDefault();
         song.currentTime = 30;
         checkUserRnbAnswer(correctAnswer, correctAnswerDisplay);
     });
@@ -468,10 +471,10 @@ function getRnbTracks() {
         <a><br><br>Press play to start song and timer.<br><br>Use the format<br>
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
         <form>
-        <fieldset>
-        <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
-        <button type="submit" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
-        </fieldset>
+            <fieldset>
+                <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
+            </fieldset>
         </form>
         <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>`
     );
@@ -552,6 +555,7 @@ function checkUserRandomAnswer(correctAnswer, correctAnswerDisplay) {
 //event lisener for the submit random game button for the user answer
 function userSubmitRandomAnswer (song, correctAnswer, correctAnswerDisplay) {
     userAnswerBtn.addEventListener('click', event => {
+        event.preventDefault();
         song.currentTime = 30;
         checkUserRandomAnswer(correctAnswer, correctAnswerDisplay);
     });
@@ -600,10 +604,10 @@ function getRandomTracks() {
         <a><br><br>Press play to start song and timer.<br><br>Use the format<br>
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
         <form>
-        <fieldset>
-        <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
-        <button type="submit" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
-        </fieldset>
+            <fieldset>
+                <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
+            </fieldset>
         </form>
         <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>`
     );
@@ -691,8 +695,6 @@ function reload() {
     location.reload(true);
     reset();
 }
-
-$("[name='userAnswer']").attr("required", true);
 
 //calls the JS once page loaded
 $(function(){
