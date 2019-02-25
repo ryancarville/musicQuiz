@@ -45,6 +45,10 @@ function playSong(song) {
             song.pause();
         }
     });
+    song.onended = function() {
+        $('button.playSong').removeClass('pauseSong');
+    }
+    
 }
 
 //USED BY ALL GAMES - gets the preview song for the round
