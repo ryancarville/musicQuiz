@@ -61,14 +61,14 @@ function finalResults() {
 }
 
 
-function checkRoundNum() {
+function checkRoundNum(userAnswer, answer, resultsArtistAndSong) {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
         $('.container').off('click').on('click', '#nextSong', event => {
             getTopTracks();
         });
     }
-    else if (roundNum = 11){
+    else{
         if (userAnswer == answer){
             userScore++;
             $('.container').empty();
@@ -132,7 +132,7 @@ function checkUserAnswer(correctAnswer, correctAnswerDisplay) {
             </div>`
         )
     }
-    checkRoundNum();
+    checkRoundNum(userAnswer, answer, resultsArtistAndSong);
 }
 
 //event lisener for the submit button for the user answer
