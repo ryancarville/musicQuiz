@@ -122,7 +122,7 @@ button.loginButton {
     background-color: red;
 }
 
-button.playSong {
+.playSong {
     background-image: url('images/playButton.png');
     background-repeat: no-repeat;
     background-position: center;
@@ -136,8 +136,8 @@ button.playSong {
     border: none;
 }
 
-button.playNextSong {
-    background-image: url('images/playButton.png');
+.pauseSong {
+    background-image: url('images/pauseButton.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
@@ -148,6 +148,7 @@ button.playNextSong {
     cursor: pointer;
     font-size: 15px;
     border: none;
+    z-index: 1;
 }
 
 #userAnswer {
