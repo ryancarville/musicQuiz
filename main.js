@@ -634,7 +634,7 @@ function contact() {
     $('.container').append(
         `<h2>Email Us</h2>
         <p>We hope you are enjoying the game.  If you need help or have any sugguestions please let us know.<br>You can email us
-        <a href='mailto:hello@beardystudios.com?Subject=Music%20Quiz%20Inquiry' target='_top'>here.</a>
+        <a href='mailto:hello@beardystudios.com?Subject=Music%20Quiz%20Inquiry' target='_top'>here.</a><br>
         <button type="button" id="home" class="nextSong" value="backToHome" onclick="reset();">Back to Home</button>`
     );
 }
@@ -651,7 +651,7 @@ function instructions() {
         5. You will be told if you got the answer right or wrong and what your current score is.<br><br>
         6. Press the next song button to load the next song.<br><br>
         7. Repeat steps 2 thru 6 for the 10 rounds.<br><br>
-        8. At the end of the 10 rounds you will be given your total score.<br>
+        8. At the end of the 10 rounds you will be given your total score.
         <button type="button" id="home" class="nextSong" value="backToHome" onclick="reset();">Back to Home</button>`
         );
 }
