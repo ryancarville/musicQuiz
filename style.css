@@ -73,6 +73,14 @@ button.menubtn {
     padding: 20px;
 }
 
+.homeBtn {
+    width: 200px;
+    height: 50px;
+    border: 1px solid black;
+    margin-top: 10%;
+    font-size: 20px;
+}
+
 .userLogin {
     display: block;
     margin-left: auto;

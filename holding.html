@@ -49,15 +49,15 @@
 
 
 
-
-    $('.container').empty();
-    $('.container').append(
-    `<div class="finalResults">
-    Well played!  You know your music.<br><br>Your total score is<br>${userScore}
-    </div>
-    <button type="button" name="playAgain" id="playAgain" value="playAgain">Play Again</button>
-    <button type="button" name="gameOver" id="gameOver" value="gameOver">Game Over</button>`
-    )
+//home
+$('.container').empty();
+$('.container').append(
+    `<h2>Music Quiz</h2>
+    <div class="home">
+        <button type="button" id="homePlay" class="homeBtn" value="homePlayBtn" onclick="gameCatagory();">Play Game</button>
+        <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructions();">Instructions</button>
+        <button type="button" id="homeContact" class="homeBtn" value="homeContactBtn">Contact Us</button>
+    </div>`)
 
 
 
