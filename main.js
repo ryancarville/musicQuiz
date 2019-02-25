@@ -64,7 +64,7 @@ function finalResults() {
 function checkRoundNum() {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
-        $('.container').on('click', '.nextSong', event => {
+        $('.container').off('click').on('click', '#nextSong', event => {
             getTopTracks();
         });
     }
@@ -118,7 +118,7 @@ function checkUserAnswer(correctAnswer, correctAnswerDisplay) {
             `<div class="answerResult">
             Well Done!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
-            <button type="button" name="nextSong" class="nextSong" value="next">Next Song</button>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
         </div>`
         )
     }
@@ -128,7 +128,7 @@ function checkUserAnswer(correctAnswer, correctAnswerDisplay) {
             `<div class="answerResult">
             Bummer! You answered incorrectly.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 0 points this round.
             <br><br>Current score is:<br> ${userScore}<br>
-            <button type="button" name="nextSong" class="nextSong" value="next">Next Song</button>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
             </div>`
         )
     }
@@ -146,7 +146,7 @@ function userSubmitAnswer (song, correctAnswer, correctAnswerDisplay) {
 //plays the song when play button clicked
 function playSong(song) {
     $('.container').on('click', '.playSong', event => {
-        $( "button.playSong" ).toggleClass("pauseSong");
+        $('button.playSong').toggleClass('pauseSong');
         if(song.paused){
             song.play();
         }
@@ -157,7 +157,7 @@ function playSong(song) {
 }
 
 function getSongPreview(songObject, i) {
-    let songPreview = new Audio (songObject.tracks[i].previewURL);
+    const songPreview = new Audio (songObject.tracks[i].previewURL);
     return songPreview;
 }
 
@@ -201,8 +201,9 @@ function getTopTracks() {
         <button type="button" name="playSong" id="playSong" class="playSong" value="play"></button>
         <a><br><br>Press play to start song.<br><br>Use the format<br>
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
-        <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here" required>
+        <input type="text" name="userAnswer" id="userAnswer" required placeholder="Enter Artist and Song Title here">
         <button type="button" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>`);
+        
     
         gameTopStart();
 }
@@ -332,7 +333,6 @@ function startCatagoryGame() {
     document.getElementById("randomTracks").addEventListener("click", function() {
         event.preventDefault();
         getRandomTracks();
-
     });
 }
 

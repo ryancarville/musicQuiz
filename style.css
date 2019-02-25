@@ -138,17 +138,6 @@ button.loginButton {
 
 .pauseSong {
     background-image: url('images/pauseButton.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
-    width: 150px;
-    height: 150px;
-    margin-top: 2%;
-    background-color: white;
-    cursor: pointer;
-    font-size: 15px;
-    border: none;
-    z-index: 1;
 }
 
 #userAnswer {
