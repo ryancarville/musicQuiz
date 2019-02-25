@@ -670,7 +670,7 @@ function instructions() {
         `<h2>Game Instructions</h2><br>
         1. Choose a catagory.<br><br>
         2. Press the play button to load the first song.  Song will play for 30 seconds.<br><br>
-        3. Enter the Artisit Name and Song Title into the input box. It is not case-sensitive.<br>To replay the song just click the play button again.<br><br>
+        3. Enter the Artist Name and Song Title into the input box. It is not case-sensitive.<br>To replay the song just click the play button again.<br><br>
         4. Click the submit button to enter you answer.<br><br>
         5. You will be told if you got the answer right or wrong and what your current score is.<br><br>
         6. Press the next song button to load the next song.<br><br>
