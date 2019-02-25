@@ -98,6 +98,9 @@ button.menubtn {
     background-color: red;
 }
 
+fieldset {
+    border: none;
+}
 .playSong {
     background-image: url('images/playButton.png');
     background-repeat: no-repeat;

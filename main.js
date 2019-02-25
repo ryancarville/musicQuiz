@@ -207,8 +207,12 @@ function getTopTracks() {
         <button type="button" name="playSong" id="playSong" class="playSong" value="play"></button>
         <a><br><br>Press play to start song.<br><br>Use the format<br>
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
-        <input type="text" name="userAnswer" id="userAnswer" required placeholder="Enter Artist and Song Title here">
+        <form>
+        <fieldset>
+        <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
         <button type="button" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
+        </fieldset>
+        </form>
         <button type="button" name="userAnswerBtn" id="reload" value="quitGame" onclick="reload();">Quit Game</button>`
         );
         gameTopStart();
@@ -333,8 +337,12 @@ function getClassicTracks() {
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
         <a><br><br>Press play to start song and timer.<br><br>Use the format<br>
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
+        <form>
+        <fieldset>
         <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
         <button type="button" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
+        </fieldset>
+        </form>
         <button type="button" name="userAnswerBtn" id="reload" value="quitGame" onclick="reload();">Quit Game</button>`
     );
     gameClassicStart();
@@ -459,8 +467,12 @@ function getRnbTracks() {
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
         <a><br><br>Press play to start song and timer.<br><br>Use the format<br>
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
+        <form>
+        <fieldset>
         <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
         <button type="button" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
+        </fieldset>
+        </form>
         <button type="button" name="userAnswerBtn" id="reload" value="quitGame" onclick="reload();">Quit Game</button>`
     );
     gameRnbStart();
@@ -587,8 +599,12 @@ function getRandomTracks() {
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
         <a><br><br>Press play to start song and timer.<br><br>Use the format<br>
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
+        <form>
+        <fieldset>
         <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
         <button type="button" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
+        </fieldset>
+        </form>
         <button type="button" name="userAnswerBtn" id="reload" value="quitGame" onclick="reload();">Quit Game</button>`
     );
     gameRandomStart();
@@ -675,6 +691,8 @@ function reload() {
     location.reload(true);
     reset();
 }
+
+$("[name='userAnswer']").attr("required", true);
 
 //calls the JS once page loaded
 $(function(){
