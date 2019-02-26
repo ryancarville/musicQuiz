@@ -96,9 +96,9 @@ fieldset {
     border: none;
 }
 select {
-    font-size: 14px;
+    font-size: 16px;
     width: 300px;
-    border: 2px solid black;
+    border: 1px solid black;
 }
 
 .randomBtn {
@@ -106,6 +106,7 @@ select {
     height: 30px;
     border-radius: 10px 10px 10px 10px;
     margin-top: 10px;
+    font-size: 15px;
 }
 
 
