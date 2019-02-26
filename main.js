@@ -893,7 +893,7 @@ function getRandomTracks() {
 function checkUserGenreRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, genreNum) {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
-        $('.container').off('click').on('click', '#nextSong', event => {
+        $('div').off('click').on('click', '#nextSong', event => {
             getUserGenreTracks(genreNum);
         });
     }
@@ -1054,7 +1054,6 @@ function gameUserGenreStart (genreNum) {
 }
 
 function getUserGenreTracks(userSelectedGenre) {
-    
     $('.container').empty();
     $('.container').append(
         `<br>
@@ -1106,7 +1105,7 @@ function userSelectsGenre(){
             </fieldset>
         </form>`
     )
-    $('.container').on('change', event => {
+    $('select').on('click', event => {
         const userSelectedGenre = $('select').val();
         getUserGenreTracks(userSelectedGenre);
     });
