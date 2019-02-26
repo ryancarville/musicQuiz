@@ -357,8 +357,8 @@ function selectGenre() {
                 <p>Or roll the dice...</p>
                 <button type="button" class="homeBtn" value="randomSongs" onclick="getGenreNum();">Random Songs</option> 
             </fieldset>
-            
-        </form>`
+        </form>
+        <button type="button" id="home" class="nextSong" value="backToHome" onclick="start();">Back to Home</button>`
     )
     $('select').on('click', event => {
         const selectedGenre = $('select').val();
@@ -373,7 +373,7 @@ function contact() {
         `<h2>Email Us</h2>
         <p>We hope you are enjoying the game.  If you need help or have any sugguestions please let us know.<br>You can email us
         <a href='mailto:hello@beardystudios.com?Subject=Music%20Quiz%20Inquiry' target='_top'>here.</a><br>
-        <button type="button" id="home" class="nextSong" value="backToHome" onclick="reset();">Back to Home</button>`
+        <button type="button" id="home" class="nextSong" value="backToHome" onclick="start();">Back to Home</button>`
     );
 }
 
@@ -391,7 +391,7 @@ function instructions() {
         7. Repeat steps 2 thru 6 for the 10 rounds.<br><br>
         8. At the end of the 10 rounds you will be given your total score out of the possible 20 points.<br><br>
         Good luck at testing your musical knowledge!
-        <button type="button" id="home" class="nextSong" value="backToHome" onclick="reset();">Back to Home</button>`
+        <button type="button" id="home" class="nextSong" value="backToHome" onclick="start();">Back to Home</button>`
         );
 }
 
