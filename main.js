@@ -208,8 +208,8 @@ function userSubmitAnswer (song, correctAnswerArtist, correctAnswerSong, correct
 
 //plays the song when play button clicked
 function playSong(song) {
-    $('.container').on('click', '.playSong', event => {
-        $('button.playSong').toggleClass('pauseSong');
+    $('.playSong').on('click', event => {
+        $('.playSong').toggleClass('pauseSong');
         if(song.paused){
             song.play();
         }
@@ -218,9 +218,8 @@ function playSong(song) {
         }
     });
     song.onended = function() {
-        $('button.playSong').removeClass('pauseSong');
+        $('.playSong').removeClass('pauseSong');
     }
-    
 }
 
 //gets the preview song for the round
