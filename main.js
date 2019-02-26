@@ -357,7 +357,7 @@ function selectGenre() {
         <button type="button" class="homeBtn" value="randomSongs" onclick="getGenreNum();">Random Songs</option> 
         <button type="button" id="home" class="nextSong" value="backToHome" onclick="start();">Back to Home</button>`
     )
-    $('select').on('click', event => {
+    $('select').on('change', event => {
         const selectedGenre = $('select').val();
         gameStart(selectedGenre);
     });
