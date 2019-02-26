@@ -92,6 +92,9 @@ button.menubtn {
     background-color: red;
 }
 
+fieldset {
+    border: none;
+}
 select {
     font-size: 14px;
     width: 300px;
