@@ -309,8 +309,8 @@ function gameStart(genreNum) {
         <a><br><br>Press play to start the song.<br></a>
         <form>
             <fieldset>
-                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" requierd>
-                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" requierd>
+                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" required>
+                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" required>
                 <button type="submit" name="userAnswerBtn" id="userAnswerBtn" class="userAnswerBtn" value="userAnswerBtn">Submit</button>
                 <button type="submit" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
             </fieldset>
@@ -327,8 +327,9 @@ function selectGenre() {
         `<h2>Choose a Genre</h2>
         <form id='genreMenu' method='post' action=''>
             <label for='genreMenu'>Select a genre.<br>Just click one to select.</label>
-            <br>
+            <br><br><br>
                 <select id="userSelectGenre" class="userSelectGenre" name='genres'>
+                    <option value="">Please Select a Genre</option>
                     <option value="g.33">Alternative</option>
                     <option value="g.438">Blues</option>
                     <option value="g.470">Children</option>
@@ -354,8 +355,8 @@ function selectGenre() {
                 </select>
         </form>
         
-        <button type="button" class="homeBtn" value="randomSongs" onclick="getGenreNum();">Random Songs</option> 
-        <button type="button" id="home" class="nextSong" value="backToHome" onclick="start();">Back to Home</button>`
+        <button type="button" class="randomBtn" value="randomSongs" onclick="getGenreNum();">Roll the dice</option> 
+        <button type="button" id="home" class="randomBtn" value="backToHome" onclick="start();">Back to Home</button>`
     )
     $('select').on('change', event => {
         const selectedGenre = $('select').val();

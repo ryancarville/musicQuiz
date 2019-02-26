@@ -84,12 +84,6 @@ button.menubtn {
     font-size: 20px;
 }
 
-.gameCatagory {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-}
 .gameStart {
     width: 40%;
     height: 150px;
@@ -98,23 +92,17 @@ button.menubtn {
     background-color: red;
 }
 
-fieldset {
-    border: none;
-}
-
 select {
-    font-size: 20px;
-    width: 200px;
-    text-align: center;
+    font-size: 14px;
+    width: 300px;
+    border: 2px solid black;
 }
 
-#userSelectGenre >option {
-    padding: 5px;
-    
-}
-
-#userSelectGenre >option:hover {
-    background-color: yellow;
+.randomBtn {
+    width: 150px;
+    height: 30px;
+    border-radius: 10px 10px 10px 10px;
+    margin-top: 10px;
 }
 
 
