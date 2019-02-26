@@ -102,9 +102,9 @@ fieldset {
     border: none;
 }
 
-.userSelectGenre {
+#userSelectGenre {
     width: 300px;
-    height: 100px;
+    height: 90%;
     font-size: 30px;
     margin-top: 5%;
     text-align: center;
