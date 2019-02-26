@@ -325,10 +325,10 @@ function selectGenre() {
     $('.container').empty();
     $('.container').append(
         `<h2>Choose a Genre</h2>
-        <form>
+        <form id='genreMenu' method='post' action=''>
             <fieldset>
-            <legend>Scroll thru to select a genre.<br>To choose one just click it.</legend>
-                <select id="userSelectGenre" class="userSelectGenre" multiple="multiple">
+            <label for='genreMenu'>Scroll thru to select a genre.<br>To choose one just click it.</label>
+                <select id="userSelectGenre" class="userSelectGenre" name='genres' multiple="multiple">
                     <option value="g.33">Alternative</option>
                     <option value="g.438">Blues</option>
                     <option value="g.470">Children</option>
