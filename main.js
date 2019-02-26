@@ -83,7 +83,7 @@ function finalResults() {
         $('.container').empty();
         $('.container').append(
             `<div class="finalResults">
-            Not so hot. Maybe list to the radio more?<br><br>Your total score is<br>${userScore}<br>
+            Not so hot. Maybe listen to the radio more?<br><br>Your total score is<br>${userScore}<br>
             <button type="button" name="gameOver" class="gameOver" value="gameOver">Game Over</button>
             </div>`
         )
@@ -913,12 +913,12 @@ function instructions() {
         `<h2>Game Instructions</h2><br>
         1. Choose a catagory.<br><br>
         2. Press the play button to load the first song.  Song will play for 30 seconds.<br><br>
-        3. Enter the Artist Name and Song Title into the input box. It is not case-sensitive.<br>To replay the song just click the play button again.<br><br>
-        4. Click the submit button to enter you answer.<br><br>
-        5. You will be told if you got the answer right or wrong and what your current score is.<br><br>
+        3. Enter the Artist Name and Song Title into the designated input box. They are not case-sensitive, but they do need to be the offical names and titles.<br>To replay the song just click the play button again.<br><br>
+        4. Click the submit button to enter you answer or you can skip the question if you don't know at least one of the answers.<br><br>
+        5. You will be told what you got right or wrong and what your current score is.<br><br>
         6. Press the next song button to load the next song.<br><br>
         7. Repeat steps 2 thru 6 for the 10 rounds.<br><br>
-        8. At the end of the 10 rounds you will be given your total score.
+        8. At the end of the 10 rounds you will be given your total score out of the possible 20 points.
         <button type="button" id="home" class="nextSong" value="backToHome" onclick="reset();">Back to Home</button>`
         );
 }
