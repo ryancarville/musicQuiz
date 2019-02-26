@@ -326,9 +326,9 @@ function selectGenre() {
     $('.container').append(
         `<h2>Choose a Genre</h2>
         <form id='genreMenu' method='post' action=''>
-            <fieldset>
-            <label for='genreMenu'>Scroll thru to select a genre.<br>To choose one just click it.</label>
-                <select id="userSelectGenre" class="userSelectGenre" name='genres' multiple="multiple">
+            <label for='genreMenu'>Select a genre.<br>Just click one to select.</label>
+            <br>
+                <select id="userSelectGenre" class="userSelectGenre" name='genres'>
                     <option value="g.33">Alternative</option>
                     <option value="g.438">Blues</option>
                     <option value="g.470">Children</option>
@@ -352,10 +352,9 @@ function selectGenre() {
                     <option value="g.246">Soundtracks</option>  
                     <option value="g.488">World</option>
                 </select>
-                <p>Or roll the dice...</p>
-                <button type="button" class="homeBtn" value="randomSongs" onclick="getGenreNum();">Random Songs</option> 
-            </fieldset>
         </form>
+        
+        <button type="button" class="homeBtn" value="randomSongs" onclick="getGenreNum();">Random Songs</option> 
         <button type="button" id="home" class="nextSong" value="backToHome" onclick="start();">Back to Home</button>`
     )
     $('select').on('click', event => {
