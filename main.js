@@ -827,7 +827,7 @@ function getGenreId(genreObject) {
 }
 
 function getGenreNum() {
-    let url = 'http://api.napster.com/v2.2/genres?apikey='+apiKey2;
+    let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
     console.log(url);
     fetch(url)
     .then(response => {
@@ -870,9 +870,9 @@ function startCatagoryGame() {
     $('.container').append(
         `<h2>Catagories</h2>
         <div class="gameCatagory">
-            <button type="button" id="topTracks" class="gameStart" value="topTracksGame">Top Songs</button>
+            <button type="button" id="topTracks" class="gameStart" value="topTracksGame">Today's Top Tracks</button>
             <button type="button" id="classicTracks" class="gameStart" value="classicSongs">Classic Songs</button>
-            <button type="button" id="RnbTracks" class="gameStart" value="RnBSongs">RnB Songs</button>
+            <button type="button" id="RnbTracks" class="gameStart" value="RnBSongs">RnB Hits</button>
             <button type="button" id="randomTracks" class="gameStart" value="randomSongs">Random Songs</button>
             <button type="button" id="home" class="homeBtn" value="backToHome" onclick="reset();">Back to Home</button>
         </div>`);
@@ -913,12 +913,13 @@ function instructions() {
         `<h2>Game Instructions</h2><br>
         1. Choose a catagory.<br><br>
         2. Press the play button to load the first song.  Song will play for 30 seconds.<br><br>
-        3. Enter the Artist Name and Song Title into the designated input box. They are not case-sensitive, but they do need to be the offical names and titles.<br>To replay the song just click the play button again.<br><br>
+        3. Enter the Artist Name and Song Title into the designated input box.<br>They are not case-sensitive, but they do need to be the offical names and titles.<br>To replay the song just click the play button again.<br><br>
         4. Click the submit button to enter you answer or you can skip the question if you don't know at least one of the answers.<br><br>
         5. You will be told what you got right or wrong and what your current score is.<br><br>
         6. Press the next song button to load the next song.<br><br>
         7. Repeat steps 2 thru 6 for the 10 rounds.<br><br>
-        8. At the end of the 10 rounds you will be given your total score out of the possible 20 points.
+        8. At the end of the 10 rounds you will be given your total score out of the possible 20 points.<br><br>
+        Good luck at testing your musical knowledge!
         <button type="button" id="home" class="nextSong" value="backToHome" onclick="reset();">Back to Home</button>`
         );
 }
