@@ -15,61 +15,6 @@ function failureCallback(errMessage) {
         `We are sorry but somthing went wrong.<br><br> ${errMessage}`)
 }
 
-//generates a random number to use as a index for the Json Object from the API
-function getRandomIndex() {
-    const i = Math.floor((Math.random() * 199) + 0);
-    return i;
-}
-
-//sets the users artist answer to a variable, coverts it to lowercase and removes all non char inputs
-function getUserAnswerArtist() {
-    const str = $('#userAnswerArtist').val();
-    const userArtist = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
-    return userArtist;
-}
-
-//sets the users song answer to a variable, coverts it to lowercase and removes all non char inputs
-function getUserAnswerSong() {
-    const str = $('#userAnswerSong').val();
-    const userSong = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
-    return userSong;
-}
-
-//sets the users artist answer to a variable for displaying users inoput of reuslts page
-function getUserAnswerArtistDispaly() {
-    const userArtistResult = $('#userAnswerArtist').val();
-    return userArtistResult;
-}
-
-//sets the users song answer to a variable for displaying users inoput of reuslts page
-function getUserAnswerSongDispaly() {
-    const userSongResult = $('#userAnswerSong').val();
-    return userSongResult;
-}
-
-//plays the song when play button clicked
-function playSong(song) {
-    $('.container').on('click', '.playSong', event => {
-        $('button.playSong').toggleClass('pauseSong');
-        if(song.paused){
-            song.play();
-        }
-        else{
-            song.pause();
-        }
-    });
-    song.onended = function() {
-        $('button.playSong').removeClass('pauseSong');
-    }
-    
-}
-
-//gets the preview song for the round
-function getSongPreview(songObject, i) {
-    const songPreview = new Audio (songObject.tracks[i].previewURL);
-    return songPreview;
-}
-
 //displays the final results for a round, different language loads dependant on the users final score
 function finalResults() {
     if (userScore >=13) {
@@ -164,6 +109,32 @@ function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, co
     }
 }
 
+//sets the users artist answer to a variable, coverts it to lowercase and removes all non char inputs
+function getUserAnswerArtist() {
+    const str = $('#userAnswerArtist').val();
+    const userArtist = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
+    return userArtist;
+}
+
+//sets the users song answer to a variable, coverts it to lowercase and removes all non char inputs
+function getUserAnswerSong() {
+    const str = $('#userAnswerSong').val();
+    const userSong = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
+    return userSong;
+}
+
+//sets the users artist answer to a variable for displaying users inoput of reuslts page
+function getUserAnswerArtistDispaly() {
+    const userArtistResult = $('#userAnswerArtist').val();
+    return userArtistResult;
+}
+
+//sets the users song answer to a variable for displaying users inoput of reuslts page
+function getUserAnswerSongDispaly() {
+    const userSongResult = $('#userAnswerSong').val();
+    return userSongResult;
+}
+
 //checks if the users answer matches the correct answer
 function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum) {
     const resultsArtistAndSong = correctAnswerDisplay;
@@ -233,7 +204,35 @@ function userSubmitAnswer (song, correctAnswerArtist, correctAnswerSong, correct
         song.currentTime = 30;
         checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
     }));
+}
+
+//plays the song when play button clicked
+function playSong(song) {
+    $('.container').on('click', '.playSong', event => {
+        $('button.playSong').toggleClass('pauseSong');
+        if(song.paused){
+            song.play();
+        }
+        else{
+            song.pause();
+        }
+    });
+    song.onended = function() {
+        $('button.playSong').removeClass('pauseSong');
+    }
     
+}
+
+//gets the preview song for the round
+function getSongPreview(songObject, i) {
+    const songPreview = new Audio (songObject.tracks[i].previewURL);
+    return songPreview;
+}
+
+//generates a random number to use as a index for the Json Object from the API
+function getRandomIndex() {
+    const i = Math.floor((Math.random() * 199) + 0);
+    return i;
 }
 
 //extracts all needed data from API object
@@ -319,7 +318,6 @@ function gameStart(genreNum) {
         <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>`
     );
     getTrack(genreNum);
-
 }
 
 //genre catagory menu with event listener
@@ -415,14 +413,7 @@ function reload() {
     start();
 }
 
-//calls the JS once page loaded
-$(function(){
+//calls the JS once DOM loaded
+$(document).ready(function(){
     start(); 
 })
-
-
-
-
-
-
-
