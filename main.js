@@ -88,7 +88,7 @@ function finalResults() {
         )
     }
     $('.container').on('click', '.gameOver', event => {
-        reset();
+        reload();
     });
 }
 
