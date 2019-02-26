@@ -263,8 +263,7 @@ function getTopTracks() {
         `<br>
         Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
         <button type="button" name="playSong" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start song.<br><br>Use the format<br>
-        Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
+        <a><br><br>Press play to start the song.<br></a>
         <form>
             <fieldset>
                 <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" requierd>
@@ -448,8 +447,7 @@ function getClassicTracks() {
         `<br>
         Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start song and timer.<br><br>Use the format<br>
-        Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
+        <a><br><br>Press play to start the song.<br></a>
         <form>
             <fieldset>
                 <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" requierd>
@@ -634,8 +632,7 @@ function getRnbTracks() {
         `<br>RnB Game<br><br>
         Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start song and timer.<br><br>Use the format<br>
-        Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
+        <a><br><br>Press play to start the song.<br></a>
         <form>
             <fieldset>
                 <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" requierd>
@@ -850,7 +847,7 @@ function getRandomTracks() {
         `<br>
         Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start song and timer.<br></a>
+        <a><br><br>Press play to start the song.<br></a>
         <form>
             <fieldset>
                 <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" requierd>
