@@ -50,7 +50,7 @@ function finalResults() {
 }
 
 //checks the round number and directs to the next song or the final results page
-function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, genreNum) {
+function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, userAnswerResults, genreNum) {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
         $('div').off('click').on('click', '#nextSong', event => {
@@ -65,7 +65,7 @@ function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, co
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Well Done!<br>You got it all right!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 2 point this round.
+                Well Done!<br>You got it all right!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
                 <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
             </div>`
@@ -76,7 +76,7 @@ function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, co
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Not Bad.<br>You got the artist right but missed the song.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                Not Bad.<br>You got the artist right but missed the song.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
                 <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
             </div>`
@@ -87,7 +87,7 @@ function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, co
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Not Bad.<br>You got the song right but missed the artist.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                Not Bad.<br>You got the song right but missed the artist.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
                 <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
             </div>`
@@ -97,7 +97,7 @@ function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, co
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Bummer! You answered incorrectly.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 0 points this round.
+                Bummer! You answered incorrectly.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
                 <br><br>Current score is:<br> ${userScore}<br>
                 <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
                 </div>`
@@ -189,7 +189,7 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
             </div>`
         )
     }
-    checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, genreNum);
+    checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, userAnswerResults, genreNum);
 }
 
 //event lisener on the submit button for the user answer
