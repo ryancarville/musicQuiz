@@ -119,7 +119,7 @@ fieldset {
     background-image: url('images/pauseButton.png');
 }
 
-#userAnswer {
+.userAnswer {
     width: 80%;
     height: 40px;
     border: 1px solid black;
@@ -129,7 +129,7 @@ fieldset {
     padding: 5px;
 }
 
-#userAnswerBtn {
+.userAnswerBtn {
     width: 200px;
     height: 40px;
     border: 1px solid black;

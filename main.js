@@ -5,12 +5,7 @@ let userScore = 0;
 let roundNum = 1;
 //API authorization key
 const apiKey ='ZTk2YjY4MjMtMDAzYy00MTg4LWE2MjYtZDIzNjJmMmM0YTdm';
-
-//USED BY RANDOM GAME - generates a random number for the gerne game to be plugged into the API url
-function generateRandomGenreNum() {
-    let num = Math.floor((Math.random() * 500) + 1);
-    return num;
-}
+const apiKey2 = 'YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4';
 
 //USED BY ALL GAMES - generates a random number to use as a index for the Json Object from the API
 function getRandomIndex() {
@@ -28,10 +23,16 @@ function failureCallback(errMessage) {
 
 //USED BY ALL GAMES - sets the users answer to a variable, coverts it to lowercase
 //and removes all non char inputs
-function getUserAnswer() {
-    const str = $('#userAnswer').val();
-    const userInput = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
-    return userInput;
+function getUserAnswerArtist() {
+    const artistStr = $('#userAnswerArtist').val();
+    const userArtist = artistStr.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
+    return userArtist;
+}
+
+function getUserAnswerSong() {
+    const songStr = $('#userAnswerSong').val();
+    const userSong = songStr.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
+    return userSong;
 }
 
 //USED BY ALL GAMES - plays the song when play button clicked
@@ -60,7 +61,7 @@ function getSongPreview(songObject, i) {
 //USED BY ALL GAMES - displays the final results for a round, different pages
 //load dependant on the users final score
 function finalResults() {
-    if (userScore >=7) {
+    if (userScore >=13) {
         $('.container').empty();
         $('.container').append(
             `<div class="finalResults">
@@ -69,7 +70,7 @@ function finalResults() {
             </div>`
         )
     }
-    else if (userScore >= 2 && userScore <= 6) {
+    else if (userScore >= 6 && userScore <= 12) {
         $('.container').empty();
         $('.container').append(
             `<div class="finalResults">
@@ -96,7 +97,7 @@ function finalResults() {
 //Top Hits functions section start
 
 //checks the round number and directs to the next song or the final results
-function checkTopRoundNum(userAnswer, answer, resultsArtistAndSong) {
+function checkTopRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong) {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
         $('.container').off('click').on('click', '#nextSong', event => {
@@ -104,18 +105,41 @@ function checkTopRoundNum(userAnswer, answer, resultsArtistAndSong) {
         });
     }
     else{
-        if (userAnswer == answer){
+
+        if (userAnswerArtist == correctAnswerArtist && userAnswerSong == correctAnswerSong){
+            userScore++;
             userScore++;
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Well Done!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                Well Done!<br>You got it all right!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 2 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
                 <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
             </div>`
             )
         }
-    
+        else if (userAnswerArtist == correctAnswerArtist  && userAnswerSong != correctAnswerSong) {
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Not Bad.<br>You got the artist right but missed the song.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+            </div>`
+            )
+        }
+        else if (userAnswerArtist != correctAnswerArtist  && userAnswerSong == correctAnswerSong) {
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Not Bad.<br>You got the song right but missed the artist.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+            </div>`
+            )
+        }
         else {
             $('.container').empty();
             $('.container').append(
@@ -133,18 +157,41 @@ function checkTopRoundNum(userAnswer, answer, resultsArtistAndSong) {
 }
 
 //checks if the users answer matches the correct answer
-function checkUserTopAnswer(correctAnswer, correctAnswerDisplay) {
-    const answer = correctAnswer;
+function checkUserTopAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay) {
     const resultsArtistAndSong = correctAnswerDisplay;
-    const userAnswer = getUserAnswer();
-    console.log(`Users Answer: ${userAnswer}`);
+    const userAnswerArtist = getUserAnswerArtist();
+    const userAnswerSong = getUserAnswerSong();
+    console.log(`Users Answer: ${userAnswerSong} by ${userAnswerArtist}`);
     roundNum++;
-    if (userAnswer == answer) {
+    if (userAnswerArtist == correctAnswerArtist && userAnswerSong == correctAnswerSong){
+        userScore++;
         userScore++;
         $('.container').empty();
         $('.container').append(
             `<div class="answerResult">
-            Well Done!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+            Well Done!<br>You got it all right!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 2 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+        </div>`
+        )
+    }
+    else if (userAnswerArtist == correctAnswerArtist  && userAnswerSong != correctAnswerSong) {
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Not Bad.<br>You got the artist right but missed the song.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+        </div>`
+        )
+    }
+    else if (userAnswerArtist != correctAnswerArtist  && userAnswerSong == correctAnswerSong) {
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Not Bad.<br>You got the song right but missed the artist.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
         </div>`
@@ -160,16 +207,21 @@ function checkUserTopAnswer(correctAnswer, correctAnswerDisplay) {
             </div>`
         )
     }
-    checkTopRoundNum(userAnswer, answer, resultsArtistAndSong);
+    checkTopRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong);
 }
 
 //event lisener for the submit button for the user answer
-function userSubmitTopAnswer (song, correctAnswer, correctAnswerDisplay) {
-    userAnswerBtn.addEventListener('click', event => {
+function userSubmitTopAnswer (song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay) {
+    if (userAnswerBtn.addEventListener('click', event => {
         event.preventDefault();
         song.currentTime = 30;
-        checkUserTopAnswer(correctAnswer, correctAnswerDisplay);
-    });
+        checkUserClassicAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay);
+    }));
+    else if (userAnswerBtnSkip.addEventListener('click', event => {
+        event.preventDefault();
+        song.currentTime = 30;
+        checkUserClassicAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay);
+    }));
 }
 
 //extracts all needed data from the top hits game Json API object
@@ -180,11 +232,12 @@ function getTopSongInfo(songObject) {
     const correctArtist = songObject.tracks[i].artistName;
     const correctSong = songObject.tracks[i].name;
     const correctAnswerDisplay = 'Artist: '+correctArtist+'<br>Song: '+correctSong;
-    const correctAnswer = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"") + correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
-    console.log(`Correct Answer: ${correctAnswer}`);
+    const correctAnswerArtist = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"");
+    const correctAnswerSong = correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
+    console.log(`Correct Answer: ${correctSong} by ${correctArtist}`);
     const song = getSongPreview(songObject, i);
     playSong(song);
-    userSubmitTopAnswer(song, correctAnswer, correctAnswerDisplay);
+    userSubmitTopAnswer(song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay);
 }
 
 //gets the API object for top hits
@@ -214,8 +267,10 @@ function getTopTracks() {
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
         <form>
             <fieldset>
-                <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
-                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
+                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" requierd>
+                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" requierd>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" class="userAnswerBtn" value="userAnswerBtn">Submit</button>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
             </fieldset>
         </form>
         <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>`
@@ -227,7 +282,7 @@ function getTopTracks() {
 //Classic Hits functions section start
 
 //checks the classic hits game round number and directs to the next song or the final results
-function checkClassicRoundNum(userAnswer, answer, resultsArtistAndSong) {
+function checkClassicRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong) {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
         $('.container').off('click').on('click', '#nextSong', event => {
@@ -235,18 +290,41 @@ function checkClassicRoundNum(userAnswer, answer, resultsArtistAndSong) {
         });
     }
     else{
-        if (userAnswer == answer){
+
+        if (userAnswerArtist == correctAnswerArtist && userAnswerSong == correctAnswerSong){
+            userScore++;
             userScore++;
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Well Done!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                Well Done!<br>You got it all right!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 2 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
                 <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
             </div>`
             )
         }
-    
+        else if (userAnswerArtist == correctAnswerArtist  && userAnswerSong != correctAnswerSong) {
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Not Bad.<br>You got the artist right but missed the song.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+            </div>`
+            )
+        }
+        else if (userAnswerArtist != correctAnswerArtist  && userAnswerSong == correctAnswerSong) {
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Not Bad.<br>You got the song right but missed the artist.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+            </div>`
+            )
+        }
         else {
             $('.container').empty();
             $('.container').append(
@@ -264,18 +342,41 @@ function checkClassicRoundNum(userAnswer, answer, resultsArtistAndSong) {
 }
 
 //checks if the users classic hits game answer matches the correct answer
-function checkUserClassicAnswer(correctAnswer, correctAnswerDisplay) {
-    const answer = correctAnswer;
+function checkUserClassicAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay) {
     const resultsArtistAndSong = correctAnswerDisplay;
-    const userAnswer = getUserAnswer();
-    console.log(`Users Answer: ${userAnswer}`);
+    const userAnswerArtist = getUserAnswerArtist();
+    const userAnswerSong = getUserAnswerSong();
+    console.log(`Users Answer: ${userAnswerSong} by ${userAnswerArtist}`);
     roundNum++;
-    if (userAnswer == answer) {
+    if (userAnswerArtist == correctAnswerArtist && userAnswerSong == correctAnswerSong){
+        userScore++;
         userScore++;
         $('.container').empty();
         $('.container').append(
             `<div class="answerResult">
-            Well Done!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+            Well Done!<br>You got it all right!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 2 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+        </div>`
+        )
+    }
+    else if (userAnswerArtist == correctAnswerArtist  && userAnswerSong != correctAnswerSong) {
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Not Bad.<br>You got the artist right but missed the song.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+        </div>`
+        )
+    }
+    else if (userAnswerArtist != correctAnswerArtist  && userAnswerSong == correctAnswerSong) {
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Not Bad.<br>You got the song right but missed the artist.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
         </div>`
@@ -291,16 +392,21 @@ function checkUserClassicAnswer(correctAnswer, correctAnswerDisplay) {
             </div>`
         )
     }
-    checkClassicRoundNum(userAnswer, answer, resultsArtistAndSong);
+    checkClassicRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong);
 }
 
 //event lisener for the classic hits game submit button for the user answer
-function userSubmitClassicAnswer (song, correctAnswer, correctAnswerDisplay) {
-    userAnswerBtn.addEventListener('click', event => {
+function userSubmitClassicAnswer (song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay) {
+    if (userAnswerBtn.addEventListener('click', event => {
         event.preventDefault();
         song.currentTime = 30;
-        checkUserClassicAnswer(correctAnswer, correctAnswerDisplay);
-    });
+        checkUserClassicAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay);
+    }));
+    else if (userAnswerBtnSkip.addEventListener('click', event => {
+        event.preventDefault();
+        song.currentTime = 30;
+        checkUserClassicAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay);
+    }));
 }
 
 //extracts all needed data from the classic hits game Json API object
@@ -311,11 +417,12 @@ function getClassicSongInfo(songObject) {
     const correctArtist = songObject.tracks[i].artistName;
     const correctSong = songObject.tracks[i].name;
     const correctAnswerDisplay = 'Artist: '+correctArtist+'<br>Song: '+correctSong;
-    const correctAnswer = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"") + correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
-    console.log(`Correct Answer: ${correctAnswer}`);
+    const correctAnswerArtist = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"");
+    const correctAnswerSong = correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
+    console.log(`Correct Answer: ${correctSong} by ${correctArtist}`);
     const song = getSongPreview(songObject, i);
     playSong(song);
-    userSubmitClassicAnswer(song, correctAnswer, correctAnswerDisplay);
+    userSubmitClassicAnswer(song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay);
 }
 
 //gets the API object for classic hits
@@ -345,8 +452,10 @@ function getClassicTracks() {
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
         <form>
             <fieldset>
-                <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
-                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
+                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" requierd>
+                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" requierd>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" class="userAnswerBtn" value="userAnswerBtn">Submit</button>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
             </fieldset>
         </form>
         <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>`
@@ -358,7 +467,7 @@ function getClassicTracks() {
 //RnB Hits functions section start
 
 //checks the rnb hits game round number and directs to the next song or the final results
-function checkRnbRoundNum(userAnswer, answer, resultsArtistAndSong) {
+function checkRnbRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong) {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
         $('.container').off('click').on('click', '#nextSong', event => {
@@ -366,18 +475,41 @@ function checkRnbRoundNum(userAnswer, answer, resultsArtistAndSong) {
         });
     }
     else{
-        if (userAnswer == answer){
+
+        if (userAnswerArtist == correctAnswerArtist && userAnswerSong == correctAnswerSong){
+            userScore++;
             userScore++;
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Well Done!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                Well Done!<br>You got it all right!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 2 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
                 <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
             </div>`
             )
         }
-    
+        else if (userAnswerArtist == correctAnswerArtist  && userAnswerSong != correctAnswerSong) {
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Not Bad.<br>You got the artist right but missed the song.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+            </div>`
+            )
+        }
+        else if (userAnswerArtist != correctAnswerArtist  && userAnswerSong == correctAnswerSong) {
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Not Bad.<br>You got the song right but missed the artist.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+            </div>`
+            )
+        }
         else {
             $('.container').empty();
             $('.container').append(
@@ -394,19 +526,43 @@ function checkRnbRoundNum(userAnswer, answer, resultsArtistAndSong) {
     }
 }
 
+
 //checks if the users rnb hits game answer matches the correct answer
-function checkUserRnbAnswer(correctAnswer, correctAnswerDisplay) {
-    const answer = correctAnswer;
+function checkUserRnbAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay) {
     const resultsArtistAndSong = correctAnswerDisplay;
-    const userAnswer = getUserAnswer();
-    console.log(`Users Answer: ${userAnswer}`);
+    const userAnswerArtist = getUserAnswerArtist();
+    const userAnswerSong = getUserAnswerSong();
+    console.log(`Users Answer: ${userAnswerSong} by ${userAnswerArtist}`);
     roundNum++;
-    if (userAnswer == answer) {
+    if (userAnswerArtist == correctAnswerArtist && userAnswerSong == correctAnswerSong){
+        userScore++;
         userScore++;
         $('.container').empty();
         $('.container').append(
             `<div class="answerResult">
-            Well Done!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+            Well Done!<br>You got it all right!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 2 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+        </div>`
+        )
+    }
+    else if (userAnswerArtist == correctAnswerArtist  && userAnswerSong != correctAnswerSong) {
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Not Bad.<br>You got the artist right but missed the song.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+        </div>`
+        )
+    }
+    else if (userAnswerArtist != correctAnswerArtist  && userAnswerSong == correctAnswerSong) {
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Not Bad.<br>You got the song right but missed the artist.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
         </div>`
@@ -422,16 +578,21 @@ function checkUserRnbAnswer(correctAnswer, correctAnswerDisplay) {
             </div>`
         )
     }
-    checkRnbRoundNum(userAnswer, answer, resultsArtistAndSong);
+    checkRnbRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong);
 }
 
 //event lisener for the rnb hits game submit button for the user answer
-function userSubmitRnbAnswer (song, correctAnswer, correctAnswerDisplay) {
-    userAnswerBtn.addEventListener('click', event => {
+function userSubmitRnbAnswer (song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay) {
+    if (userAnswerBtn.addEventListener('click', event => {
         event.preventDefault();
         song.currentTime = 30;
-        checkUserRnbAnswer(correctAnswer, correctAnswerDisplay);
-    });
+        checkUserRnbAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay);
+    }));
+    else if (userAnswerBtnSkip.addEventListener('click', event => {
+        event.preventDefault();
+        song.currentTime = 30;
+        checkUserRnbAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay);
+    }));
 }
 
 //extracts all needed data from the rnb hits game Json API object
@@ -442,11 +603,12 @@ function getRnbSongInfo(songObject) {
     const correctArtist = songObject.tracks[i].artistName;
     const correctSong = songObject.tracks[i].name;
     const correctAnswerDisplay = 'Artist: '+correctArtist+'<br>Song: '+correctSong;
-    const correctAnswer = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"") + correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
-    console.log(`Correct Answer: ${correctAnswer}`);
+    const correctAnswerArtist = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"");
+    const correctAnswerSong = correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
+    console.log(`Correct Answer: ${correctSong} by ${correctArtist}`);
     const song = getSongPreview(songObject, i);
     playSong(song);
-    userSubmitRnbAnswer(song, correctAnswer, correctAnswerDisplay);
+    userSubmitRnbAnswer(song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay);
 }
 
 //gets the API object for rnb hits
@@ -469,15 +631,17 @@ function gameRnbStart() {
 function getRnbTracks() {
     $('.container').empty();
     $('.container').append(
-        `<br>
+        `<br>RnB Game<br><br>
         Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
         <a><br><br>Press play to start song and timer.<br><br>Use the format<br>
         Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
         <form>
             <fieldset>
-                <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
-                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
+                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" requierd>
+                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" requierd>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" class="userAnswerBtn" value="userAnswerBtn">Submit</button>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
             </fieldset>
         </form>
         <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>`
@@ -489,7 +653,7 @@ function getRnbTracks() {
 //Random Hits functions section start
 
 //checks the random game round number and directs to the next song or the final results
-function checkRandomRoundNum(userAnswer, answer, resultsArtistAndSong) {
+function checkRandomRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong) {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
         $('.container').off('click').on('click', '#nextSong', event => {
@@ -497,18 +661,41 @@ function checkRandomRoundNum(userAnswer, answer, resultsArtistAndSong) {
         });
     }
     else{
-        if (userAnswer == answer){
+
+        if (userAnswerArtist == correctAnswerArtist && userAnswerSong == correctAnswerSong){
+            userScore++;
             userScore++;
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Well Done!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                Well Done!<br>You got it all right!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 2 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
                 <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
             </div>`
             )
         }
-    
+        else if (userAnswerArtist == correctAnswerArtist  && userAnswerSong != correctAnswerSong) {
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Not Bad.<br>You got the artist right but missed the song.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+            </div>`
+            )
+        }
+        else if (userAnswerArtist != correctAnswerArtist  && userAnswerSong == correctAnswerSong) {
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Not Bad.<br>You got the song right but missed the artist.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+            </div>`
+            )
+        }
         else {
             $('.container').empty();
             $('.container').append(
@@ -526,18 +713,41 @@ function checkRandomRoundNum(userAnswer, answer, resultsArtistAndSong) {
 }
 
 //checks if the users random game answer matches the correct answer
-function checkUserRandomAnswer(correctAnswer, correctAnswerDisplay) {
-    const answer = correctAnswer;
+function checkUserRandomAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay) {
     const resultsArtistAndSong = correctAnswerDisplay;
-    const userAnswer = getUserAnswer();
-    console.log(`Users Answer: ${userAnswer}`);
+    const userAnswerArtist = getUserAnswerArtist();
+    const userAnswerSong = getUserAnswerSong();
+    console.log(`Users Answer: ${userAnswerSong} by ${userAnswerArtist}`);
     roundNum++;
-    if (userAnswer == answer) {
+    if (userAnswerArtist == correctAnswerArtist && userAnswerSong == correctAnswerSong){
+        userScore++;
         userScore++;
         $('.container').empty();
         $('.container').append(
             `<div class="answerResult">
-            Well Done!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+            Well Done!<br>You got it all right!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 2 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+        </div>`
+        )
+    }
+    else if (userAnswerArtist == correctAnswerArtist  && userAnswerSong != correctAnswerSong) {
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Not Bad.<br>You got the artist right but missed the song.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+        </div>`
+        )
+    }
+    else if (userAnswerArtist != correctAnswerArtist  && userAnswerSong == correctAnswerSong) {
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Not Bad.<br>You got the song right but missed the artist.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
         </div>`
@@ -553,16 +763,22 @@ function checkUserRandomAnswer(correctAnswer, correctAnswerDisplay) {
             </div>`
         )
     }
-    checkRandomRoundNum(userAnswer, answer, resultsArtistAndSong);
+    checkRandomRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong);
 }
 
 //event lisener for the submit random game button for the user answer
-function userSubmitRandomAnswer (song, correctAnswer, correctAnswerDisplay) {
-    userAnswerBtn.addEventListener('click', event => {
+function userSubmitRandomAnswer (song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay) {
+    if (userAnswerBtn.addEventListener('click', event => {
         event.preventDefault();
         song.currentTime = 30;
-        checkUserRandomAnswer(correctAnswer, correctAnswerDisplay);
-    });
+        checkUserRandomAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay);
+    }));
+    else if (userAnswerBtnSkip.addEventListener('click', event => {
+        event.preventDefault();
+        song.currentTime = 30;
+        checkUserRandomAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay);
+    }));
+    
 }
 
 //extracts all needed data from the random game Json API object
@@ -573,18 +789,18 @@ function getRandomSongInfo(songObject) {
     const correctArtist = songObject.tracks[i].artistName;
     const correctSong = songObject.tracks[i].name;
     const correctAnswerDisplay = 'Artist: '+correctArtist+'<br>Song: '+correctSong;
-    const correctAnswer = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"") + correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
-    console.log(`Correct Answer: ${correctAnswer}`);
+    const correctAnswerArtist = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"");
+    const correctAnswerSong = correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
+    console.log(`Correct Answer: ${correctSong} by ${correctArtist}`);
     const song = getSongPreview(songObject, i);
     playSong(song);
-    userSubmitRandomAnswer(song, correctAnswer, correctAnswerDisplay);
+    userSubmitRandomAnswer(song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay);
 }
 
 //gets the API object for random songs
-function gameRandomStart() {
-    let num = generateRandomGenreNum();
-    console.log(`Random Generated Genre Number: ${num}`);
-    let url = 'https://api.napster.com/v2.2/genres/g.'+num+'/tracks/top?limit=200&apikey='+apiKey;
+function gameRandomStart(gerneNum) {
+    console.log(`Random Generated Genre Number: ${gerneNum}`);
+    let url = 'https://api.napster.com/v2.2/genres/'+gerneNum+'/tracks/top?limit=200&apikey='+apiKey;
     console.log(url);
     fetch(url)
     .then(response => {
@@ -598,6 +814,35 @@ function gameRandomStart() {
     .catch(err => failureCallback(err))
 }
 
+//generates a random number for the gerne game to be plugged into the API url
+function generateRandomGenreNum() {
+    let num = Math.floor((Math.random() * 21) + 1);
+    return num;
+}
+
+//gets the genre number from the genre API object
+function getGenreId(genreObject) {
+    console.log(genreObject);
+    const i = generateRandomGenreNum();
+    console.log(i);
+    const genreNum = genreObject.genres[i].id;
+    gameRandomStart(genreNum);
+}
+
+function getGenreNum() {
+    let url = 'http://api.napster.com/v2.2/genres?apikey='+apiKey2;
+    console.log(url);
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then(responseJson => getGenreId(responseJson))
+    .catch(err => failureCallback(err))
+}
 //appends the user interface for the random song game
 function getRandomTracks() {
     $('.container').empty();
@@ -605,17 +850,18 @@ function getRandomTracks() {
         `<br>
         Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start song and timer.<br><br>Use the format<br>
-        Artist <i>then</i> Song Title<br> for your answer.<br><br></a>
+        <a><br><br>Press play to start song and timer.<br></a>
         <form>
             <fieldset>
-                <input type="text" name="userAnswer" id="userAnswer" placeholder="Enter Artist and Song Title here">
-                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" value="userAnswerBtn">Submit</button>
+                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" requierd>
+                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" requierd>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" class="userAnswerBtn" value="userAnswerBtn">Submit</button>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
             </fieldset>
         </form>
         <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>`
     );
-    gameRandomStart();
+    getGenreNum();
 }
 
 
@@ -704,4 +950,3 @@ function reload() {
 $(function(){
     reset(); 
 })
-
