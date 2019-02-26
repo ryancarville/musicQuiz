@@ -104,10 +104,19 @@ fieldset {
 
 #userSelectGenre {
     width: 300px;
-    height: 90%;
+    height: 205px;
     font-size: 30px;
     margin-top: 5%;
     text-align: center;
+    padding: 5px;
+}
+
+#userSelectGenre >option {
+    padding: 5px;
+}
+
+#userSelectGenre >option:hover {
+    background-color: yellow;
 }
 
 

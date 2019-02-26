@@ -7,13 +7,7 @@ let roundNum = 1;
 const apiKey ='ZTk2YjY4MjMtMDAzYy00MTg4LWE2MjYtZDIzNjJmMmM0YTdm';
 const apiKey2 = 'YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4';
 
-//USED BY ALL GAMES - generates a random number to use as a index for the Json Object from the API
-function getRandomIndex() {
-    const i = Math.floor((Math.random() * 199) + 0);
-    return i;
-}
-
-//USED BY ALL GAMES - error message for catch
+//error message for catch
 function failureCallback(errMessage) {
     $('.container').empty();
     console.log(errMessage)
@@ -21,30 +15,39 @@ function failureCallback(errMessage) {
         `We are sorry but somthing went wrong.<br><br> ${errMessage}`)
 }
 
-//USED BY ALL GAMES - sets the users answer to a variable, coverts it to lowercase
-//and removes all non char inputs
+//generates a random number to use as a index for the Json Object from the API
+function getRandomIndex() {
+    const i = Math.floor((Math.random() * 199) + 0);
+    return i;
+}
+
+//sets the users artist answer to a variable, coverts it to lowercase and removes all non char inputs
 function getUserAnswerArtist() {
     const str = $('#userAnswerArtist').val();
     const userArtist = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
     return userArtist;
 }
 
+//sets the users song answer to a variable, coverts it to lowercase and removes all non char inputs
 function getUserAnswerSong() {
     const str = $('#userAnswerSong').val();
     const userSong = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
     return userSong;
 }
 
+//sets the users artist answer to a variable for displaying users inoput of reuslts page
 function getUserAnswerArtistDispaly() {
     const userArtistResult = $('#userAnswerArtist').val();
     return userArtistResult;
 }
 
+//sets the users song answer to a variable for displaying users inoput of reuslts page
 function getUserAnswerSongDispaly() {
     const userSongResult = $('#userAnswerSong').val();
     return userSongResult;
 }
-//USED BY ALL GAMES - plays the song when play button clicked
+
+//plays the song when play button clicked
 function playSong(song) {
     $('.container').on('click', '.playSong', event => {
         $('button.playSong').toggleClass('pauseSong');
@@ -61,14 +64,13 @@ function playSong(song) {
     
 }
 
-//USED BY ALL GAMES - gets the preview song for the round
+//gets the preview song for the round
 function getSongPreview(songObject, i) {
     const songPreview = new Audio (songObject.tracks[i].previewURL);
     return songPreview;
 }
 
-//USED BY ALL GAMES - displays the final results for a round, different pages
-//load dependant on the users final score
+//displays the final results for a round, different language loads dependant on the users final score
 function finalResults() {
     if (userScore >=13) {
         $('.container').empty();
@@ -102,20 +104,7 @@ function finalResults() {
     });
 }
 
-
-
-
-
-
-
-
-
-
-//user selected genre functions section start
-
-
-
-//checks the user slect genre game round number and directs to the next song or the final results
+//checks the round number and directs to the next song or the final results page
 function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, genreNum) {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
@@ -175,7 +164,7 @@ function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, co
     }
 }
 
-//checks if the users random game answer matches the correct answer
+//checks if the users answer matches the correct answer
 function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum) {
     const resultsArtistAndSong = correctAnswerDisplay;
     const userAnswerArtist = getUserAnswerArtist();
@@ -232,7 +221,7 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
     checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, genreNum);
 }
 
-//event lisener for the submit random game button for the user answer
+//event lisener on the submit button for the user answer
 function userSubmitAnswer (song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum) {
     if (userAnswerBtn.addEventListener('click', event => {
         event.preventDefault();
@@ -247,7 +236,7 @@ function userSubmitAnswer (song, correctAnswerArtist, correctAnswerSong, correct
     
 }
 
-//extracts all needed data from the random game Json API object
+//extracts all needed data from API object
 function getSongInfo(songObject, genreNum) {
     const i = getRandomIndex();
     console.log(songObject);
@@ -263,6 +252,7 @@ function getSongInfo(songObject, genreNum) {
     userSubmitAnswer(song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
 }
 
+//fetches the API object
 function getTrack (genreNum) {
     console.log(`Napster Genre Number: ${genreNum}`);
     let url = 'https://api.napster.com/v2.2/genres/'+genreNum+'/tracks/top?limit=200&apikey='+apiKey;
@@ -279,7 +269,7 @@ function getTrack (genreNum) {
     .catch(err => failureCallback(err))
 }
 
-//generates a random number for the gerne game to be plugged into the API url
+//generates a random number to be plugged into the API url for the random game
 function generateRandomGenreNum() {
     let num = Math.floor((Math.random() * 21) + 1);
     return num;
@@ -294,6 +284,7 @@ function getGenreId(genreObject) {
     gameStart(genreNum);
 }
 
+//fetches the genre API object for the random game
 function getGenreNum() {
     let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
     console.log(url);
@@ -309,9 +300,7 @@ function getGenreNum() {
     .catch(err => failureCallback(err))
 }
 
-
-
-
+//load and initalized the selected game
 function gameStart(genreNum) {
     $('.container').empty();
     $('.container').append(
@@ -333,41 +322,39 @@ function gameStart(genreNum) {
 
 }
 
-//general functions
-
-//event listeners for the game catagories
+//genre catagory menu with event listener
 function selectGenre() {
     $('.container').empty();
     $('.container').append(
         `<h2>Choose a Genre</h2>
         <form>
             <fieldset>
-            <legend>Scroll thru to select a genre.  To choose one just click it.</legend>
+            <legend>Scroll thru to select a genre.<br>To choose one just click it.</legend>
                 <select id="userSelectGenre" class="userSelectGenre" multiple="multiple">
                     <option value="g.33">Alternative</option>
+                    <option value="g.438">Blues</option>
                     <option value="g.470">Children</option>
                     <option value="g.75">Christian</option>
                     <option value="g.21">Classical</option>
-                    <option value="g.5">Rock</option>
-                    <option value="g.146">Rap</option>
-                    <option value="g.146">Hip-Hop</option>
-                    <option value="g.115">Pop</option>
-                    <option value="g.194">RnB</option>
-                    <option value="g.194">Soul</option>
                     <option value="g.407">Country</option>
-                    <option value="g.299">Jazz</option>
                     <option value="g.71">Electronic</option>
-                    <option value="g.510">Latin</option>
-                    <option value="g.488">World</option>
-                    <option value="g.383">Reggae</option>
-                    <option value="g.4">Oldies</option>
-                    <option value="g.453">New Age</option>
-                    <option value="g.438">Blues</option>
-                    <option value="g.394">Metal</option>
                     <option value="g.446">Folk</option>
+                    <option value="g.146">Hip-Hop</option>
+                    <option value="g.299">Jazz</option>
+                    <option value="g.510">Latin</option>
+                    <option value="g.394">Metal</option>
+                    <option value="g.453">New Age</option>
+                    <option value="g.4">Oldies</option>
+                    <option value="g.115">Pop</option>
+                    <option value="g.146">Rap</option>
+                    <option value="g.383">Reggae</option>
+                    <option value="g.194">RnB</option>
+                    <option value="g.5">Rock</option>
+                    <option value="g.194">Soul</option>
                     <option value="g.246">Soundtracks</option>  
+                    <option value="g.488">World</option>
                 </select>
-                  
+                <p>Or roll the dice...</p>
                 <button type="button" class="homeBtn" value="randomSongs" onclick="getGenreNum();">Random Songs</option> 
             </fieldset>
             
@@ -379,6 +366,7 @@ function selectGenre() {
     });
 }
 
+//appends the contact page
 function contact() {
     $('.container').empty();
     $('.container').append(
@@ -407,8 +395,8 @@ function instructions() {
         );
 }
 
-//resests the app to the start page
-function reset() {
+//resests the app
+function start() {
     roundNum = 1;
     userScore = 0;
     $('.container').empty();
@@ -421,14 +409,15 @@ function reset() {
         </div>`)
 }
 
+//clears all API objects when home, quit game or game over clicked
 function reload() {
     location.reload(true);
-    reset();
+    start();
 }
 
 //calls the JS once page loaded
 $(function(){
-    reset(); 
+    start(); 
 })
 
 
