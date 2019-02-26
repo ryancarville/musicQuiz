@@ -101,6 +101,16 @@ button.menubtn {
 fieldset {
     border: none;
 }
+
+.userSelectGenre {
+    width: 300px;
+    height: 450px;
+    font-size: 30px;
+    margin-top: 5%;
+    text-align: center;
+}
+
+
 .playSong {
     background-image: url('images/playButton.png');
     background-repeat: no-repeat;

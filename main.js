@@ -883,6 +883,242 @@ function getRandomTracks() {
 }
 
 
+
+
+//user selected genre functions section start
+
+
+
+//checks the user slect genre game round number and directs to the next song or the final results
+function checkUserGenreRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, genreNum) {
+    if (roundNum <= 10) {
+        console.log(`User Current Score: ${userScore}`);
+        $('.container').off('click').on('click', '#nextSong', event => {
+            getUserGenreTracks(genreNum);
+        });
+    }
+    else{
+
+        if (userAnswerArtist == correctAnswerArtist && userAnswerSong == correctAnswerSong){
+            userScore++;
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Well Done!<br>You got it all right!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 2 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+            </div>`
+            )
+        }
+        else if (userAnswerArtist == correctAnswerArtist  && userAnswerSong != correctAnswerSong) {
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Not Bad.<br>You got the artist right but missed the song.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+            </div>`
+            )
+        }
+        else if (userAnswerArtist != correctAnswerArtist  && userAnswerSong == correctAnswerSong) {
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Not Bad.<br>You got the song right but missed the artist.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+            </div>`
+            )
+        }
+        else {
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Bummer! You answered incorrectly.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>You get 0 points this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+                </div>`
+            )
+        }
+        $('.container').on('click', '.fianlResultsBtn', event => {
+            finalResults();
+        });
+    }
+}
+
+//checks if the users random game answer matches the correct answer
+function checkUserSelectedGenreAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum) {
+    const resultsArtistAndSong = correctAnswerDisplay;
+    const userAnswerArtist = getUserAnswerArtist();
+    const userAnswerSong = getUserAnswerSong();
+    const userAnswerArtistDisplay = getUserAnswerArtistDispaly();
+    const userAnswerSongDisplay = getUserAnswerSongDispaly();
+    const userAnswerResults = `Your answer was<br>Artist: ${userAnswerArtistDisplay}<br>Song: ${userAnswerSongDisplay}`;
+    console.log(`Users Answer: ${userAnswerSongDisplay} by ${userAnswerArtistDisplay}`);
+    roundNum++;
+    if (userAnswerArtist == correctAnswerArtist && userAnswerSong == correctAnswerSong){
+        userScore++;
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Well Done!<br>You got it all right!<br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+        </div>`
+        )
+    }
+    else if (userAnswerArtist == correctAnswerArtist  && userAnswerSong != correctAnswerSong) {
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Not Bad.<br>You got the artist right but missed the song.<br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+        </div>`
+        )
+    }
+    else if (userAnswerArtist != correctAnswerArtist  && userAnswerSong == correctAnswerSong) {
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Not Bad.<br>You got the song right but missed the artist.<br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+        </div>`
+        )
+    }
+    else {
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Bummer! You answered incorrectly.<br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+            </div>`
+        )
+    }
+    checkUserGenreRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, genreNum);
+}
+
+//event lisener for the submit random game button for the user answer
+function userSubmitUserGenreAnswer (song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum) {
+    if (userAnswerBtn.addEventListener('click', event => {
+        event.preventDefault();
+        song.currentTime = 30;
+        checkUserSelectedGenreAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
+    }));
+    else if (userAnswerBtnSkip.addEventListener('click', event => {
+        event.preventDefault();
+        song.currentTime = 30;
+        checkUserSelectedGenreAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
+    }));
+    
+}
+
+//extracts all needed data from the random game Json API object
+function getUserGenreSongInfo(songObject, genreNum) {
+    const i = getRandomIndex();
+    console.log(songObject);
+    console.log(`Random Generated Index Number: ${i}`);
+    const correctArtist = songObject.tracks[i].artistName;
+    const correctSong = songObject.tracks[i].name;
+    const correctAnswerDisplay = 'Artist: '+correctArtist+'<br>Song: '+correctSong;
+    const correctAnswerArtist = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"");
+    const correctAnswerSong = correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
+    console.log(`Correct Answer: ${correctSong} by ${correctArtist}`);
+    const song = getSongPreview(songObject, i);
+    playSong(song);
+    userSubmitUserGenreAnswer(song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
+}
+
+function gameUserGenreStart (genreNum) {
+    console.log(`User Selected Genre Number: ${genreNum}`);
+    let url = 'https://api.napster.com/v2.2/genres/'+genreNum+'/tracks/top?limit=200&apikey='+apiKey;
+    console.log(url);
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then(responseJson => getUserGenreSongInfo(responseJson, genreNum))
+    .catch(err => failureCallback(err))
+}
+
+function getUserGenreTracks(userSelectedGenre) {
+    
+    $('.container').empty();
+    $('.container').append(
+        `<br>
+        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
+        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
+        <a><br><br>Press play to start the song.<br></a>
+        <form>
+            <fieldset>
+                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" requierd>
+                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" requierd>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" class="userAnswerBtn" value="userAnswerBtn">Submit</button>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
+            </fieldset>
+        </form>
+        <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>`
+    );
+    gameUserGenreStart(userSelectedGenre);
+
+}
+function userSelectsGenre(){
+    $('.container').empty();
+    $('.container').append(
+        `<form>
+            <fieldset>
+                <select id="userSelectGenre" class="userSelectGenre" multiple="multiple">
+                    <option value="g.33">Alternative</option>
+                    <option value="g.470">Children</option>
+                    <option value="g.75">Christian</option>
+                    <option value="g.21">Classical</option>
+                    <option value="g.5">Rock</option>
+                    <option value="g.146">Rap</option>
+                    <option value="g.146">Hip-Hop</option>
+                    <option value="g.115">Pop</option>
+                    <option value="g.194">RnB</option>
+                    <option value="g.194">Soul</option>
+                    <option value="g.407">Country</option>
+                    <option value="g.299">Jazz</option>
+                    <option value="g.71">Electronic</option>
+                    <option value="g.510">Latin</option>
+                    <option value="g.488">World</option>
+                    <option value="g.383">Reggae</option>
+                    <option value="g.4">Oldies</option>
+                    <option value="g.453">New Age</option>
+                    <option value="g.438">Blues</option>
+                    <option value="g.394">Metal</option>
+                    <option value="g.446">Folk</option>
+                    <option value="g.246">Soundtracks</option>  
+                </select>
+            </fieldset>
+        </form>`
+    )
+    $('.container').on('change', event => {
+        const userSelectedGenre = $('select').val();
+        getUserGenreTracks(userSelectedGenre);
+    });
+}
+
+
+
+
+
+
+
+
 //general functions
 
 //event listeners for the game catagories
@@ -895,6 +1131,7 @@ function startCatagoryGame() {
             <button type="button" id="classicTracks" class="gameStart" value="classicSongs">Classic Songs</button>
             <button type="button" id="RnbTracks" class="gameStart" value="RnBSongs">RnB Hits</button>
             <button type="button" id="randomTracks" class="gameStart" value="randomSongs">Random Songs</button>
+            <button type="button" id="userGenre" class="gameStart" value="userGenre">Select a Genre</button>
             <button type="button" id="home" class="homeBtn" value="backToHome" onclick="reset();">Back to Home</button>
         </div>`);
 
@@ -914,6 +1151,10 @@ function startCatagoryGame() {
     document.getElementById("randomTracks").addEventListener("click", function() {
         event.preventDefault();
         getRandomTracks();
+    });
+    document.getElementById("userGenre").addEventListener("click", function() {
+        event.preventDefault();
+        userSelectsGenre();
     });
 }
 
@@ -969,3 +1210,11 @@ function reload() {
 $(function(){
     reset(); 
 })
+
+
+
+
+
+
+
+
