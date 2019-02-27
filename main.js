@@ -6,6 +6,7 @@ let roundNum = 1;
 //API authorization key
 const apiKey ='ZTk2YjY4MjMtMDAzYy00MTg4LWE2MjYtZDIzNjJmMmM0YTdm';
 const apiKey2 = 'YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4';
+let albumCover = '';
 
 //error message for catch
 function failureCallback(errMessage) {
@@ -53,19 +54,18 @@ function finalResults() {
 function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, userAnswerResults, genreNum) {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
-        $('div').off('click').on('click', '#nextSong', event => {
+        $('#nextSong').off('click').on('click', event => {
             gameStart(genreNum);
         });
     }
     else{
-
         if (userAnswerArtist == correctAnswerArtist && userAnswerSong == correctAnswerSong){
             userScore++;
             userScore++;
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Well Done!<br>You got it all right!<br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
+                Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
                 <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
             </div>`
@@ -76,7 +76,7 @@ function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, co
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Not Bad.<br>You got the artist right but missed the song.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+                Not Bad.<br>You got the artist right but missed the song.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
                 <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
             </div>`
@@ -87,7 +87,7 @@ function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, co
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Not Bad.<br>You got the song right but missed the artist.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+                Not Bad.<br>You got the song right but missed the artist.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
                 <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
             </div>`
@@ -97,7 +97,7 @@ function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, co
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Bummer! You answered incorrectly.<br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
+                Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
                 <br><br>Current score is:<br> ${userScore}<br>
                 <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
                 </div>`
@@ -151,7 +151,7 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
         $('.container').empty();
         $('.container').append(
             `<div class="answerResult">
-            Well Done!<br>You got it all right!<br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
+            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
         </div>`
@@ -162,7 +162,7 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
         $('.container').empty();
         $('.container').append(
             `<div class="answerResult">
-            Not Bad.<br>You got the artist right but missed the song.<br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+            Not Bad.<br>You got the artist right but missed the song.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
         </div>`
@@ -173,7 +173,7 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
         $('.container').empty();
         $('.container').append(
             `<div class="answerResult">
-            Not Bad.<br>You got the song right but missed the artist.<br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+            Not Bad.<br>You got the song right but missed the artist.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
         </div>`
@@ -183,7 +183,7 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
         $('.container').empty();
         $('.container').append(
             `<div class="answerResult">
-            Bummer! You answered incorrectly.<br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
+            Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
             <br><br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
             </div>`
@@ -199,11 +199,7 @@ function userSubmitAnswer (song, correctAnswerArtist, correctAnswerSong, correct
         song.currentTime = 30;
         checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
     }));
-    else if (userAnswerBtnSkip.addEventListener('click', event => {
-        event.preventDefault();
-        song.currentTime = 30;
-        checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
-    }));
+    
 }
 
 //plays the song when play button clicked
@@ -234,6 +230,48 @@ function getRandomIndex() {
     return i;
 }
 
+function getAlbumCoverImageJpg(songObject) {
+    albumCover = songObject.images[2].url
+    console.log('Album Cover Link: '+albumCover);
+}
+
+function getAlbumCoverImage (songObject) {
+    console.log(songObject);
+    const getImageLink = songObject.albums[0].links.images.href
+    const url = getImageLink+'?apikey='+apiKey2;
+    console.log(url);
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then(responseJson => getAlbumCoverImageJpg(responseJson))
+    .catch(err => failureCallback(err))
+}
+
+
+function getAlbumCover(songObject, i) {
+    const getUrl = songObject.tracks[i].links.albums.href
+    const url = getUrl+'?apikey='+apiKey2;
+    console.log(url);
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then(responseJson => getAlbumCoverImage(responseJson))
+    .catch(err => failureCallback(err))
+}
+
+
+
+
 //extracts all needed data from API object
 function getSongInfo(songObject, genreNum) {
     const i = getRandomIndex();
@@ -247,6 +285,7 @@ function getSongInfo(songObject, genreNum) {
     console.log(`Correct Answer: ${correctSong} by ${correctArtist}`);
     const song = getSongPreview(songObject, i);
     playSong(song);
+    getAlbumCover (songObject, i);
     userSubmitAnswer(song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
 }
 

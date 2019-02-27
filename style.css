@@ -190,3 +190,7 @@ select {
     margin-top: 20px;
     font-size: 15px;
 }
+
+.albumCoverImg {
+    width: 200px;
+}
