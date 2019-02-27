@@ -151,7 +151,7 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
         $('.container').empty();
         $('.container').append(
             `<div class="answerResult">
-            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
+            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 points this round.
             <br><br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
@@ -386,7 +386,7 @@ function checkKeywordRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArt
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
+                Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 points this round.
                 <br><br>Current score is:<br> ${userScore}<br>
                 <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
             </div>`
