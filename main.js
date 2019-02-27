@@ -589,7 +589,7 @@ function getKeywordSongInfo(songObject, keyword) {
 
 //fetchs API Object - keyword game
 function getKeywordTracks(keyword) {
-    const url = 'http://api.napster.com/v2.2/search/verbose?apikey='+apiKey2+'&per_type_limit=100&query='+keyword+'&type=track';
+    const url = 'https://api.napster.com/v2.2/search/verbose?apikey='+apiKey2+'&per_type_limit=100&query='+keyword+'&type=track';
     console.log(url);
     fetch(url)
     .then(response => {
