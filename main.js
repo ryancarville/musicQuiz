@@ -575,7 +575,7 @@ function getKeywordSongInfo(songObject, keyword) {
 } 
 
 function getKeywordTracks(keyword) {
-    const url = 'http://api.napster.com/v2.2/search/verbose?apikey='+apiKey2+'&per_type_limit=200&query='+keyword+'&type=track';
+    const url = 'http://api.napster.com/v2.2/search/verbose?apikey='+apiKey2+'&per_type_limit=100&query='+keyword+'&type=track';
     console.log(url);
     fetch(url)
     .then(response => {
@@ -610,6 +610,7 @@ function loadKeywordSpace(keyword) {
 }
 
 function startSearchGame() {
+    event.preventDefault();
     let keyword = $('.userEnterKeyword').val();
     keyword = keyword.toLowerCase().replace(/\s/g, '+').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
     loadKeywordSpace(keyword);
@@ -623,11 +624,18 @@ function selectGenre() {
     $('.container').empty();
     $('.container').append(
         `<h2>Choose a Genre</h2>
-        <form id='genreMenu' method='post' action=''>
-            <label for='genreMenu'>Enter a search term or select a genre.<br>Keep in mind that when a keyword is entered it can bring back compolations.<br>So be as specific as possible.</label>
-            <br><br><br>
+        <form id='keywordSearch'>
+            <fieldset>
+                <label for='keywordSearch'>Enter a search term.<br>Keep in mind that when a keyword is entered it can bring back compolations.<br>So be as specific as possible.</label>
+                <br><br><br>
                 <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
-                <button type="button" id="keywordSearchBtn" value="keywordSearch" onclick="startSearchGame();">Search Songs</button><br>
+                <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startSearchGame();">Search Songs</button><br>
+            </fieldset>
+        </form>
+        <form id='genreMenu'>
+            <fieldset>
+                <label for='genreMenu'>Or select a catagory.</label>
+                <br><br>
                 <select id="userSelectGenre" class="userSelectGenre" name='genres'>
                     <option value="">Or Select a Genre:</option>
                     <option value="g.33">Alternative</option>
@@ -653,6 +661,7 @@ function selectGenre() {
                     <option value="g.246">Soundtracks</option>  
                     <option value="g.488">World</option>
                 </select>
+            </fieldset>
         </form>
         
         <button type="button" class="randomBtn" value="randomSongs" onclick="getGenreNum();">Roll the dice</button> 
