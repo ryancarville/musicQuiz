@@ -1,14 +1,15 @@
 'use strict';
-//user score counter
+//user score counter - BOTH GAMES USE THIS
 let userScore = 0;
-//round counter
+//round counter - BOTH GAMES USE THIS
 let roundNum = 1;
-//API authorization key
+//API authorization key - BOTH GAMES USE THIS
 const apiKey ='ZTk2YjY4MjMtMDAzYy00MTg4LWE2MjYtZDIzNjJmMmM0YTdm';
 const apiKey2 = 'YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4';
+//global variable for album cover image - BOTH GAMES USE THIS
 let albumCover = '';
 
-//error message for catch
+//error message for catch - BOTH GAMES USE THIS
 function failureCallback(errMessage) {
     $('.container').empty();
     console.log(errMessage)
@@ -16,7 +17,7 @@ function failureCallback(errMessage) {
         `We are sorry but somthing went wrong.<br><br> ${errMessage}`)
 }
 
-//displays the final results for a round, different language loads dependant on the users final score
+//displays the final results for a round, different language loads dependant on the users final score - BOTH GAMES USE THIS
 function finalResults() {
     if (userScore >=13) {
         $('.container').empty();
@@ -50,7 +51,52 @@ function finalResults() {
     });
 }
 
-//checks the round number and directs to the next song or the final results page
+//sets the users artist answer to a variable, coverts it to lowercase and removes all non char inputs - BOTH GAMES USE THIS
+function getUserAnswerArtist() {
+    const str = $('#userAnswerArtist').val();
+    const userArtist = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
+    return userArtist;
+}
+
+//sets the users song answer to a variable, coverts it to lowercase and removes all non char inputs - BOTH GAMES USE THIS
+function getUserAnswerSong() {
+    const str = $('#userAnswerSong').val();
+    const userSong = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
+    return userSong;
+}
+
+//sets the users artist answer to a variable for displaying users inoput of reuslts page - BOTH GAMES USE THIS
+function getUserAnswerArtistDispaly() {
+    const userArtistResult = $('#userAnswerArtist').val();
+    return userArtistResult;
+}
+
+//sets the users song answer to a variable for displaying users inoput of reuslts page - BOTH GAMES USE THIS
+function getUserAnswerSongDispaly() {
+    const userSongResult = $('#userAnswerSong').val();
+    return userSongResult;
+}
+
+//plays the song when play button clicked - BOTH GAMES USE THIS
+function playSong(song) {
+    $('.playSong').on('click', event => {
+        $('.playSong').toggleClass('pauseSong');
+        if(song.paused){
+            song.play();
+        }
+        else{
+            song.pause();
+        }
+    });
+    song.onended = function() {
+        $('.playSong').removeClass('pauseSong');
+    }
+}
+
+
+//CATAGORY GAME FUNCTIONS BELOW
+
+//checks the round number and directs to the next song or the final results page - catagory game
 function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, userAnswerResults, genreNum) {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
@@ -109,33 +155,7 @@ function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, co
     }
 }
 
-//sets the users artist answer to a variable, coverts it to lowercase and removes all non char inputs
-function getUserAnswerArtist() {
-    const str = $('#userAnswerArtist').val();
-    const userArtist = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
-    return userArtist;
-}
-
-//sets the users song answer to a variable, coverts it to lowercase and removes all non char inputs
-function getUserAnswerSong() {
-    const str = $('#userAnswerSong').val();
-    const userSong = str.toLowerCase().replace(/\s/g, '').replace(/[.,\/#!$%@?+'\^&\*;:{}=\-_`~()]/g,"");
-    return userSong;
-}
-
-//sets the users artist answer to a variable for displaying users inoput of reuslts page
-function getUserAnswerArtistDispaly() {
-    const userArtistResult = $('#userAnswerArtist').val();
-    return userArtistResult;
-}
-
-//sets the users song answer to a variable for displaying users inoput of reuslts page
-function getUserAnswerSongDispaly() {
-    const userSongResult = $('#userAnswerSong').val();
-    return userSongResult;
-}
-
-//checks if the users answer matches the correct answer
+//checks if the users answer matches the correct answer - catagory game
 function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum) {
     const resultsArtistAndSong = correctAnswerDisplay;
     const userAnswerArtist = getUserAnswerArtist();
@@ -196,7 +216,7 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
     checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, userAnswerResults, genreNum);
 }
 
-//event lisener on the submit button for the user answer
+//event lisener on the submit button for the user answer - catagory game
 function userSubmitAnswer (song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum) {
     if (userAnswerBtn.addEventListener('click', event => {
         event.preventDefault();
@@ -204,45 +224,32 @@ function userSubmitAnswer (song, correctAnswerArtist, correctAnswerSong, correct
         checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
     }));
     else if (userAnswerBtnSkip.addEventListener('click', event => {
+        event.preventDefault();
         song.currentTime = 30;
         checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
     }));
     
 }
 
-//plays the song when play button clicked
-function playSong(song) {
-    $('.playSong').on('click', event => {
-        $('.playSong').toggleClass('pauseSong');
-        if(song.paused){
-            song.play();
-        }
-        else{
-            song.pause();
-        }
-    });
-    song.onended = function() {
-        $('.playSong').removeClass('pauseSong');
-    }
-}
-
-//gets the preview song for the round
+//gets the preview song - catagory game
 function getSongPreview(songObject, i) {
     const songPreview = new Audio (songObject.tracks[i].previewURL);
     return songPreview;
 }
 
-//generates a random number to use as a index for the Json Object from the API
+//generates a random number to use as a index for Json Object from the API - catagory game
 function getRandomIndex() {
     const i = Math.floor((Math.random() * 199) + 0);
     return i;
 }
 
+//final function for the album cover image - catagory game
 function getAlbumCoverImageJpg(songObject) {
     albumCover = songObject.images[2].url
     console.log('Album Cover Link: '+albumCover);
 }
 
+//second function for the album cover image from different API - catagory game
 function getAlbumCoverImage (songObject) {
     console.log(songObject);
     const getImageLink = songObject.albums[0].links.images.href
@@ -260,7 +267,7 @@ function getAlbumCoverImage (songObject) {
     .catch(err => failureCallback(err))
 }
 
-
+//inital function for the album cover image API - catagory game
 function getAlbumCover(songObject, i) {
     const getUrl = songObject.tracks[i].links.albums.href
     const url = getUrl+'?apikey='+apiKey2;
@@ -277,7 +284,7 @@ function getAlbumCover(songObject, i) {
     .catch(err => failureCallback(err))
 }
 
-//extracts all needed data from API object
+//extracts all needed data from API object - catagory game
 function getSongInfo(songObject, genreNum) {
     const i = getRandomIndex();
     console.log(songObject);
@@ -298,7 +305,7 @@ function getSongInfo(songObject, genreNum) {
     userSubmitAnswer(song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
 }
 
-//fetches the song API object
+//fetches the song API object - catagory game
 function getTrack (genreNum) {
     console.log(`Napster Genre Number: ${genreNum}`);
     let url = 'https://api.napster.com/v2.2/genres/'+genreNum+'/tracks/top?limit=200&apikey='+apiKey;
@@ -315,40 +322,7 @@ function getTrack (genreNum) {
     .catch(err => failureCallback(err))
 }
 
-//generates a random number to be plugged into the API url for the random game
-function generateRandomGenreNum() {
-    let num = Math.floor((Math.random() * 21) + 1);
-    return num;
-}
-
-//gets the genre number from the genre API object
-function getGenreId(genreObject) {
-    console.log(genreObject);
-    const i = generateRandomGenreNum();
-    console.log(`Random Genre Index Num: ${i}`);
-    const genreNum = genreObject.genres[i].id;
-    gameStart(genreNum);
-}
-
-//fetches the genre API object for the random game
-function getGenreNum() {
-    let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
-    console.log(url);
-    fetch(url)
-    .then(response => {
-        if(!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
-    .then(response => response.json())
-    .then(responseJson => getGenreId(responseJson))
-    .catch(err => failureCallback(err))
-}
-
-
-
-//load and initalized the selected game
+//load and initalized - catagory game
 function gameStart(genreNum) {
     $('.container').empty();
     $('.container').append(
@@ -369,9 +343,9 @@ function gameStart(genreNum) {
 }
 
 
+//KEYWORD GAME FUNCTIONS BELOW
 
-
-//checks the round number and directs to the next song or the final results page
+//checks the round number and directs to the next song or the final results page - keyword game
 function checkKeywordRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, userAnswerResults, keyword) {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
@@ -430,6 +404,7 @@ function checkKeywordRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArt
     }
 }
 
+//checks the answers of the user - keyword game
 function checkKeywordUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, keyword) {
     const resultsArtistAndSong = correctAnswerDisplay;
     const userAnswerArtist = getUserAnswerArtist();
@@ -490,7 +465,7 @@ function checkKeywordUserAnswer(correctAnswerArtist, correctAnswerSong, correctA
     checkKeywordRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, userAnswerResults, keyword);
 }
 
-//event lisener on the submit button for the user answer
+//event lisener on the submit button for the user answer - keyword game
 function userKeywordSubmitAnswer (song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, keyword) {
     if (userAnswerBtn.addEventListener('click', event => {
         event.preventDefault();
@@ -504,11 +479,13 @@ function userKeywordSubmitAnswer (song, correctAnswerArtist, correctAnswerSong, 
     
 }
 
+//final function to fetch album cover image via a seperate API - keyword game
 function getKeywordAlbumCoverImageJpg(songObject) {
     albumCover = songObject.images[2].url
     console.log('Album Cover Link: '+albumCover);
 }
 
+//second function to fetch album cover image via a seperate API - keyword game
 function getKeywordAlbumCoverImage (songObject) {
     console.log(songObject);
     const getImageLink = songObject.albums[0].links.images.href
@@ -526,6 +503,7 @@ function getKeywordAlbumCoverImage (songObject) {
     .catch(err => failureCallback(err))
 }
 
+//inital function to fetch album cover image via a seperate API - keyword game
 function getKeywordAlbumCover(songObject, i) {
     const getUrl = songObject.search.data.tracks[i].links.albums.href
     const url = getUrl+'?apikey='+apiKey2;
@@ -542,18 +520,19 @@ function getKeywordAlbumCover(songObject, i) {
     .catch(err => failureCallback(err))
 }
 
+//gets song preview track - keyword game
 function getKeywordSongPreview(songObject, i) {
     const songPreview = new Audio (songObject.search.data.tracks[i].previewURL);
     return songPreview;
 }
 
-//generates a random number to use as a index for the Json Object from the API
+//generates a random number to use as a index for the Json Object from the API - keyword game
 function getKeywordRandomIndex() {
     const i = Math.floor((Math.random() * 99) + 0);
     return i;
 }
 
-//extracts all needed data from keyword API object
+//extracts all needed data from API object - keyword game
 function getKeywordSongInfo(songObject, keyword) {
     const i = getKeywordRandomIndex();
     console.log(songObject);
@@ -574,6 +553,7 @@ function getKeywordSongInfo(songObject, keyword) {
     userKeywordSubmitAnswer(song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, keyword);
 } 
 
+//fetchs API Object - keyword game
 function getKeywordTracks(keyword) {
     const url = 'http://api.napster.com/v2.2/search/verbose?apikey='+apiKey2+'&per_type_limit=100&query='+keyword+'&type=track';
     console.log(url);
@@ -589,6 +569,7 @@ function getKeywordTracks(keyword) {
     .catch(err => failureCallback(err))
 }
 
+//load interface and calls the API function - keyword game
 function loadKeywordSpace(keyword) {
     const userKeyword = keyword;
     $('.container').empty();
@@ -609,6 +590,7 @@ function loadKeywordSpace(keyword) {
     getKeywordTracks(userKeyword);
 }
 
+//converts users keyword to proper url format and starts game - keyword game
 function startSearchGame() {
     event.preventDefault();
     let keyword = $('.userEnterKeyword').val();
@@ -616,10 +598,7 @@ function startSearchGame() {
     loadKeywordSpace(keyword);
 }
 
-
-
-
-//genre catagory menu with event listener
+//keyword search and genre catagory menu with event listener - main function
 function selectGenre() {
     $('.container').empty();
     $('.container').append(
@@ -665,8 +644,7 @@ function selectGenre() {
         </form>
         
         <button type="button" class="randomBtn" value="randomSongs" onclick="getGenreNum();">Roll the dice</button> 
-        <button type="button" id="home" class="randomBtn" value="backToHome" onclick="start();">Back to Home</button>
-        `
+        <button type="button" id="home" class="randomBtn" value="backToHome" onclick="start();">Back to Home</button>`
     )
     $('select').on('change', event => {
         const selectedGenre = $('select').val();
@@ -674,7 +652,7 @@ function selectGenre() {
     });
 }
 
-//appends the contact page
+//appends the contact page - main function
 function contact() {
     $('.container').empty();
     $('.container').append(
@@ -685,12 +663,12 @@ function contact() {
     );
 }
 
-//appends the instructions page
+//appends the instructions page - main function
 function instructions() {
     $('.container').empty();
     $('.container').append(
         `<h2>Game Instructions</h2><br>
-        1. Choose a catagory.<br><br>
+        1. Choose a catagory or enter a search term.<br><br>
         2. Press the play button to load the first song.  Song will play for 30 seconds.<br><br>
         3. Enter the Artist Name and Song Title into the designated input box.<br>Answers are not case-sensitive and punctuation does not effect your answers.<br>To replay the song just click the play button again.<br><br>
         4. Click the submit button to enter you answer or you can skip the question if you don't know at least one of the answers.<br><br>
@@ -703,7 +681,7 @@ function instructions() {
         );
 }
 
-//resests the app
+//starts and resests the app - main function
 function start() {
     roundNum = 1;
     userScore = 0;
@@ -717,13 +695,13 @@ function start() {
         </div>`)
 }
 
-//clears all API objects when home, quit game or game over clicked
+//clears all API objects when home, quit game or game over clicked - main function
 function reload() {
     location.reload(true);
     start();
 }
 
-//calls the JS once DOM loaded
+//calls the JS once DOM loaded - main function
 $(document).ready(function(){
     start(); 
 })
