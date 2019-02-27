@@ -432,7 +432,7 @@ function checkKeywordRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArt
                 </div>`
             )
         }
-        $('.container').on('click', '.fianlResultsBtn', event => {
+        $('.finalResultsBtn').on('click', event => {
             finalResults();
         });
     }
