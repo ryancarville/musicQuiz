@@ -512,7 +512,7 @@ function userSkipedAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerD
     $('.container').empty();
     $('.container').append(
         `<div class="answerResult">
-        Bummer! You didn't know any of it.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${resultsArtistAndSong}<br><br>You get 0 points this round.
+        Bummer! You gave up.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${resultsArtistAndSong}<br><br>You get 0 points this round.
         <br><br>Current score is:<br> ${userScore}<br>
         <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
         <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
