@@ -636,7 +636,7 @@ function startSearchGame() {
 function selectGenre() {
     $('.container').empty();
     $('.container').append(
-        `<h2>Choose a Genre</h2>
+        `<h2>Enter a Keyoword<br><i>or</i><br>Choose a Genre</h2>
         <form id='keywordSearch'>
             <fieldset>
                 <label for='keywordSearch'>Enter a search term.<br>Keep in mind that when a keyword is entered it can bring back compolations.<br>So be as specific as possible.</label>
