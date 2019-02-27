@@ -610,7 +610,8 @@ function loadKeywordSpace(keyword) {
 }
 
 function startSearchGame() {
-    const keyword = $('.userEnterKeyword').val();
+    let keyword = $('.userEnterKeyword').val();
+    keyword = keyword.toLowerCase().replace(/\s/g, '+').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
     loadKeywordSpace(keyword);
 }
 
