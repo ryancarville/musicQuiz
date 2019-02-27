@@ -343,6 +343,40 @@ function gameStart(genreNum) {
 }
 
 
+//ROLL THE DICE FUNCTIONS BELOW
+
+//generates a random number to be plugged into the API url - roll the dice
+function generateRandomGenreNum() {
+    let num = Math.floor((Math.random() * 21) + 1);
+    return num;
+}
+
+//gets the genre number from the genre API object - roll the dice
+function getGenreId(genreObject) {
+    console.log(genreObject);
+    const i = generateRandomGenreNum();
+    console.log(`Random Genre Index Num: ${i}`);
+    const genreNum = genreObject.genres[i].id;
+    gameStart(genreNum);
+}
+
+//fetches the genre API object - roll the dice
+function getGenreNum() {
+    let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
+    console.log(url);
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then(responseJson => getGenreId(responseJson))
+    .catch(err => failureCallback(err))
+}
+
+
 //KEYWORD GAME FUNCTIONS BELOW
 
 //checks the round number and directs to the next song or the final results page - keyword game
