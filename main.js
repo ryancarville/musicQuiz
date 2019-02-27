@@ -659,7 +659,18 @@ function getKeywordSongPreview(songObject, i) {
 
 //generates a random number to use as a index for the Json Object from the API - keyword game
 function getKeywordRandomIndex() {
+    indexCallCounter++;
+    let indexCallNum = indexCounter.length+1
     const i = Math.floor((Math.random() * 99) + 0);
+    console.log(indexCallNum+' :num of unique index nums');
+    console.log(indexCallCounter+' :num of times index has been called');
+    console.log(i+' :current index num');
+    if(indexCounter.includes(i)){
+        getKeywordRandomIndex();
+    }else{
+        indexCounter.push(i);
+    }
+    console.log('Array of index nums: '+indexCounter);
     return i;
 }
 
@@ -667,7 +678,6 @@ function getKeywordRandomIndex() {
 function getKeywordSongInfo(songObject, keyword) {
     console.log(songObject);
     const i = getKeywordRandomIndex();
-    console.log(`Random Generated Index Number: ${i}`);
     const artist = songObject.search.data.tracks[i].artistName;
     const track = songObject.search.data.tracks[i].name;
     const correctArtist = artist.split('(')[0]||artist.split('[')[0];
