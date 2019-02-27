@@ -7,6 +7,8 @@ let roundNum = 1;
 const apiKey ='ZTk2YjY4MjMtMDAzYy00MTg4LWE2MjYtZDIzNjJmMmM0YTdm';
 const apiKey2 = 'YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4';
 //global variable for album cover image - BOTH GAMES USE THIS
+let indexCounter = [];
+let indexCallCounter = '';
 let albumCover = '';
 
 //error message for catch - BOTH GAMES USE THIS
@@ -326,7 +328,18 @@ function getSongPreview(songObject, i) {
 
 //generates a random number to use as a index for Json Object from the API - catagory game
 function getRandomIndex() {
+    indexCallCounter++;
+    let indexCallNum = indexCounter.length+1
     const i = Math.floor((Math.random() * 199) + 0);
+    console.log(indexCallNum+' :num of unique index nums');
+    console.log(indexCallCounter+' :num of times index has been called');
+    console.log(indexCounter);
+    console.log(`Current Random Generated Index Number: ${i}`);
+    if(indexCounter.includes(i)){
+        getRandomIndex();
+    }else{
+        indexCounter.push(i);
+    }
     return i;
 }
 
@@ -334,7 +347,7 @@ function getRandomIndex() {
 function getSongInfo(songObject, genreNum) {
     console.log(songObject);
     const i = getRandomIndex();
-    console.log(`Random Generated Index Number: ${i}`);
+    
     const artist = songObject.tracks[i].artistName;
     const track = songObject.tracks[i].name;
     const correctArtist = artist.split('(')[0]||artist.split('[')[0];
