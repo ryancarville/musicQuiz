@@ -388,7 +388,7 @@ function checkKeywordRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArt
                 `<div class="answerResult">
                 Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
-                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
             </div>`
             )
         }
@@ -399,7 +399,7 @@ function checkKeywordRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArt
                 `<div class="answerResult">
                 Not Bad.<br>You got the artist right but missed the song.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
-                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
             </div>`
             )
         }
@@ -410,7 +410,7 @@ function checkKeywordRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArt
                 `<div class="answerResult">
                 Not Bad.<br>You got the song right but missed the artist.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
-                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
             </div>`
             )
         }
@@ -420,7 +420,7 @@ function checkKeywordRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArt
                 `<div class="answerResult">
                 Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
                 <br><br>Current score is:<br> ${userScore}<br>
-                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
                 </div>`
             )
         }
