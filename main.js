@@ -109,7 +109,7 @@ function playSong(song) {
 //CATAGORY GAME FUNCTIONS BELOW
 
 //checks the round number and directs to the next song or the final results page - catagory game
-function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, userAnswerResults, genreNum) {
+function checkRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum) {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
         $('#nextSong').off('click').on('click', event => {
@@ -117,97 +117,107 @@ function checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, co
         });
     }
     else{
-        if (userAnswerArtist == correctAnswerArtist && userAnswerSong == correctAnswerSong){
+        if (userArtistAnswer == correctArtistAnswer && userSongAnswer == correctSongAnswer){
             userScore++;
             userScore++;
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
+                Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 2 points this round.
                 <br><br>Current score is:<br> ${userScore}<br>
-                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
             </div>`
             )
         }
-        else if (userAnswerArtist == correctAnswerArtist  && userAnswerSong != correctAnswerSong) {
+        else if (userArtistAnswer == correctArtistAnswer  && userSongAnswer != correctSongAnswer) {
             userScore++;
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Not Bad.<br>You got the artist right but missed the song.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+                Not Bad.<br>You got the artist right but missed the song.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
-                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
             </div>`
             )
         }
-        else if (userAnswerArtist != correctAnswerArtist  && userAnswerSong == correctAnswerSong) {
+        else if (userArtistAnswer != correctArtistAnswer  && userSongAnswer == correctSongAnswer) {
             userScore++;
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Not Bad.<br>You got the song right but missed the artist.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+                Not Bad.<br>You got the song right but missed the artist.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
                 <br><br>Current score is:<br> ${userScore}<br>
-                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
             </div>`
             )
         }
-        else {
+        else if(userArtistAnswer == null  && userSongAnswer == null) {
             $('.container').empty();
             $('.container').append(
                 `<div class="answerResult">
-                Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br><br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
+                Bummer! You gave up.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>You get 0 points this round.
                 <br><br>Current score is:<br> ${userScore}<br>
-                <button type="button" name="fianlResults" class="fianlResultsBtn" value="fianlResults">Fianl Results</button>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
                 </div>`
             )
         }
-        $('.container').on('click', '.fianlResultsBtn', event => {
+        else if(userArtistAnswer != correctArtistAnswer  && userSongAnswer != correctSongAnswer) {
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
+                </div>`
+            )
+        }
+        $('.finalResultsBtn').on('click', event => {
             finalResults();
         });
     }
 }
 
 //checks if the users answer matches the correct answer - catagory game
-function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum) {
-    const resultsArtistAndSong = correctAnswerDisplay;
-    const userAnswerArtist = getUserAnswerArtist();
-    const userAnswerSong = getUserAnswerSong();
-    const userAnswerArtistDisplay = getUserAnswerArtistDispaly();
-    const userAnswerSongDisplay = getUserAnswerSongDispaly();
-    const userAnswerResults = `Your answer was<br>Artist: ${userAnswerArtistDisplay}<br>Song: ${userAnswerSongDisplay}`;
-    console.log(`Users Answer: ${userAnswerSongDisplay} by ${userAnswerArtistDisplay}`);
+function checkUserAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum) {
+    const correctArtistAndSongResults = `The answer was<br></br>${correctAnswerDisplay}`;
+    const userArtistAnswer = getUserAnswerArtist();
+    const userSongAnswer = getUserAnswerSong();
+    const userArtistDisplayAnswer = getUserAnswerArtistDispaly();
+    const userSongDisplayAnswer = getUserAnswerSongDispaly();
+    const userAnswerResults = `Your answer was<br>Artist: ${userArtistDisplayAnswer}<br>Song: ${userSongDisplayAnswer}`;
+    console.log(`Users Answer: ${userSongDisplayAnswer} by ${userArtistDisplayAnswer}`);
     roundNum++;
-    if (userAnswerArtist == correctAnswerArtist && userAnswerSong == correctAnswerSong){
+    if (userArtistAnswer == correctArtistAnswer && userSongAnswer == correctSongAnswer){
         userScore++;
         userScore++;
         $('.container').empty();
         $('.container').append(
             `<div class="answerResult">
-            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 points this round.
+            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>`
         )
     }
-    else if (userAnswerArtist == correctAnswerArtist  && userAnswerSong != correctAnswerSong) {
+    else if (userArtistAnswer == correctArtistAnswer  && userSongAnswer != correctSongAnswer) {
         userScore++;
         $('.container').empty();
         $('.container').append(
             `<div class="answerResult">
-            Not Bad.<br>You got the artist right but missed the song.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+            Not Bad.<br>You got the artist right but missed the song.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>`
         )
     }
-    else if (userAnswerArtist != correctAnswerArtist  && userAnswerSong == correctAnswerSong) {
+    else if (userArtistAnswer != correctArtistAnswer  && userSongAnswer == correctSongAnswer) {
         userScore++;
         $('.container').empty();
         $('.container').append(
             `<div class="answerResult">
-            Not Bad.<br>You got the song right but missed the artist.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+            Not Bad.<br>You got the song right but missed the artist.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
@@ -218,41 +228,53 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
         $('.container').empty();
         $('.container').append(
             `<div class="answerResult">
-            Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
+            Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
             <br><br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
             </div>`
         )
     }
-    checkRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, userAnswerResults, genreNum);
+    checkRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum);
+}
+
+function userSkippedAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum){
+    const correctArtistAndSongResults = `The answer was<br></br>${correctAnswerDisplay}`;
+    const userArtistAnswer = getUserAnswerArtist();
+    const userSongAnswer = getUserAnswerSong();
+    const userArtistDisplayAnswer = getUserAnswerArtistDispaly();
+    const userSongDisplayAnswer = getUserAnswerSongDispaly();
+    const userAnswerResults = `Your answer was<br>Artist: ${userArtistDisplayAnswer}<br>Song: ${userSongDisplayAnswer}`;
+    console.log(`Users Skipped Round`);
+    console.log(userArtistAnswer);
+    console.log(userSongAnswer);
+    roundNum++;
+    $('.container').empty();
+    $('.container').append(
+        `<div class="answerResult">
+        Bummer! You gave up.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>You get 0 points this round.
+        <br><br>Current score is:<br> ${userScore}<br>
+        <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
+        <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
+        </div>`
+    )
+    checkRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum);
+
 }
 
 //event lisener on the submit button for the user answer - catagory game
-function userSubmitAnswer (song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum) {
+function userSubmitAnswer (song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum) {
     if (userAnswerBtn.addEventListener('click', event => {
         event.preventDefault();
         song.currentTime = 30;
-        checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
+        checkUserAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum);
     }));
     else if (userAnswerBtnSkip.addEventListener('click', event => {
         event.preventDefault();
         song.currentTime = 30;
-        checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
+        userSkippedAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum);
     }));
     
-}
-
-//gets the preview song - catagory game
-function getSongPreview(songObject, i) {
-    const songPreview = new Audio (songObject.tracks[i].previewURL);
-    return songPreview;
-}
-
-//generates a random number to use as a index for Json Object from the API - catagory game
-function getRandomIndex() {
-    const i = Math.floor((Math.random() * 199) + 0);
-    return i;
 }
 
 //final function for the album cover image - catagory game
@@ -266,7 +288,7 @@ function getAlbumCoverImage (songObject) {
     console.log(songObject);
     const getImageLink = songObject.albums[0].links.images.href
     const url = getImageLink+'?apikey='+apiKey2;
-    console.log(url);
+    console.log('Second Album Cover fetch: '+url);
     fetch(url)
     .then(response => {
         if(!response.ok) {
@@ -283,7 +305,7 @@ function getAlbumCoverImage (songObject) {
 function getAlbumCover(songObject, i) {
     const getUrl = songObject.tracks[i].links.albums.href
     const url = getUrl+'?apikey='+apiKey2;
-    console.log(url);
+    console.log('Intial Album Cover Fetch: '+url);
     fetch(url)
     .then(response => {
         if(!response.ok) {
@@ -296,25 +318,39 @@ function getAlbumCover(songObject, i) {
     .catch(err => failureCallback(err))
 }
 
+//gets the preview song - catagory game
+function getSongPreview(songObject, i) {
+    const songPreview = new Audio (songObject.tracks[i].previewURL);
+    return songPreview;
+}
+
+//generates a random number to use as a index for Json Object from the API - catagory game
+function getRandomIndex() {
+    const i = Math.floor((Math.random() * 199) + 0);
+    return i;
+}
+
 //extracts all needed data from API object - catagory game
 function getSongInfo(songObject, genreNum) {
-    const i = getRandomIndex();
     console.log(songObject);
+    const i = getRandomIndex();
     console.log(`Random Generated Index Number: ${i}`);
     const artist = songObject.tracks[i].artistName;
-    const correctArtist = artist.split('(')[0];
-    console.log(correctArtist);
     const track = songObject.tracks[i].name;
-    const correctSong = track.split('(')[0];
-    console.log(correctSong);
+    const correctArtist = artist.split('(')[0]||artist.split('[')[0];
+    const correctSong = track.split('(')[0]||track.split('[')[0];
     const correctAnswerDisplay = 'Artist: '+correctArtist+'<br>Song: '+correctSong;
-    const correctAnswerArtist = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"");
-    const correctAnswerSong = correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
-    console.log(`Correct Answer: ${correctSong} by ${correctArtist}`);
+    console.log(`Correct Artist: ${correctArtist}`);
+    console.log(`Correct Song: ${correctSong}`);
+    const correctArtistAnswer = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"");
+    const correctSongAnswer = correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
+    console.log('Correct Answer after char uniformity is:');
+    console.log(`Artist = ${correctArtistAnswer}`);
+    console.log(`Song = ${correctSongAnswer}`);
     const song = getSongPreview(songObject, i);
     playSong(song);
     getAlbumCover (songObject, i);
-    userSubmitAnswer(song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
+    userSubmitAnswer(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum);
 }
 
 //fetches the song API object - catagory game
@@ -454,8 +490,6 @@ function checkKeywordRoundNum(userArtistAnswer, userSongAnswer, correctArtistAns
                 </div>`
             )
         }
-        
-        
         $('.finalResultsBtn').on('click', event => {
             finalResults();
         });
@@ -547,6 +581,7 @@ function userKeywordSkippedAnswer(correctArtistAnswer, correctSongAnswer, correc
     checkKeywordRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, keyword);
 
 }
+
 //event lisener on the submit button for the user answer - keyword game
 function userKeywordSubmitAnswer (song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, keyword) {
     if (userAnswerBtn.addEventListener('click', event => {
@@ -662,7 +697,7 @@ function loadKeywordSpace(keyword) {
     $('.container').append(
         `<br>
         Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
-        <button type="button" name="play" id="playSong" class="playSong" value="play" onload="playSong()"></button>
+        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
         <a><br><br>Press play to start the song.<br></a>
         <form autocomplete="off">
             <fieldset>
