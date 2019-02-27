@@ -737,39 +737,55 @@ function selectGenre() {
                 <label for='genreMenu'>Or select a catagory.</label>
                 <br><br>
                 <select id="userSelectGenre" class="userSelectGenre" name='genres'>
-                    <option value="">Or Select a Genre:</option>
-                    <option value="g.33">Alternative</option>
-                    <option value="g.438">Blues</option>
-                    <option value="g.470">Children</option>
-                    <option value="g.75">Christian</option>
-                    <option value="g.21">Classical</option>
-                    <option value="g.407">Country</option>
-                    <option value="g.71">Electronic</option>
-                    <option value="g.446">Folk</option>
-                    <option value="g.146">Hip-Hop</option>
-                    <option value="g.299">Jazz</option>
-                    <option value="g.510">Latin</option>
-                    <option value="g.394">Metal</option>
-                    <option value="g.453">New Age</option>
-                    <option value="g.4">Oldies</option>
-                    <option value="g.115">Pop</option>
-                    <option value="g.146">Rap</option>
-                    <option value="g.383">Reggae</option>
-                    <option value="g.194">RnB</option>
-                    <option value="g.5">Rock</option>
-                    <option value="g.194">Soul</option>
-                    <option value="g.246">Soundtracks</option>  
-                    <option value="g.488">World</option>
+                    <option value="">Select a Decade or Genre:</option>
+                    <optgroup label="Decades">
+                        <option value="30s">30's</option>
+                        <option value="40s">40's</option>
+                        <option value="50s">50's</option>
+                        <option value="60s">60's</option>
+                        <option value="70s">70's</option>
+                        <option value="80s">80's</option>
+                        <option value="90s">90's</option>
+                        <option value="00s">2000's</option>
+                    </optgroup>
+                    <optgroup label="Genres">
+                        <option value="g.33">Alternative</option>
+                        <option value="g.438">Blues</option>
+                        <option value="g.470">Children</option>
+                        <option value="g.75">Christian</option>
+                        <option value="g.21">Classical</option>
+                        <option value="g.407">Country</option>
+                        <option value="g.71">Electronic</option>
+                        <option value="g.446">Folk</option>
+                        <option value="g.146">Hip-Hop</option>
+                        <option value="g.299">Jazz</option>
+                        <option value="g.510">Latin</option>
+                        <option value="g.394">Metal</option>
+                        <option value="g.453">New Age</option>
+                        <option value="g.4">Oldies</option>
+                        <option value="g.115">Pop</option>
+                        <option value="g.146">Rap</option>
+                        <option value="g.383">Reggae</option>
+                        <option value="g.194">RnB</option>
+                        <option value="g.5">Rock</option>
+                        <option value="g.194">Soul</option>
+                        <option value="g.246">Soundtracks</option>  
+                        <option value="g.488">World</option>
+                    </optgroup>
                 </select>
             </fieldset>
         </form>
-        
         <button type="button" class="randomBtn" value="randomSongs" onclick="getGenreNum();">Roll the dice</button> 
         <button type="button" id="home" class="randomBtn" value="backToHome" onclick="start();">Back to Home</button>`
     )
     $('select').on('change', event => {
-        const selectedGenre = $('select').val();
-        gameStart(selectedGenre);
+        let selectedGenre = $('select').val();
+        if(selectedGenre.length == 3) {
+            loadKeywordSpace(selectedGenre);
+        }
+        else{
+            gameStart(selectedGenre);
+        }
     });
 }
 
