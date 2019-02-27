@@ -431,7 +431,7 @@ function instructions() {
         `<h2>Game Instructions</h2><br>
         1. Choose a catagory.<br><br>
         2. Press the play button to load the first song.  Song will play for 30 seconds.<br><br>
-        3. Enter the Artist Name and Song Title into the designated input box.<br>They are not case-sensitive, but they do need to be the offical names and titles.<br><br> e.g. Artist = Billie Eilish<br>Song = Lovely (feat. Khalid)<br><i>Punctuation does not effect your answers.</i><br>To replay the song just click the play button again.<br><br>
+        3. Enter the Artist Name and Song Title into the designated input box.<br>Answers are not case-sensitive and punctuation does not effect your answers.<br>To replay the song just click the play button again.<br><br>
         4. Click the submit button to enter you answer or you can skip the question if you don't know at least one of the answers.<br><br>
         5. You will be told what you got right or wrong and what your current score is.<br><br>
         6. Press the next song button to load the next song.<br><br>
