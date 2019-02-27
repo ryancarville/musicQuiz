@@ -238,6 +238,7 @@ function checkUserAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDi
     checkRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum);
 }
 
+//if user skips a round this appends the correct reulsts - catagory game
 function userSkippedAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum){
     const correctArtistAndSongResults = `The answer was<br></br>${correctAnswerDisplay}`;
     const userArtistAnswer = getUserAnswerArtist();
@@ -259,7 +260,6 @@ function userSkippedAnswer(correctArtistAnswer, correctSongAnswer, correctAnswer
         </div>`
     )
     checkRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum);
-
 }
 
 //event lisener on the submit button for the user answer - catagory game
@@ -557,7 +557,7 @@ function checkKeywordUserAnswer(correctArtistAnswer, correctSongAnswer, correctA
     checkKeywordRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, keyword);
 }
 
-
+//if user skips a round this appends the correct results - keyword game
 function userKeywordSkippedAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, keyword){
     const correctArtistAndSongResults = `The answer was<br></br>${correctAnswerDisplay}`;
     const userArtistAnswer = getUserAnswerArtist();
