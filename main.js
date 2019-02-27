@@ -499,6 +499,28 @@ function checkKeywordUserAnswer(correctAnswerArtist, correctAnswerSong, correctA
     checkKeywordRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, userAnswerResults, keyword);
 }
 
+
+function userSkipedAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, keyword){
+    const resultsArtistAndSong = `The correct answer was:<br> ${correctAnswerDisplay}`;
+    const userAnswerArtist = getUserAnswerArtist();
+    const userAnswerSong = getUserAnswerSong();
+    const userAnswerArtistDisplay = getUserAnswerArtistDispaly();
+    const userAnswerSongDisplay = getUserAnswerSongDispaly();
+    const userAnswerResults = `Your answer was<br>Artist: ${userAnswerArtistDisplay}<br>Song: ${userAnswerSongDisplay}`;
+    console.log(`Users Answer: ${userAnswerSongDisplay} by ${userAnswerArtistDisplay}`);
+    roundNum++;
+    $('.container').empty();
+    $('.container').append(
+        `<div class="answerResult">
+        Bummer! You didn't know any of it.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${resultsArtistAndSong}<br><br>You get 0 points this round.
+        <br><br>Current score is:<br> ${userScore}<br>
+        <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
+        <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
+        </div>`
+    )
+    checkKeywordRoundNum(userAnswerArtist, userAnswerSong, correctAnswerArtist, correctAnswerSong, resultsArtistAndSong, userAnswerResults, keyword);
+
+}
 //event lisener on the submit button for the user answer - keyword game
 function userKeywordSubmitAnswer (song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, keyword) {
     if (userAnswerBtn.addEventListener('click', event => {
@@ -508,7 +530,7 @@ function userKeywordSubmitAnswer (song, correctAnswerArtist, correctAnswerSong, 
     }));
     else if (userAnswerBtnSkip.addEventListener('click', event => {
         song.currentTime = 30;
-        checkKeywordUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, keyword);
+        userSkipedAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, keyword);
     }));
     
 }
