@@ -195,11 +195,11 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
 //event lisener on the submit button for the user answer
 function userSubmitAnswer (song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum) {
     if (userAnswerBtn.addEventListener('click', event => {
-        event.preventDefault();
         song.currentTime = 30;
         checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
     }));
     else if (userAnswerBtnSkip.addEventListener('click', event => {
+        event.preventDefault();
         song.currentTime = 30;
         checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
     }));
