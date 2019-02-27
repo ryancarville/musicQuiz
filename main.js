@@ -285,8 +285,12 @@ function getSongInfo(songObject, genreNum) {
     const i = getRandomIndex();
     console.log(songObject);
     console.log(`Random Generated Index Number: ${i}`);
-    const correctArtist = songObject.tracks[i].artistName;
-    const correctSong = songObject.tracks[i].name;
+    const artist = songObject.tracks[i].artistName;
+    const correctArtist = artist.split('(')[0];
+    console.log(correctArtist);
+    const track = songObject.tracks[i].name;
+    const correctSong = track.split('(')[0];
+    console.log(correctSong);
     const correctAnswerDisplay = 'Artist: '+correctArtist+'<br>Song: '+correctSong;
     const correctAnswerArtist = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"");
     const correctAnswerSong = correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
@@ -297,7 +301,7 @@ function getSongInfo(songObject, genreNum) {
     userSubmitAnswer(song, correctAnswerArtist, correctAnswerSong, correctAnswerDisplay, genreNum);
 }
 
-//fetches the API object
+//fetches the song API object
 function getTrack (genreNum) {
     console.log(`Napster Genre Number: ${genreNum}`);
     let url = 'https://api.napster.com/v2.2/genres/'+genreNum+'/tracks/top?limit=200&apikey='+apiKey;
@@ -351,9 +355,9 @@ function gameStart(genreNum) {
     $('.container').append(
         `<br>
         Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
-        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
+        <button type="button" name="play" id="playSong" class="playSong" value="play" onload="playSong()" autofocus></button>
         <a><br><br>Press play to start the song.<br></a>
-        <form>
+        <form autocomplete="off">
             <fieldset>
                 <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" required>
                 <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" required>
