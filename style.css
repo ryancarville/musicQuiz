@@ -143,7 +143,7 @@ select {
     height: 40px;
     border: 1px solid black;
     margin-top: 20px;
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .answerResult {
@@ -155,7 +155,7 @@ select {
 
 .nextSong {
     width: 200px;
-    height: 50px;
+    height: 40px;
     border: 1px solid black;
     margin-top: 10%;
     font-size: 20px;
@@ -188,7 +188,7 @@ select {
     height: 40px;
     border: 1px solid black;
     margin-top: 20px;
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .albumCoverImg {

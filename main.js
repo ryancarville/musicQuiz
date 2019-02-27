@@ -153,7 +153,8 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
             `<div class="answerResult">
             Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
-            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
+            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>`
         )
     }
@@ -164,7 +165,8 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
             `<div class="answerResult">
             Not Bad.<br>You got the artist right but missed the song.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
-            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
+            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>`
         )
     }
@@ -175,7 +177,8 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
             `<div class="answerResult">
             Not Bad.<br>You got the song right but missed the artist.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
             <br><br>Current score is:<br> ${userScore}<br>
-            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
+            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>`
         )
     }
@@ -185,7 +188,8 @@ function checkUserAnswer(correctAnswerArtist, correctAnswerSong, correctAnswerDi
             `<div class="answerResult">
             Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>The answer was<br>${resultsArtistAndSong}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
             <br><br>Current score is:<br> ${userScore}<br>
-            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
+            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
             </div>`
         )
     }
@@ -356,8 +360,7 @@ function gameStart(genreNum) {
                 <button type="submit" name="userAnswerBtn" id="userAnswerBtn" class="userAnswerBtn" value="userAnswerBtn">Submit</button>
                 <button type="submit" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
             </fieldset>
-        </form>
-        <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>`
+        </form>`
     );
     getTrack(genreNum);
 }
