@@ -1122,7 +1122,7 @@ function selectMultiChoiceGenre() {
                 <label for='keywordSearch'>Enter a search term.<br>Keep in mind that when a keyword is entered it can bring back compolations.<br>So be as specific as possible.</label>
                 <br><br><br>
                 <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
-                <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startSearchGame();">Search Songs</button><br>
+                <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startMultiSearchGame();">Search Songs</button><br>
             </fieldset>
         </form>
         <form id='genreMenu'>
@@ -1175,3 +1175,221 @@ function selectMultiChoiceGenre() {
         })
 }
 
+
+
+
+//KEYWORD GAME FUNCTIONS BELOW
+
+//multiple choice game
+
+//checks the round number and directs to the next song or the final results page - catagory game
+function checkMultiKeywordRoundNum(correctAnswer, userMultiAnswer, selectedGenre) {
+    if (roundNum <= 10) {
+        console.log(`User Current Score: ${userScore}`);
+        $('#nextSong').off('click').on('click', event => {
+            getMultiKeywordTrack(selectedGenre);
+        });
+    }
+    else{
+        if (userMultiAnswer == correctAnswer){
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
+            </div>`
+            )
+        }
+        else {
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
+                </div>`
+            )
+        }
+        $('.finalResultsBtn').on('click', event => {
+            finalResults();
+        });
+    }
+}
+
+//checks if the users answer matches the correct answer - multi choice game
+function checkUserMultiKeywordAnswer(correctAnswer, userMultiAnswer, selectedGenre) {
+    roundNum++;
+    console.log(selectedGenre)
+    if (userMultiAnswer == correctAnswer){
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
+            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
+        </div>`
+        )
+    }
+    else {
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Bummer! You got it wrong.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
+            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
+        </div>`
+        )
+    }
+    checkMultiKeywordRoundNum(correctAnswer, userMultiAnswer, selectedGenre)
+}
+
+
+function multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre) {
+    console.log(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3)
+    let multiChoiceShuffle = shuffle(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3);
+    let a = multiChoiceShuffle.splice(0, 1)
+    let b = multiChoiceShuffle.splice(0, 1)
+    let c = multiChoiceShuffle.splice(0, 1)
+    let d = multiChoiceShuffle.splice(0, 1)
+    a = a.toString()
+    b = b.toString()
+    c = c.toString()
+    d = d.toString()
+    console.log(a)
+    console.log(b)
+    console.log(c)
+    console.log(d)
+
+    $('.container').empty();
+    $('.container').append(
+        `<br>
+        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
+        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
+        <a><br><br>Press play to start the song.<br></a>
+        <button type="submit" name="${a}" id="${a}" class="multiUserAnswerBtn" value="${a}">${a}</button>
+        <button type="submit" name="${b}" id="${b}" class="multiUserAnswerBtn" value="${b}">${b}</button>
+        <button type="submit" name="${c}" id="${c}" class="multiUserAnswerBtn" value="${c}">${c}</button>
+        <button type="submit" name="${d}" id="${d}" class="multiUserAnswerBtn" value="${d}">${d}</button>`
+    )
+    playSong(song);
+    $(".multiUserAnswerBtn").click(function() {
+        event.preventDefault();
+        song.currentTime = 30;
+        let userMultiAnswer = $(this).val();
+        console.log(userMultiAnswer)
+        checkUserMultiKeywordAnswer(correctAnswer, userMultiAnswer, selectedGenre);
+    })
+    
+}
+
+function getKeywordMuliplyChoice1(songObject) {
+    const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
+    if(indexCounter.includes(i)){
+        getKeywordMuliplyChoice1(songObject);
+    }else{
+        indexCounter.push(i);
+        const artist = songObject.search.data.tracks[i].artistName;
+        const artist1 = artist.split('(')[0]||artist.split('[')[0];
+        const track = songObject.search.data.tracks[i].name;
+        const track1 = track.split('(')[0]||track.split('[')[0];
+        const multiAnswer1 = track1+' by '+artist1;
+        return multiAnswer1;
+    }
+    return multiAnswer1;
+}
+
+function getKeywordMuliplyChoice2(songObject) {
+    const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
+    if(indexCounter.includes(i)){
+        getKeywordMuliplyChoice2(songObject);
+    }else{
+        indexCounter.push(i);
+        const artist = songObject.search.data.tracks[i].artistName;
+        const artist2 = artist.split('(')[0]||artist.split('[')[0];
+        const track = songObject.search.data.tracks[i].name;
+        const track2 = track.split('(')[0]||track.split('[')[0];
+        const multiAnswer2 = track2+' by '+artist2;
+        return multiAnswer2;
+    }
+    return multiAnswer2;
+}
+
+function getKeywordMuliplyChoice3(songObject) {
+    const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
+    if(indexCounter.includes(i)){
+        getKeywordMuliplyChoice3(songObject);
+    }else{
+        indexCounter.push(i);
+        const artist = songObject.search.data.tracks[i].artistName;
+        const artist3 = artist.split('(')[0]||artist.split('[')[0];
+        const track = songObject.search.data.tracks[i].name;
+        const track3 = track.split('(')[0]||track.split('[')[0];
+        const multiAnswer3 = track3+' by '+artist3;
+        return multiAnswer3;
+    }
+    return multiAnswer3;
+}
+
+
+function getKeywordMultiRandomIndex(songObject) {
+    indexCallCounter++;
+    let indexCallNum = indexCounter.length+1
+    const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
+    console.log(indexCallNum+' :num of unique index nums');
+    console.log(indexCallCounter+' :num of times index has been called');
+    console.log(i+' :current index num');
+    if(indexCounter.includes(i)){
+        getKeywordRandomIndex();
+    }else{
+        indexCounter.push(i);
+    }
+    console.log('Array of index nums: '+indexCounter);
+    return i;
+}
+
+//extracts all needed data from API object - keyword game
+function getMultiKeywordSongInfo(songObject, selectedGenre) {
+    console.log(songObject);
+    const i = getKeywordMultiRandomIndex(songObject);
+    const artist = songObject.search.data.tracks[i].artistName;
+    const track = songObject.search.data.tracks[i].name;
+    const correctArtist = artist.split('(')[0]||artist.split('[')[0];
+    const correctSong = track.split('(')[0]||track.split('[')[0];
+    const correctAnswer = correctSong+' by '+correctArtist;
+    console.log(`Correct Answer: ${correctAnswer}`);
+    const song = getKeywordSongPreview(songObject, i);
+    getKeywordAlbumCover (songObject, i);
+    const multiChoiceOption1 = getKeywordMuliplyChoice1(songObject);
+    const multiChoiceOption2 = getKeywordMuliplyChoice2(songObject);
+    const multiChoiceOption3 = getKeywordMuliplyChoice3(songObject);
+    multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
+} 
+
+//fetchs API Object - keyword game
+function getMultiKeywordTrack(keyword) {
+    const url = 'https://api.napster.com/v2.2/search/verbose?apikey='+apiKey2+'&per_type_limit=200&query='+keyword+'&type=tracks';
+    console.log(url);
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then(responseJson => getMultiKeywordSongInfo(responseJson, keyword))
+    .catch(err => failureCallback(err))
+}
+
+//converts users keyword to proper url format and starts game - keyword game
+function startMultiSearchGame() {
+    event.preventDefault();
+    let keyword = $('.userEnterKeyword').val();
+    keyword = keyword.toLowerCase().replace(/\s/g, '+').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
+    getMultiKeywordTrack(keyword);
+}
