@@ -108,7 +108,8 @@ function playSong(song) {
 }
 
 
-//CATAGORY GAME FUNCTIONS BELOW
+////////////////////////////////////////////////////////////////////////////
+//USER ENTRY CATAGORY GAME FUNCTIONS BELOW
 
 //checks the round number and directs to the next song or the final results page - catagory game
 function checkRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum) {
@@ -402,7 +403,7 @@ function gameStart(genreNum) {
     getTrack(genreNum);
 }
 
-
+////////////////////////////////////////////////////////////////////////////
 //ROLL THE DICE FUNCTIONS BELOW
 
 //generates a random number to be plugged into the API url - roll the dice
@@ -436,8 +437,8 @@ function getGenreNum() {
     .catch(err => failureCallback(err))
 }
 
-
-//KEYWORD GAME FUNCTIONS BELOW
+////////////////////////////////////////////////////////////////////////////
+//USER ENTRY KEYWORD GAME FUNCTIONS BELOW
 
 //checks the round number and directs to the next song or the final results page - keyword game
 function checkKeywordRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, keyword) {
@@ -742,6 +743,507 @@ function startSearchGame() {
     loadKeywordSpace(keyword);
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//keyword multiple choice game
+
+//checks the round number and directs to the next song or the final results page - keyword multi game
+function checkMultiKeywordRoundNum(correctAnswer, userMultiAnswer, selectedGenre) {
+    if (roundNum <= 10) {
+        console.log(`User Current Score: ${userScore}`);
+        $('#nextSong').off('click').on('click', event => {
+            getMultiKeywordTrack(selectedGenre);
+        });
+    }
+    else{
+        if (userMultiAnswer == correctAnswer){
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
+            </div>`
+            )
+        }
+        else {
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
+                </div>`
+            )
+        }
+        $('.finalResultsBtn').on('click', event => {
+            finalMultiResults();
+        });
+    }
+}
+
+//checks if the users answer matches the correct answer - keyword multi game
+function checkUserMultiKeywordAnswer(correctAnswer, userMultiAnswer, selectedGenre) {
+    roundNum++;
+    console.log(selectedGenre)
+    if (userMultiAnswer == correctAnswer){
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
+            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
+        </div>`
+        )
+    }
+    else {
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Bummer! You got it wrong.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
+            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
+        </div>`
+        )
+    }
+    checkMultiKeywordRoundNum(correctAnswer, userMultiAnswer, selectedGenre)
+}
+
+//calls the interface - keyword multi game
+function multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre) {
+    console.log(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3)
+    let multiChoiceShuffle = shuffle(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3);
+    let a = multiChoiceShuffle.splice(0, 1)
+    let b = multiChoiceShuffle.splice(0, 1)
+    let c = multiChoiceShuffle.splice(0, 1)
+    let d = multiChoiceShuffle.splice(0, 1)
+    a = a.toString()
+    b = b.toString()
+    c = c.toString()
+    d = d.toString()
+    console.log(a)
+    console.log(b)
+    console.log(c)
+    console.log(d)
+
+    $('.container').empty();
+    $('.container').append(
+        `<br>
+        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
+        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
+        <a><br><br>Press play to start the song.<br></a>
+        <button type="submit" name="${a}" id="${a}" class="multiUserAnswerBtn" value="${a}">${a}</button>
+        <button type="submit" name="${b}" id="${b}" class="multiUserAnswerBtn" value="${b}">${b}</button>
+        <button type="submit" name="${c}" id="${c}" class="multiUserAnswerBtn" value="${c}">${c}</button>
+        <button type="submit" name="${d}" id="${d}" class="multiUserAnswerBtn" value="${d}">${d}</button>`
+    )
+    playSong(song);
+    $(".multiUserAnswerBtn").click(function() {
+        event.preventDefault();
+        song.currentTime = 30;
+        let userMultiAnswer = $(this).val();
+        console.log(userMultiAnswer)
+        checkUserMultiKeywordAnswer(correctAnswer, userMultiAnswer, selectedGenre);
+    })
+    
+}
+
+//gets 1st multiple choice answer - keyword multi game
+function getKeywordMuliplyChoice1(songObject) {
+    const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
+    if(indexCounter.includes(i)){
+        getKeywordMuliplyChoice1(songObject);
+    }else{
+        indexCounter.push(i);
+        const artist = songObject.search.data.tracks[i].artistName;
+        const artist1 = artist.split('(')[0]||artist.split('[')[0];
+        const track = songObject.search.data.tracks[i].name;
+        const track1 = track.split('(')[0]||track.split('[')[0];
+        const multiAnswer1 = track1+' by '+artist1;
+        return multiAnswer1;
+    }
+    return multiAnswer1;
+}
+
+//gets 2nd multiple choice answer - keyword multi game
+function getKeywordMuliplyChoice2(songObject) {
+    const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
+    if(indexCounter.includes(i)){
+        getKeywordMuliplyChoice2(songObject);
+    }else{
+        indexCounter.push(i);
+        const artist = songObject.search.data.tracks[i].artistName;
+        const artist2 = artist.split('(')[0]||artist.split('[')[0];
+        const track = songObject.search.data.tracks[i].name;
+        const track2 = track.split('(')[0]||track.split('[')[0];
+        const multiAnswer2 = track2+' by '+artist2;
+        return multiAnswer2;
+    }
+    return multiAnswer2;
+}
+
+//gets 3rd multiple choice answer - keyword multi game
+function getKeywordMuliplyChoice3(songObject) {
+    const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
+    if(indexCounter.includes(i)){
+        getKeywordMuliplyChoice3(songObject);
+    }else{
+        indexCounter.push(i);
+        const artist = songObject.search.data.tracks[i].artistName;
+        const artist3 = artist.split('(')[0]||artist.split('[')[0];
+        const track = songObject.search.data.tracks[i].name;
+        const track3 = track.split('(')[0]||track.split('[')[0];
+        const multiAnswer3 = track3+' by '+artist3;
+        return multiAnswer3;
+    }
+    return multiAnswer3;
+}
+
+//gets random index num - keyword multi game
+function getKeywordMultiRandomIndex(songObject) {
+    indexCallCounter++;
+    let indexCallNum = indexCounter.length+1
+    const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
+    console.log(indexCallNum+' :num of unique index nums');
+    console.log(indexCallCounter+' :num of times index has been called');
+    console.log(i+' :current index num');
+    if(indexCounter.includes(i)){
+        getKeywordRandomIndex();
+    }else{
+        indexCounter.push(i);
+    }
+    console.log('Array of index nums: '+indexCounter);
+    return i;
+}
+
+//extracts all needed data from API object - keyword multi game
+function getMultiKeywordSongInfo(songObject, selectedGenre) {
+    console.log(songObject);
+    const i = getKeywordMultiRandomIndex(songObject);
+    const artist = songObject.search.data.tracks[i].artistName;
+    const track = songObject.search.data.tracks[i].name;
+    const correctArtist = artist.split('(')[0]||artist.split('[')[0];
+    const correctSong = track.split('(')[0]||track.split('[')[0];
+    const correctAnswer = correctSong+' by '+correctArtist;
+    console.log(`Correct Answer: ${correctAnswer}`);
+    const song = getKeywordSongPreview(songObject, i);
+    getKeywordAlbumCover (songObject, i);
+    const multiChoiceOption1 = getKeywordMuliplyChoice1(songObject);
+    const multiChoiceOption2 = getKeywordMuliplyChoice2(songObject);
+    const multiChoiceOption3 = getKeywordMuliplyChoice3(songObject);
+    multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
+} 
+
+//fetchs API Object - keyword multi game
+function getMultiKeywordTrack(keyword) {
+    const url = 'https://api.napster.com/v2.2/search/verbose?apikey='+apiKey2+'&per_type_limit=200&query='+keyword+'&type=tracks';
+    console.log(url);
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then(responseJson => getMultiKeywordSongInfo(responseJson, keyword))
+    .catch(err => failureCallback(err))
+}
+
+//converts users keyword to proper url format and starts game - keyword multi game
+function startMultiSearchGame() {
+    event.preventDefault();
+    let keyword = $('.userEnterKeyword').val();
+    keyword = keyword.toLowerCase().replace(/\s/g, '+').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
+    getMultiKeywordTrack(keyword);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//multiple choice game
+
+//checks the final score nd appends the approriate results - multi choice and keyword multi
+function finalMultiResults() {
+    if (userScore >=7) {
+        $('.container').empty();
+        $('.container').append(
+            `<div class="finalResults">
+            Well played! You know your music.<br><br>Your total score is<br>${userScore}<br>
+            <button type="button" name="gameOver" class="gameOver" value="gameOver">Game Over</button>
+            </div>`
+        )
+    }
+    else if (userScore >= 4 && userScore <= 6) {
+        $('.container').empty();
+        $('.container').append(
+            `<div class="finalResults">
+            Not bad, but no Grammy's for you.<br><br>Your total score is<br>${userScore}<br>
+            <button type="button" name="gameOver" class="gameOver" value="gameOver">Game Over</button>
+            </div>`
+        )
+    }
+    else {
+        $('.container').empty();
+        $('.container').append(
+            `<div class="finalResults">
+            Not so hot. Maybe listen to the radio more?<br><br>Your total score is<br>${userScore}<br>
+            <button type="button" name="gameOver" class="gameOver" value="gameOver">Game Over</button>
+            </div>`
+        )
+    }
+    $('.container').on('click', '.gameOver', event => {
+        reload();
+    });
+}
+
+//checks the round number and directs to the next song or the final results page - multi choice
+function checkMultiRoundNum(correctAnswer, userMultiAnswer, selectedGenre) {
+    if (roundNum <= 10) {
+        console.log(`User Current Score: ${userScore}`);
+        $('#nextSong').off('click').on('click', event => {
+            getMultiChoiceTracks(selectedGenre);
+        });
+    }
+    else{
+        if (userMultiAnswer == correctAnswer){
+            userScore++;
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
+            </div>`
+            )
+        }
+        else {
+            $('.container').empty();
+            $('.container').append(
+                `<div class="answerResult">
+                Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
+                <br><br>Current score is:<br> ${userScore}<br>
+                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
+                </div>`
+            )
+        }
+        $('.finalResultsBtn').on('click', event => {
+            finalMultiResults();
+        });
+    }
+}
+
+//checks if the users answer matches the correct answer - multi choice game
+function checkUserMultiAnswer (correctAnswer, userMultiAnswer, selectedGenre) {
+    roundNum++;
+    console.log(selectedGenre)
+    if (userMultiAnswer == correctAnswer){
+        userScore++;
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
+            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
+        </div>`
+        )
+    }
+    else {
+        $('.container').empty();
+        $('.container').append(
+            `<div class="answerResult">
+            Bummer! You got it wrong.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
+            <br><br>Current score is:<br> ${userScore}<br>
+            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
+            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
+        </div>`
+        )
+    }
+    checkMultiRoundNum(correctAnswer, userMultiAnswer, selectedGenre)
+}
+
+//loads multi choice interface - multi choice
+function multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre) {
+    console.log(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3)
+    let multiChoiceShuffle = shuffle(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3);
+    let a = multiChoiceShuffle.splice(0, 1)
+    let b = multiChoiceShuffle.splice(0, 1)
+    let c = multiChoiceShuffle.splice(0, 1)
+    let d = multiChoiceShuffle.splice(0, 1)
+    a = a.toString()
+    b = b.toString()
+    c = c.toString()
+    d = d.toString()
+    console.log(a)
+    console.log(b)
+    console.log(c)
+    console.log(d)
+
+    $('.container').empty();
+    $('.container').append(
+        `<br>
+        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
+        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
+        <a><br><br>Press play to start the song.<br></a>
+        <button type="submit" name="${a}" id="${a}" class="multiUserAnswerBtn" value="${a}">${a}</button>
+        <button type="submit" name="${b}" id="${b}" class="multiUserAnswerBtn" value="${b}">${b}</button>
+        <button type="submit" name="${c}" id="${c}" class="multiUserAnswerBtn" value="${c}">${c}</button>
+        <button type="submit" name="${d}" id="${d}" class="multiUserAnswerBtn" value="${d}">${d}</button>`
+    )
+    playSong(song);
+    $(".multiUserAnswerBtn").click(function() {
+        event.preventDefault();
+        song.currentTime = 30;
+        let userMultiAnswer = $(this).val();
+        console.log(userMultiAnswer)
+        checkUserMultiAnswer(correctAnswer, userMultiAnswer, selectedGenre);
+    })
+    
+}
+
+//shuffels the 4 multiple choices answers - multi choice and keyword multi
+function shuffle(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3) {
+    let multiAnswersArr = [correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3]    
+    let currentIndex = multiAnswersArr.length;
+    let temporaryValue, randomIndex;
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+    
+            // And swap it with the current element.
+            temporaryValue = multiAnswersArr[currentIndex];
+            multiAnswersArr[currentIndex] = multiAnswersArr[randomIndex];
+            multiAnswersArr[randomIndex] = temporaryValue;
+        }
+        return multiAnswersArr;
+    
+}
+
+//gets 1st multiple choice answer - multi choice game
+function getDummyMuliplyChoice1(songObject) {
+    const i = Math.floor((Math.random() * songObject.tracks.length));
+    if(indexCounter.includes(i)){
+        getDummyMuliplyChoice1(songObject);
+    }else{
+        indexCounter.push(i);
+        const artist = songObject.tracks[i].artistName;
+        const artist1 = artist.split('(')[0]||artist.split('[')[0];
+        const track = songObject.tracks[i].name;
+        const track1 = track.split('(')[0]||track.split('[')[0];
+        const multiAnswer1 = track1+' by '+artist1;
+        return multiAnswer1;
+    }
+    return multiAnswer1;
+}
+
+//gets 2nd multiple choice answer - multi choice game
+function getDummyMuliplyChoice2(songObject) {
+    const i = Math.floor((Math.random() * songObject.tracks.length));
+    if(indexCounter.includes(i)){
+        getDummyMuliplyChoice1(songObject);
+    }else{
+        indexCounter.push(i);
+        const artist = songObject.tracks[i].artistName;
+        const artist2 = artist.split('(')[0]||artist.split('[')[0];
+        const track = songObject.tracks[i].name;
+        const track2 = track.split('(')[0]||track.split('[')[0];
+        const multiAnswer2 = track2+' by '+artist2;
+        return multiAnswer2;
+    }
+    return multiAnswer2;
+}
+
+//gets 3rd multiple choice answer - multi choice game
+function getDummyMuliplyChoice3(songObject) {
+    const i = Math.floor((Math.random() * songObject.tracks.length));
+    if(indexCounter.includes(i)){
+        getDummyMuliplyChoice3(songObject);
+    }else{
+        indexCounter.push(i);
+        const artist = songObject.tracks[i].artistName;
+        const artist3 = artist.split('(')[0]||artist.split('[')[0];
+        const track = songObject.tracks[i].name;
+        const track3 = track.split('(')[0]||track.split('[')[0];
+        const multiAnswer3 = track3+' by '+artist3;
+        return multiAnswer3;
+    }
+    return multiAnswer3;
+}
+
+//gets song info - multi choice game
+function getMultiChoiceSongInfo(songObject, selectedGenre) {
+    console.log(songObject);
+    const i = getRandomIndex(songObject);
+    const artist = songObject.tracks[i].artistName;
+    const track = songObject.tracks[i].name;
+    const correctArtist = artist.split('(')[0]||artist.split('[')[0];
+    const correctSong = track.split('(')[0]||track.split('[')[0];
+    const correctAnswer = correctSong+' by '+correctArtist;
+    console.log(`Correct Answer: ${correctAnswer}`);
+    const song = getSongPreview(songObject, i);
+    getAlbumCover (songObject, i);
+    const multiChoiceOption1 = getDummyMuliplyChoice1(songObject);
+    const multiChoiceOption2 = getDummyMuliplyChoice2(songObject);
+    const multiChoiceOption3 = getDummyMuliplyChoice3(songObject);
+    multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
+    
+} 
+
+//fetchs API Object - multi choice game
+function getMultiChoiceTracks(selectedGenre) {
+    console.log(`Napster Genre Number: ${selectedGenre}`);
+    let url = 'https://api.napster.com/v2.2/genres/'+selectedGenre+'/tracks/top?limit=200&apikey='+apiKey;
+    console.log('API url: '+url);
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then(responseJson => getMultiChoiceSongInfo(responseJson, selectedGenre))
+    .catch(err => failureCallback(err))
+}
+
+//generates random genres for multi choice game - roll the dice multi choice game
+function generateMultiRandomGenreNum(genreObject) {
+    let num = Math.floor((Math.random() * genreObject.genres.length));
+    return num;
+}
+
+//gets the genre number from the genre API object - roll the dice multi choice game
+function getMultiGenreId(genreObject) {
+    console.log(genreObject);
+    const i = generateMultiRandomGenreNum(genreObject);
+    console.log(`Random Genre Index Num: ${i}`);
+    const genreNum = genreObject.genres[i].links.childGenres.ids;
+    getMultiChoiceTracks(genreNum);
+}
+
+//fetches the genre API object - roll the dice multi choice game
+function getMultiGenreNum() {
+    let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
+    console.log(url);
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then(responseJson => getMultiGenreId(responseJson))
+    .catch(err => failureCallback(err))
+}
+
+////////////////////////////////////////////////////////////////////////////
+//home functions
+
 //keyword search and genre catagory menu with event listener - main function
 function selectGenre() {
     $('.container').empty();
@@ -812,307 +1314,7 @@ function selectGenre() {
     });
 }
 
-//appends the contact page - main function
-function contact() {
-    $('.container').empty();
-    $('.container').append(
-        `<h2>Email Us</h2>
-        <p>We hope you are enjoying the game.  If you need help or have any sugguestions please let us know.<br>You can email us
-        <a href='mailto:hello@beardystudios.com?Subject=Music%20Quiz%20Inquiry' target='_top'>here.</a><br>
-        <button type="button" id="home" class="nextSong" value="backToHome" onclick="start();">Back to Home</button>`
-    );
-}
-
-//appends the instructions page - main function
-function instructions() {
-    $('.container').empty();
-    $('.container').append(
-        `<h2>Game Instructions</h2><br>
-        1. Choose a catagory or enter a search term.<br><br>
-        2. Press the play button to load the first song.  Song will play for 30 seconds.<br><br>
-        3. Enter the Artist Name and Song Title into the designated input box.<br>Answers are not case-sensitive and punctuation does not effect your answers.<br>To replay the song just click the play button again.<br><br>
-        4. Click the submit button to enter you answer or you can skip the question if you don't know at least one of the answers.<br><br>
-        5. You will be told what you got right or wrong and what your current score is.<br><br>
-        6. Press the next song button to load the next song.<br><br>
-        7. Repeat steps 2 thru 6 for the 10 rounds.<br><br>
-        8. At the end of the 10 rounds you will be given your total score out of the possible 20 points.<br><br>
-        Good luck at testing your musical knowledge!
-        <button type="button" id="home" class="nextSong" value="backToHome" onclick="start();">Back to Home</button>`
-        );
-}
-
-//starts and resests the app - main function
-function start() {
-    roundNum = 1;
-    userScore = 0;
-    $('.container').empty();
-    $('.container').append(
-        `<h2>Music Quiz</h2>
-        <div class="home">
-        <button type="button" id="homePlay" class="homeBtn" value="homePlayBtn" onclick="selectGenre();">Play Enter Artist/Song Game</button>
-        <button type="button" id="homePlayMC" class="homeBtn" value="homePlayBtn" onclick="selectMultiChoiceGenre();">Play Multiple Choice Game</button>
-        <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructions();">Instructions</button>
-        <button type="button" id="homeContact" class="homeBtn" value="homeContactBtn" onclick="contact();">Contact Us</button>
-        </div>`)
-}
-
-//clears all API objects when home, quit game or game over clicked - main function
-function reload() {
-    location.reload(true);
-    start();
-}
-
-//calls the JS once DOM loaded - main function
-$(document).ready(function(){
-    start(); 
-})
-
-
-
-
-
-//multiple choice game
-
-//checks the round number and directs to the next song or the final results page - catagory game
-function checkMultiRoundNum(correctAnswer, userMultiAnswer, selectedGenre) {
-    if (roundNum <= 10) {
-        console.log(`User Current Score: ${userScore}`);
-        $('#nextSong').off('click').on('click', event => {
-            getMultiChoiceTracks(selectedGenre);
-        });
-    }
-    else{
-        if (userMultiAnswer == correctAnswer){
-            userScore++;
-            $('.container').empty();
-            $('.container').append(
-                `<div class="answerResult">
-                Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
-                <br><br>Current score is:<br> ${userScore}<br>
-                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
-            </div>`
-            )
-        }
-        else {
-            $('.container').empty();
-            $('.container').append(
-                `<div class="answerResult">
-                Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
-                <br><br>Current score is:<br> ${userScore}<br>
-                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
-                </div>`
-            )
-        }
-        $('.finalResultsBtn').on('click', event => {
-            finalResults();
-        });
-    }
-}
-
-//checks if the users answer matches the correct answer - multi choice game
-function checkUserMultiAnswer (correctAnswer, userMultiAnswer, selectedGenre) {
-    roundNum++;
-    console.log(selectedGenre)
-    if (userMultiAnswer == correctAnswer){
-        userScore++;
-        $('.container').empty();
-        $('.container').append(
-            `<div class="answerResult">
-            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
-            <br><br>Current score is:<br> ${userScore}<br>
-            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
-            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
-        </div>`
-        )
-    }
-    else {
-        $('.container').empty();
-        $('.container').append(
-            `<div class="answerResult">
-            Bummer! You got it wrong.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
-            <br><br>Current score is:<br> ${userScore}<br>
-            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
-            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
-        </div>`
-        )
-    }
-    checkMultiRoundNum(correctAnswer, userMultiAnswer, selectedGenre)
-}
-
-
-function multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre) {
-    console.log(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3)
-    let multiChoiceShuffle = shuffle(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3);
-    let a = multiChoiceShuffle.splice(0, 1)
-    let b = multiChoiceShuffle.splice(0, 1)
-    let c = multiChoiceShuffle.splice(0, 1)
-    let d = multiChoiceShuffle.splice(0, 1)
-    a = a.toString()
-    b = b.toString()
-    c = c.toString()
-    d = d.toString()
-    console.log(a)
-    console.log(b)
-    console.log(c)
-    console.log(d)
-
-    $('.container').empty();
-    $('.container').append(
-        `<br>
-        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
-        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start the song.<br></a>
-        <button type="submit" name="${a}" id="${a}" class="multiUserAnswerBtn" value="${a}">${a}</button>
-        <button type="submit" name="${b}" id="${b}" class="multiUserAnswerBtn" value="${b}">${b}</button>
-        <button type="submit" name="${c}" id="${c}" class="multiUserAnswerBtn" value="${c}">${c}</button>
-        <button type="submit" name="${d}" id="${d}" class="multiUserAnswerBtn" value="${d}">${d}</button>`
-    )
-    playSong(song);
-    $(".multiUserAnswerBtn").click(function() {
-        event.preventDefault();
-        song.currentTime = 30;
-        let userMultiAnswer = $(this).val();
-        console.log(userMultiAnswer)
-        checkUserMultiAnswer(correctAnswer, userMultiAnswer, selectedGenre);
-    })
-    
-}
-
-
-function shuffle(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3) {
-    let multiAnswersArr = [correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3]    
-    let currentIndex = multiAnswersArr.length;
-    let temporaryValue, randomIndex;
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-    
-            // And swap it with the current element.
-            temporaryValue = multiAnswersArr[currentIndex];
-            multiAnswersArr[currentIndex] = multiAnswersArr[randomIndex];
-            multiAnswersArr[randomIndex] = temporaryValue;
-        }
-        return multiAnswersArr;
-    
-}
-
-function getDummyMuliplyChoice1(songObject) {
-    const i = Math.floor((Math.random() * songObject.tracks.length));
-    if(indexCounter.includes(i)){
-        getDummyMuliplyChoice1(songObject);
-    }else{
-        indexCounter.push(i);
-        const artist = songObject.tracks[i].artistName;
-        const artist1 = artist.split('(')[0]||artist.split('[')[0];
-        const track = songObject.tracks[i].name;
-        const track1 = track.split('(')[0]||track.split('[')[0];
-        const multiAnswer1 = track1+' by '+artist1;
-        return multiAnswer1;
-    }
-    return multiAnswer1;
-}
-
-function getDummyMuliplyChoice2(songObject) {
-    const i = Math.floor((Math.random() * songObject.tracks.length));
-    if(indexCounter.includes(i)){
-        getDummyMuliplyChoice1(songObject);
-    }else{
-        indexCounter.push(i);
-        const artist = songObject.tracks[i].artistName;
-        const artist2 = artist.split('(')[0]||artist.split('[')[0];
-        const track = songObject.tracks[i].name;
-        const track2 = track.split('(')[0]||track.split('[')[0];
-        const multiAnswer2 = track2+' by '+artist2;
-        return multiAnswer2;
-    }
-    return multiAnswer2;
-}
-
-function getDummyMuliplyChoice3(songObject) {
-    const i = Math.floor((Math.random() * songObject.tracks.length));
-    if(indexCounter.includes(i)){
-        getDummyMuliplyChoice3(songObject);
-    }else{
-        indexCounter.push(i);
-        const artist = songObject.tracks[i].artistName;
-        const artist3 = artist.split('(')[0]||artist.split('[')[0];
-        const track = songObject.tracks[i].name;
-        const track3 = track.split('(')[0]||track.split('[')[0];
-        const multiAnswer3 = track3+' by '+artist3;
-        return multiAnswer3;
-    }
-    return multiAnswer3;
-}
-
-
-function getMultiChoiceSongInfo(songObject, selectedGenre) {
-    console.log(songObject);
-    const i = getRandomIndex(songObject);
-    const artist = songObject.tracks[i].artistName;
-    const track = songObject.tracks[i].name;
-    const correctArtist = artist.split('(')[0]||artist.split('[')[0];
-    const correctSong = track.split('(')[0]||track.split('[')[0];
-    const correctAnswer = correctSong+' by '+correctArtist;
-    console.log(`Correct Answer: ${correctAnswer}`);
-    const song = getSongPreview(songObject, i);
-    getAlbumCover (songObject, i);
-    const multiChoiceOption1 = getDummyMuliplyChoice1(songObject);
-    const multiChoiceOption2 = getDummyMuliplyChoice2(songObject);
-    const multiChoiceOption3 = getDummyMuliplyChoice3(songObject);
-    multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
-    
-} 
-
-//fetchs API Object - multi choice game
-function getMultiChoiceTracks(selectedGenre) {
-    console.log(`Napster Genre Number: ${selectedGenre}`);
-    let url = 'https://api.napster.com/v2.2/genres/'+selectedGenre+'/tracks/top?limit=200&apikey='+apiKey;
-    console.log('API url: '+url);
-    fetch(url)
-    .then(response => {
-        if(!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
-    .then(response => response.json())
-    .then(responseJson => getMultiChoiceSongInfo(responseJson, selectedGenre))
-    .catch(err => failureCallback(err))
-}
-
-
-function generateMultiRandomGenreNum(genreObject) {
-    let num = Math.floor((Math.random() * genreObject.genres.length));
-    return num;
-}
-
-//gets the genre number from the genre API object - roll the dice
-function getMultiGenreId(genreObject) {
-    console.log(genreObject);
-    const i = generateMultiRandomGenreNum(genreObject);
-    console.log(`Random Genre Index Num: ${i}`);
-    const genreNum = genreObject.genres[i].links.childGenres.ids;
-    getMultiChoiceTracks(genreNum);
-}
-
-//fetches the genre API object - roll the dice
-function getMultiGenreNum() {
-    let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
-    console.log(url);
-    fetch(url)
-    .then(response => {
-        if(!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
-    .then(response => response.json())
-    .then(responseJson => getMultiGenreId(responseJson))
-    .catch(err => failureCallback(err))
-}
-
+//loads keyword and select genre interface - multi choice and keyword multi
 function selectMultiChoiceGenre() {
     $('.container').empty();
     $('.container').append(
@@ -1175,221 +1377,57 @@ function selectMultiChoiceGenre() {
         })
 }
 
-
-
-
-//KEYWORD GAME FUNCTIONS BELOW
-
-//multiple choice game
-
-//checks the round number and directs to the next song or the final results page - catagory game
-function checkMultiKeywordRoundNum(correctAnswer, userMultiAnswer, selectedGenre) {
-    if (roundNum <= 10) {
-        console.log(`User Current Score: ${userScore}`);
-        $('#nextSong').off('click').on('click', event => {
-            getMultiKeywordTrack(selectedGenre);
-        });
-    }
-    else{
-        if (userMultiAnswer == correctAnswer){
-            userScore++;
-            $('.container').empty();
-            $('.container').append(
-                `<div class="answerResult">
-                Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
-                <br><br>Current score is:<br> ${userScore}<br>
-                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
-            </div>`
-            )
-        }
-        else {
-            $('.container').empty();
-            $('.container').append(
-                `<div class="answerResult">
-                Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
-                <br><br>Current score is:<br> ${userScore}<br>
-                <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
-                </div>`
-            )
-        }
-        $('.finalResultsBtn').on('click', event => {
-            finalResults();
-        });
-    }
-}
-
-//checks if the users answer matches the correct answer - multi choice game
-function checkUserMultiKeywordAnswer(correctAnswer, userMultiAnswer, selectedGenre) {
-    roundNum++;
-    console.log(selectedGenre)
-    if (userMultiAnswer == correctAnswer){
-        userScore++;
-        $('.container').empty();
-        $('.container').append(
-            `<div class="answerResult">
-            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
-            <br><br>Current score is:<br> ${userScore}<br>
-            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
-            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
-        </div>`
-        )
-    }
-    else {
-        $('.container').empty();
-        $('.container').append(
-            `<div class="answerResult">
-            Bummer! You got it wrong.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
-            <br><br>Current score is:<br> ${userScore}<br>
-            <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
-            <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
-        </div>`
-        )
-    }
-    checkMultiKeywordRoundNum(correctAnswer, userMultiAnswer, selectedGenre)
-}
-
-
-function multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre) {
-    console.log(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3)
-    let multiChoiceShuffle = shuffle(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3);
-    let a = multiChoiceShuffle.splice(0, 1)
-    let b = multiChoiceShuffle.splice(0, 1)
-    let c = multiChoiceShuffle.splice(0, 1)
-    let d = multiChoiceShuffle.splice(0, 1)
-    a = a.toString()
-    b = b.toString()
-    c = c.toString()
-    d = d.toString()
-    console.log(a)
-    console.log(b)
-    console.log(c)
-    console.log(d)
-
+//appends the contact page - main function
+function contact() {
     $('.container').empty();
     $('.container').append(
-        `<br>
-        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
-        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start the song.<br></a>
-        <button type="submit" name="${a}" id="${a}" class="multiUserAnswerBtn" value="${a}">${a}</button>
-        <button type="submit" name="${b}" id="${b}" class="multiUserAnswerBtn" value="${b}">${b}</button>
-        <button type="submit" name="${c}" id="${c}" class="multiUserAnswerBtn" value="${c}">${c}</button>
-        <button type="submit" name="${d}" id="${d}" class="multiUserAnswerBtn" value="${d}">${d}</button>`
-    )
-    playSong(song);
-    $(".multiUserAnswerBtn").click(function() {
-        event.preventDefault();
-        song.currentTime = 30;
-        let userMultiAnswer = $(this).val();
-        console.log(userMultiAnswer)
-        checkUserMultiKeywordAnswer(correctAnswer, userMultiAnswer, selectedGenre);
-    })
-    
+        `<h2>Email Us</h2>
+        <p>We hope you are enjoying the game.  If you need help or have any sugguestions please let us know.<br>You can email us
+        <a href='mailto:hello@beardystudios.com?Subject=Music%20Quiz%20Inquiry' target='_top'>here.</a><br>
+        <button type="button" id="home" class="nextSong" value="backToHome" onclick="start();">Back to Home</button>`
+    );
 }
 
-function getKeywordMuliplyChoice1(songObject) {
-    const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
-    if(indexCounter.includes(i)){
-        getKeywordMuliplyChoice1(songObject);
-    }else{
-        indexCounter.push(i);
-        const artist = songObject.search.data.tracks[i].artistName;
-        const artist1 = artist.split('(')[0]||artist.split('[')[0];
-        const track = songObject.search.data.tracks[i].name;
-        const track1 = track.split('(')[0]||track.split('[')[0];
-        const multiAnswer1 = track1+' by '+artist1;
-        return multiAnswer1;
-    }
-    return multiAnswer1;
+//appends the instructions page - main function
+function instructions() {
+    $('.container').empty();
+    $('.container').append(
+        `<h2>Game Instructions</h2><br>
+        1. Choose a catagory or enter a search term.<br><br>
+        2. Press the play button to load the first song.  Song will play for 30 seconds.<br><br>
+        3. Enter the Artist Name and Song Title into the designated input box.<br>Answers are not case-sensitive and punctuation does not effect your answers.<br>To replay the song just click the play button again.<br><br>
+        4. Click the submit button to enter you answer or you can skip the question if you don't know at least one of the answers.<br><br>
+        5. You will be told what you got right or wrong and what your current score is.<br><br>
+        6. Press the next song button to load the next song.<br><br>
+        7. Repeat steps 2 thru 6 for the 10 rounds.<br><br>
+        8. At the end of the 10 rounds you will be given your total score out of the possible 20 points.<br><br>
+        Good luck at testing your musical knowledge!
+        <button type="button" id="home" class="nextSong" value="backToHome" onclick="start();">Back to Home</button>`
+        );
 }
 
-function getKeywordMuliplyChoice2(songObject) {
-    const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
-    if(indexCounter.includes(i)){
-        getKeywordMuliplyChoice2(songObject);
-    }else{
-        indexCounter.push(i);
-        const artist = songObject.search.data.tracks[i].artistName;
-        const artist2 = artist.split('(')[0]||artist.split('[')[0];
-        const track = songObject.search.data.tracks[i].name;
-        const track2 = track.split('(')[0]||track.split('[')[0];
-        const multiAnswer2 = track2+' by '+artist2;
-        return multiAnswer2;
-    }
-    return multiAnswer2;
+//starts and resests the app - main function
+function start() {
+    roundNum = 1;
+    userScore = 0;
+    $('.container').empty();
+    $('.container').append(
+        `<h2>Music Quiz</h2>
+        <div class="home">
+        <button type="button" id="homePlay" class="homeBtn" value="homePlayBtn" onclick="selectGenre();">Play Enter Artist/Song Game</button>
+        <button type="button" id="homePlayMC" class="homeBtn" value="homePlayBtn" onclick="selectMultiChoiceGenre();">Play Multiple Choice Game</button>
+        <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructions();">Instructions</button>
+        <button type="button" id="homeContact" class="homeBtn" value="homeContactBtn" onclick="contact();">Contact Us</button>
+        </div>`)
 }
 
-function getKeywordMuliplyChoice3(songObject) {
-    const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
-    if(indexCounter.includes(i)){
-        getKeywordMuliplyChoice3(songObject);
-    }else{
-        indexCounter.push(i);
-        const artist = songObject.search.data.tracks[i].artistName;
-        const artist3 = artist.split('(')[0]||artist.split('[')[0];
-        const track = songObject.search.data.tracks[i].name;
-        const track3 = track.split('(')[0]||track.split('[')[0];
-        const multiAnswer3 = track3+' by '+artist3;
-        return multiAnswer3;
-    }
-    return multiAnswer3;
+//clears all API objects when home, quit game or game over clicked - main function
+function reload() {
+    location.reload(true);
+    start();
 }
 
-
-function getKeywordMultiRandomIndex(songObject) {
-    indexCallCounter++;
-    let indexCallNum = indexCounter.length+1
-    const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
-    console.log(indexCallNum+' :num of unique index nums');
-    console.log(indexCallCounter+' :num of times index has been called');
-    console.log(i+' :current index num');
-    if(indexCounter.includes(i)){
-        getKeywordRandomIndex();
-    }else{
-        indexCounter.push(i);
-    }
-    console.log('Array of index nums: '+indexCounter);
-    return i;
-}
-
-//extracts all needed data from API object - keyword game
-function getMultiKeywordSongInfo(songObject, selectedGenre) {
-    console.log(songObject);
-    const i = getKeywordMultiRandomIndex(songObject);
-    const artist = songObject.search.data.tracks[i].artistName;
-    const track = songObject.search.data.tracks[i].name;
-    const correctArtist = artist.split('(')[0]||artist.split('[')[0];
-    const correctSong = track.split('(')[0]||track.split('[')[0];
-    const correctAnswer = correctSong+' by '+correctArtist;
-    console.log(`Correct Answer: ${correctAnswer}`);
-    const song = getKeywordSongPreview(songObject, i);
-    getKeywordAlbumCover (songObject, i);
-    const multiChoiceOption1 = getKeywordMuliplyChoice1(songObject);
-    const multiChoiceOption2 = getKeywordMuliplyChoice2(songObject);
-    const multiChoiceOption3 = getKeywordMuliplyChoice3(songObject);
-    multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
-} 
-
-//fetchs API Object - keyword game
-function getMultiKeywordTrack(keyword) {
-    const url = 'https://api.napster.com/v2.2/search/verbose?apikey='+apiKey2+'&per_type_limit=200&query='+keyword+'&type=tracks';
-    console.log(url);
-    fetch(url)
-    .then(response => {
-        if(!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
-    .then(response => response.json())
-    .then(responseJson => getMultiKeywordSongInfo(responseJson, keyword))
-    .catch(err => failureCallback(err))
-}
-
-//converts users keyword to proper url format and starts game - keyword game
-function startMultiSearchGame() {
-    event.preventDefault();
-    let keyword = $('.userEnterKeyword').val();
-    keyword = keyword.toLowerCase().replace(/\s/g, '+').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
-    getMultiKeywordTrack(keyword);
-}
+//calls the JS once DOM loaded - main function
+$(document).ready(function(){
+    start(); 
+})
