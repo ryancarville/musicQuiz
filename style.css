@@ -8,7 +8,6 @@ body {
     font-size: 20px;
     margin: 0;
     background-image: linear-gradient(yellow, white);
-    
 }
 
 nav {
@@ -82,9 +81,19 @@ button.menubtn {
     color: midnightblue;
 }
 
+@-webkit-keyframes slideInFromTop {
+    0% {-webkit-transform: translateY(-120%);}
+    100% {-webkit-transform: translateY(0);}
+}
+
 @keyframes slideInFromTop {
     0% {transform: translateY(-120%);}
     100% {transform: translateY(0);}
+}
+
+@-webkit-keyframes slideInFromLeft {
+    0% {-webkit-transform: translateX(-400%);}
+    100% {-webkit-transform: translateX(0);}
 }
 
 @keyframes slideInFromLeft {
@@ -92,14 +101,32 @@ button.menubtn {
     100% {transform: translateX(0);}
 }
 
+@-webkit-keyframes slideInFromRight {
+    0% {-webkit-transform: translateX(400%);}
+    100% {-webkit-transform: translateX(0);}
+}
+
 @keyframes slideInFromRight {
     0% {transform: translateX(400%);}
     100% {transform: translateX(0);}
 }
 
+@-webkit-keyframes slideInFromBottom {
+    0% {-webkit-transform: translateY(250%);}
+    100% {-webkit-transform: translateY(0);}
+}
+
 @keyframes slideInFromBottom {
     0% {transform: translateY(250%);}
     100% {transform: translateY(0);}
+}
+
+@-webkit-keyframes diceRoll {
+    0% {-webkit-transform: rotate(150deg);}
+    25% {-webkit-transform: rotate(-200deg);}
+    50% {-webkit-transform: rotate(150deg);}
+    75% {-webkit-transform: rotate(-150deg);}
+    100% {-webkit-transform: rotate(300deg);}
 }
 
 @keyframes diceRoll {
@@ -109,6 +136,7 @@ button.menubtn {
     75% {transform: rotate(-150deg);}
     100% {transform: rotate(300deg);}
 }
+
 @-webkit-keyframes spin {
     0% { -webkit-transform: rotate(0deg); }
     100% { -webkit-transform: rotate(360deg); }
@@ -120,6 +148,7 @@ button.menubtn {
 }
 
 .bottomAnimation {
+    -webkit-animation: 1s ease-in 0s 1 slideInFromBottom;
     animation: 1s ease-in 0s 1 slideInFromBottom;
 }
 
@@ -129,6 +158,7 @@ button.menubtn {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    -webkit-animation: 1s ease-in 0s 1 slideInFromLeft;
     animation: 1s ease-in 0s 1 slideInFromLeft;
 }
 .animation {
@@ -137,6 +167,7 @@ button.menubtn {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    -webkit-animation: 1s ease-in 0s 1 slideInFromTop;
     animation: 1s ease-in 0s 1 slideInFromTop;
 }
 
@@ -147,13 +178,13 @@ button.menubtn {
     justify-content: center;
     align-items: center;
     margin-top: -15px;
+    -webkit-animation: 1s ease-in 0s 1 slideInFromRight;
     animation: 1s ease-in 0s 1 slideInFromRight;
 }
 
 .homeRecord {
     width: 200px;
     margin-top: 10px;
-    
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
 }
@@ -181,6 +212,7 @@ button.menubtn {
     justify-content: center;
     align-content: center;
     margin-top: -10px;
+    -webkit-animation: 1.5s ease-in 0s 1 slideInFromTop;
     animation: 1.5s ease-in 0s 1 slideInFromTop;
 }
 
@@ -194,6 +226,7 @@ button.menubtn {
     margin: 10px;
     font-size: 18px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    -webkit-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
     -webkit-transition: width 1.5s, height 1.5s, -webkit-transform 1.5s; /* Safari */
     transition: width 1.5s, height 1.5s, transform 1.5s;
@@ -248,6 +281,7 @@ select {
     margin-bottom: 5px;
     background-color: white;
     cursor: pointer;
+    -webkit-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
     -webkit-transition: width 1.5s, height 1.5s, -webkit-transform 1.5s; /* Safari */
     transition: width 1.5s, height 1.5s, transform 1.5s;
@@ -266,6 +300,7 @@ select {
 
 .dice:hover {
     cursor: pointer;
+    -webkit-animation: 1s ease-in-out 0s 1 diceRoll;
     animation: 1s ease-in-out 0s 1 diceRoll;
 }
 
@@ -279,6 +314,7 @@ select {
     margin-bottom: 5px;
     background-color: white;
     cursor: pointer;
+    -webkit-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
     -webkit-transition: width 1.5s, height 1.5s, -webkit-transform 1.5s;
     transition: width 1.5s, height 1.5s, transform 1.5s;
@@ -338,6 +374,7 @@ select {
     margin-bottom: 5px;
     background-color: white;
     cursor: pointer;
+    -webkit-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
     -webkit-transition: width 1.5s, height 1.5s, -webkit-transform 1.5s; /* Safari */
     transition: width 1.5s, height 1.5s, transform 1.5s;
@@ -359,6 +396,7 @@ select {
     margin-bottom: 5px;
     background-color: white;
     cursor: pointer;
+    -webkit-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
     -webkit-transition: width 1s, height 1s, -webkit-transform 1s;
     transition: width 1s, height 1s, transform 1s;
@@ -403,6 +441,7 @@ select {
     margin-bottom: 5px;
     background-color: white;
     cursor: pointer;
+    -webkit-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
     -webkit-transition: width 1.5s, height 1.5s, -webkit-transform 1.5s; /* Safari */
     transition: width 1.5s, height 1.5s, transform 1.5s;
@@ -424,6 +463,7 @@ select {
     margin-bottom: 5px;
     background-color: white;
     cursor: pointer;
+    -webkit-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
     -webkit-transition: width 1.5s, height 1.5s, -webkit-transform 1.5s; /* Safari */
     transition: width 1.5s, height 1.5s, transform 1.5s;
@@ -445,6 +485,7 @@ select {
     margin-bottom: 20px;
     background-color: white;
     cursor: pointer;
+    -webkit-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
     -webkit-transition: width 1.5s, height 1.5s, -webkit-transform 1.5s; /* Safari */
     transition: width 1.5s, height 1.5s, transform 1.5s;
@@ -471,6 +512,7 @@ select {
     margin-bottom: 20px;
     background-color: white;
     cursor: pointer;
+    -webkit-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
     -webkit-transition: width 1.5s, height 1.5s, -webkit-transform 1.5s; /* Safari */
     transition: width 1.5s, height 1.5s, transform 1.5s;
@@ -492,6 +534,7 @@ select {
     margin-bottom: 20px;
     background-color: white;
     cursor: pointer;
+    -webkit-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
     -webkit-transition: width 1.5s, height 1.5s, -webkit-transform 1.5s; /* Safari */
     transition: width 1.5s, height 1.5s, transform 1.5s;
