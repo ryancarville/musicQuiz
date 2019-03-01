@@ -117,7 +117,7 @@ function playSong(song) {
 //USER ENTRY CATAGORY GAME FUNCTIONS BELOW
 
 //checks the round number and directs to the next song or the final results page - catagory game
-function checkRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum) {
+function checkUserEntryRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum) {
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
         $('#nextSong').off('click').on('click', event => {
@@ -196,7 +196,7 @@ function checkRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, co
 }
 
 //checks if the users answer matches the correct answer - catagory game
-function checkUserAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum) {
+function checkUserEntryAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum) {
     const correctArtistAndSongResults = `The answer was<br></br>${correctAnswerDisplay}`;
     const userArtistAnswer = getUserAnswerArtist();
     const userSongAnswer = getUserAnswerSong();
@@ -261,11 +261,11 @@ function checkUserAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDi
             </div>`
         )
     }
-    checkRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum);
+    checkUserEntryRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum);
 }
 
 //if user skips a round this appends the correct reulsts - catagory game
-function userSkippedAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum){
+function userSkippedUserEntryAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum){
     const correctArtistAndSongResults = `The answer was<br></br>${correctAnswerDisplay}`;
     const userArtistAnswer = getUserAnswerArtist();
     const userSongAnswer = getUserAnswerSong();
@@ -287,11 +287,11 @@ function userSkippedAnswer(correctArtistAnswer, correctSongAnswer, correctAnswer
         </div>
         </div>`
     )
-    checkRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum);
+    checkUserEntryRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum);
 }
 
 //load and initalized - catagory game
-function gameStart(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum) {
+function gameUserEntryStart(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum) {
     $('.container').empty();
     $('.container').append(
         `<div class="questionAnimation">
@@ -313,12 +313,12 @@ function gameStart(song, correctArtistAnswer, correctSongAnswer, correctAnswerDi
     if (userAnswerBtn.addEventListener('click', event => {
         event.preventDefault();
         song.currentTime = 30;
-        checkUserAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum);
+        checkUserEntryAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum);
     }));
     else if (userAnswerBtnSkip.addEventListener('click', event => {
         event.preventDefault();
         song.currentTime = 30;
-        userSkippedAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum);
+        userSkippedUserEntryAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum);
     }));
 }
 
@@ -388,7 +388,7 @@ function getRandomIndex(songObject) {
 }
 
 //extracts all needed data from API object - catagory game
-function getSongInfo(songObject, genreNum) {
+function getUserEntrySongInfo(songObject, genreNum) {
     const i = getRandomIndex(songObject);
     const artist = songObject.tracks[i].artistName;
     const track = songObject.tracks[i].name;
@@ -404,11 +404,11 @@ function getSongInfo(songObject, genreNum) {
     console.log(`Artist = ${correctArtistAnswer}`);
     console.log(`Song = ${correctSongAnswer}`);
     getAlbumCover (songObject, i);
-    gameStart(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum);
+    gameUserEntryStart(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum);
 }
 
 //fetches the song API object - catagory game
-function getTrack(genreNum) {
+function getUserEntryTrack(genreNum) {
     $('.container').empty();
     $('.container').append(
         `<div class="loader"><img src="images/record.png" alt"loader">
@@ -424,12 +424,12 @@ function getTrack(genreNum) {
         return response;
     })
     .then(response => response.json())
-    .then(responseJson => getSongInfo(responseJson, genreNum))
+    .then(responseJson => getUserEntrySongInfo(responseJson, genreNum))
     .catch(err => failureCallback(err))
 }
 
-//keyword search and genre catagory menu with event listener - main function
-function selectGenre() {
+//keyword search and genre catagory menu with event listener - user entry game
+function selectUserEntryGenre() {
     $('.container').empty();
     $('.container').append(
         `<div class="animation">
@@ -496,7 +496,7 @@ function selectGenre() {
     
     $('select').on('change', event => {
         let selectedGenre = $('select').val();
-        getTrack(selectedGenre); 
+        getUserEntryTrack(selectedGenre); 
     });
 }
 
@@ -537,7 +537,6 @@ function getGenreNum() {
     .then(responseJson => getGenreId(responseJson))
     .catch(err => failureCallback(err))
 }
-
 
 ////////////////////////////////////////////////////////////////////////////
 //USER ENTRY KEYWORD GAME FUNCTIONS BELOW
@@ -779,7 +778,7 @@ function getKeywordSongPreview(songObject, i) {
     return songPreview;
 }
 
-//generates a random number to use as a index for the Json Object from the API - keyword game
+//generates a random number to use as a index for the Json object from the API - keyword game
 function getKeywordRandomIndex(songObject) {
     indexCallCounter++;
     let indexCallNum = indexCounter.length+1
@@ -819,7 +818,7 @@ function getKeywordSongInfo(songObject, keyword) {
     userKeywordSubmitAnswer(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, keyword);
 } 
 
-//fetchs API Object - keyword game
+//fetchs API object - keyword game
 function getKeywordTracks(keyword) {
     $('.container').empty();
     $('.container').append(
@@ -870,8 +869,6 @@ function startSearchGame() {
     keyword = keyword.toLowerCase().replace(/\s/g, '+').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
     loadKeywordSpace(keyword);
 }
-
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //MULTIPLE CHOICE GAME - KEYWORD
@@ -1077,7 +1074,7 @@ function getMultiKeywordSongInfo(songObject, selectedGenre) {
     multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
 } 
 
-//fetchs API Object - keyword multi game
+//fetchs API object - keyword multi game
 function getMultiKeywordTrack(keyword) {
     $('.container').empty();
     $('.container').append(
@@ -1359,7 +1356,7 @@ function getMultiChoiceSongInfo(songObject, selectedGenre) {
 
 }
 
-//fetchs API Object - multi choice game
+//fetchs API object - multi choice game
 function getMultiChoiceTracks(selectedGenre) {
     $('.container').empty();
     $('.container').append(
@@ -1377,42 +1374,6 @@ function getMultiChoiceTracks(selectedGenre) {
     })
     .then(response => response.json())
     .then(responseJson => getMultiChoiceSongInfo(responseJson, selectedGenre))
-    .catch(err => failureCallback(err))
-}
-
-//RANDOM GENERE FUNTIONS FOR MULTI
-//generates random genres for multi choice game - roll the dice multi choice game
-function generateMultiRandomGenreNum(genreObject) {
-    let num = Math.floor((Math.random() * genreObject.genres.length));
-    return num;
-}
-
-//gets the genre number from the genre API object - roll the dice multi choice game
-function getMultiGenreId(genreObject) {
-    console.log(genreObject);
-    const i = generateMultiRandomGenreNum(genreObject);
-    console.log(`Random Genre Index Num: ${i}`);
-    const genreNum = genreObject.genres[i].links.childGenres.ids;
-    getMultiChoiceTracks(genreNum);
-}
-
-//fetches the genre API object - roll the dice multi choice game
-function getMultiGenreNum() {
-    $('.container').empty();
-    $('.container').append(
-        `<div class="loader"><img src="images/record.png" alt"loader">
-        <p>Great choice! We are loading your quiz now.</p></div>`)
-    let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
-    console.log(url);
-    fetch(url)
-    .then(response => {
-        if(!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
-    .then(response => response.json())
-    .then(responseJson => getMultiGenreId(responseJson))
     .catch(err => failureCallback(err))
 }
 
@@ -1488,9 +1449,47 @@ function selectMultiChoiceGenre() {
         
 }
 
+//////////////////////////////////////////////////////////////////////////////////
+//RANDOM GENERE FUNTIONS FOR MULTI
+//generates random genres for multi choice game - roll the dice multi choice game
+function generateMultiRandomGenreNum(genreObject) {
+    let num = Math.floor((Math.random() * genreObject.genres.length));
+    return num;
+}
+
+//gets the genre number from the genre API object - roll the dice multi choice game
+function getMultiGenreId(genreObject) {
+    console.log(genreObject);
+    const i = generateMultiRandomGenreNum(genreObject);
+    console.log(`Random Genre Index Num: ${i}`);
+    const genreNum = genreObject.genres[i].links.childGenres.ids;
+    getMultiChoiceTracks(genreNum);
+}
+
+//fetches the genre API object - roll the dice multi choice game
+function getMultiGenreNum() {
+    $('.container').empty();
+    $('.container').append(
+        `<div class="loader"><img src="images/record.png" alt"loader">
+        <p>Great choice! We are loading your quiz now.</p></div>`)
+    let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
+    console.log(url);
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then(responseJson => getMultiGenreId(responseJson))
+    .catch(err => failureCallback(err))
+}
+
 /////////////////////////////////////////////////////////////////////////////////
 //QUIZ MASTER FUNTIONS
 
+//loads game play interface - quiz master game
 function quizMasterGameStart(song, correctAnswer, selectedGenre) {
     console.log(correctAnswer)
     $('.container').empty();
@@ -1523,6 +1522,7 @@ function quizMasterGameStart(song, correctAnswer, selectedGenre) {
     });
 }
 
+//get all needed info from song - quiz master game
 function getQuizMasterInfo(songObject, selectedGenre) {
     console.log(songObject);
     const i = getRandomIndex(songObject);
@@ -1537,6 +1537,7 @@ function getQuizMasterInfo(songObject, selectedGenre) {
     quizMasterGameStart(song, correctAnswer, selectedGenre)
 }
 
+//gets song API object - quiz master game
 function getQuizMasterTracks(selectedGenre) {
     $('.container').empty();
     $('.container').append(
@@ -1557,53 +1558,7 @@ function getQuizMasterTracks(selectedGenre) {
     .catch(err => failureCallback(err))
 }
 
-/////////////////////////////////////////////////////////////////////////////////
-//RANDOM GENERE FUNTIONS FOR QUIZ MASTER
-
-//generates random genres for multi choice game - roll the dice Quiz Master game
-function generateQuizMasterRandomGenreNum(genreObject) {
-    let num = Math.floor((Math.random() * genreObject.genres.length));
-    return num;
-}
-
-//gets the genre number from the genre API object - roll the dice Quiz Master game
-function getQuizMasterGenreId(genreObject) {
-    console.log(genreObject);
-    const i = generateMultiRandomGenreNum(genreObject);
-    console.log(`Random Genre Index Num: ${i}`);
-    const genreNum = genreObject.genres[i].links.childGenres.ids;
-    getQuizMasterTracks(genreNum);
-}
-
-//fetches the genre API object - roll the dice Quiz Master game
-function getQuizMasterGenreNum() {
-    $('.container').empty();
-    $('.container').append(
-        `<div class="loader"><img src="images/record.png" alt"loader">
-        <p>Great choice! We are loading your quiz now.</p></div>`)
-    let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
-    console.log(url);
-    fetch(url)
-    .then(response => {
-        if(!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
-    .then(response => response.json())
-    .then(responseJson => getQuizMasterGenreId(responseJson))
-    .catch(err => failureCallback(err))
-}
-
-
-////////////////////////////////////////////////////////////////////////////
-//home functions
-
-
-
-
-
-//loads keyword and select genre interface - multi choice and keyword multi
+//loads keyword and select genre interface - quiz master game
 function selectQuizMasterGenre() {
     $('.container').empty();
     $('.container').append(
@@ -1675,6 +1630,47 @@ function selectQuizMasterGenre() {
     })
         
 }
+
+/////////////////////////////////////////////////////////////////////////////////
+//RANDOM GENERE FUNTIONS FOR QUIZ MASTER
+
+//generates random genres for multi choice game - roll the dice Quiz Master game
+function generateQuizMasterRandomGenreNum(genreObject) {
+    let num = Math.floor((Math.random() * genreObject.genres.length));
+    return num;
+}
+
+//gets the genre number from the genre API object - roll the dice Quiz Master game
+function getQuizMasterGenreId(genreObject) {
+    console.log(genreObject);
+    const i = generateMultiRandomGenreNum(genreObject);
+    console.log(`Random Genre Index Num: ${i}`);
+    const genreNum = genreObject.genres[i].links.childGenres.ids;
+    getQuizMasterTracks(genreNum);
+}
+
+//fetches the genre API object - roll the dice Quiz Master game
+function getQuizMasterGenreNum() {
+    $('.container').empty();
+    $('.container').append(
+        `<div class="loader"><img src="images/record.png" alt"loader">
+        <p>Great choice! We are loading your quiz now.</p></div>`)
+    let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
+    console.log(url);
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then(responseJson => getQuizMasterGenreId(responseJson))
+    .catch(err => failureCallback(err))
+}
+
+////////////////////////////////////////////////////////////////////////////
+//home functions
 
 //appends the contact page - main function
 function contact() {
@@ -1761,15 +1757,15 @@ function start() {
     userScore = 0;
     $('.container').empty();
     $('.container').append(
-        
         `<div class="animation"><h2>Who dat?!<br>Music Quiz</h2></div>
         <div class="homeRecord"><img class="homeRecord" src="images/record.png" alt="record"></div>
-        <br><br><div class="home">
+        <br><br>
         <div class="home">
-        <button type="button" id="homePlay" class="homeBtn" value="homePlayBtn" onclick="selectGenre();">Enter Artist/Song Game</button>
-        <button type="button" id="homePlayMC" class="homeBtn" value="homePlayBtn" onclick="selectMultiChoiceGenre();">Multiple Choice Game</button>
-        <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="selectQuizMasterGenre();">Quiz Master</button>
-        </div>
+            <div class="home">
+                <button type="button" id="homePlay" class="homeBtn" value="homePlayBtn" onclick="selectGenre();">Enter Artist/Song Game</button>
+                <button type="button" id="homePlayMC" class="homeBtn" value="homePlayBtn" onclick="selectMultiChoiceGenre();">Multiple Choice Game</button>
+                <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="selectQuizMasterGenre();">Quiz Master</button>
+            </div>
         </div>`)
 }
 

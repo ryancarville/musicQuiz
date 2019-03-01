@@ -17,7 +17,6 @@ nav {
     background-color:yellow;
 }
 
-
 .mobileMenu {
     display: flex;
     justify-content: space-between;
@@ -80,12 +79,6 @@ button.menubtn {
 
 .container > h2 {
     color: midnightblue;
-}
-
-.home{
-    width: 275px;
-    height: 375px;
-
 }
 
 @keyframes slideInFromTop {
@@ -156,8 +149,6 @@ button.menubtn {
     animation: 1s ease-in 0s 1 slideInFromRight;
 }
 
-
-
 .homeRecord {
     width: 200px;
     animation: 1.5s ease-in 0s 1 slideInFromTop;
@@ -187,7 +178,7 @@ button.menubtn {
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
-    margin-top: -50px;
+    margin-top: -10px;
     animation: 1.5s ease-in 0s 1 slideInFromTop;
 }
 
@@ -199,7 +190,6 @@ button.menubtn {
     border-radius: 20px 20px 20px 20px;
     box-shadow: 10px 10px 6px 0px rgba(0,0,0,0.5);
     margin: 10px;
-     
     font-size: 18px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     transition-timing-function: ease-in-out;
@@ -217,6 +207,7 @@ button.menubtn {
 fieldset {
     border: none;
 }
+
 select {
     font-size: 16px;
     width: 300px;
@@ -255,7 +246,6 @@ select {
     font-size: 15px;
 }
 
-
 .dice {
     width: 15%;
     margin-top: 5%;
@@ -265,7 +255,6 @@ select {
     cursor: pointer;
     animation: 1s ease-in-out 0s 1 diceRoll;
 }
-
 
 .randomBtn {
     width: 200px;
@@ -288,7 +277,6 @@ select {
     font-size: 15px;
 }
 
-
 .playSong {
     background-image: url('images/playButton.png');
     background-repeat: no-repeat;
@@ -310,7 +298,7 @@ select {
     height: 200px;
     -webkit-transform: rotate(900deg);
     transform: rotate(900deg);
-    }
+}
 
 .pauseSong {
     background-image: url('images/pauseButton.png');
@@ -373,7 +361,6 @@ select {
     margin-top: 5%;
     text-align: center;
     font-size: 20px;
-
 }
 
 .quizMasterAnswer {
@@ -505,7 +492,3 @@ select {
 .albumCoverImg {
     width: 250px;
 }
-
-
-
-
