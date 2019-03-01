@@ -1698,7 +1698,7 @@ function instructionsEntryGame() {
         7. Repeat steps 2 thru 6 for the 10 rounds.<br><br>
         8. At the end of the 10 rounds you will be given your total score out of the possible <br>20 points for the enter your own answers game and 10 for the multiple choice game.<br><br>
         Good luck at testing your musical knowledge!<br>
-        <button type="button" id="home" class="nextSong" value="backToHome" onclick="selectGenre();">Back to Game</button>
+        <button type="button" id="home" class="nextSong" value="backToHome" onclick="selectUserEntryGenre();">Back to Game</button>
         </div>`
         );
 }
