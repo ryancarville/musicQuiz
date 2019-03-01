@@ -1761,7 +1761,9 @@ function start() {
     userScore = 0;
     $('.container').empty();
     $('.container').append(
-        `<div class="homeRecord"><h2>Who dat?!<br>Music Quiz</h2><img class="homeRecord" src="images/record.png" alt="record"></div>
+        
+        `<div class="animation"><h2>Who dat?!<br>Music Quiz</h2></div>
+        <div class="homeRecord"><img class="homeRecord" src="images/record.png" alt="record"></div>
         <br><br><div class="home">
         <div class="home">
         <button type="button" id="homePlay" class="homeBtn" value="homePlayBtn" onclick="selectGenre();">Enter Artist/Song Game</button>

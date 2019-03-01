@@ -92,18 +92,22 @@ button.menubtn {
     0% {transform: translateY(-120%);}
     100% {transform: translateY(0);}
 }
+
 @keyframes slideInFromLeft {
     0% {transform: translateX(-400%);}
     100% {transform: translateX(0);}
 }
+
 @keyframes slideInFromRight {
     0% {transform: translateX(400%);}
     100% {transform: translateX(0);}
 }
+
 @keyframes slideInFromBottom {
     0% {transform: translateY(250%);}
     100% {transform: translateY(0);}
 }
+
 @keyframes diceRoll {
     0% {transform: rotate(150deg);}
     25% {transform: rotate(-200deg);}
@@ -120,21 +124,6 @@ button.menubtn {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
-.loader {
-    justify-content: center;
-    align-content: center;
-    width: 300px;
-    display: block;
-    font-size: 16px;
-    text-align: center;
-}
-.loader > img {
-    margin-left: -25px;
-    -webkit-animation: spin 2s linear infinite; /* Safari */
-    animation: spin 2s linear infinite;
-}
-
 
 .bottomAnimation {
     animation: 1s ease-in 0s 1 slideInFromBottom;
@@ -169,28 +158,38 @@ button.menubtn {
 
 
 
+.homeRecord {
+    width: 200px;
+    animation: 1.5s ease-in 0s 1 slideInFromTop;
+    -webkit-transition: width 1s, height 1s, -webkit-transform 1s;
+    transition: width 1s, height 1s, transform 1s;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+.loader {
+    justify-content: center;
+    align-content: center;
+    width: 250px;
+    display: block;
+    font-size: 16px;
+    text-align: center;
+}
+.loader > img {
+    margin-left: -50px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
 .home {  
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
+    margin-top: -50px;
     animation: 1.5s ease-in 0s 1 slideInFromTop;
 }
-
-.homeRecord {
-    width: 200px;
-    margin-bottom: -13%;
-    animation: 1.5s ease-in 0s 1 slideInFromTop;
-    -webkit-transition: width 1s, height 1s, -webkit-transform 1s;
-    transition: width 1s, height 1s, transform 1s;
-}
-.homeRecord >img:hover {
-    width: 200px;
-    height: 200px;
-    -webkit-transform: rotate(1100deg);
-    transform: rotate(1100deg);
-    }
 
 .homeBtn {
     width: 200px;
@@ -200,6 +199,7 @@ button.menubtn {
     border-radius: 20px 20px 20px 20px;
     box-shadow: 10px 10px 6px 0px rgba(0,0,0,0.5);
     margin: 10px;
+     
     font-size: 18px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     transition-timing-function: ease-in-out;
