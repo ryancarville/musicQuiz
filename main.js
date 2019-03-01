@@ -1202,52 +1202,59 @@ function shuffle(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiCho
 //gets 1st multiple choice answer - multi choice game
 function getDummyMuliplyChoice1(songObject) {
     const i = Math.floor((Math.random() * songObject.tracks.length));
-    if(indexCounter.includes(i)){
-        getDummyMuliplyChoice1(songObject);
-    }else{
-        indexCounter.push(i);
-        const artist = songObject.tracks[i].artistName;
-        const artist1 = artist.split('(')[0]||artist.split('[')[0];
-        const track = songObject.tracks[i].name;
-        const track1 = track.split('(')[0]||track.split('[')[0];
-        const multiAnswer1 = track1+' by '+artist1;
-        return multiAnswer1;
-    }
-    return multiAnswer1;
+    while(true) {
+        if(indexCounter.includes(i)){
+            getDummyMuliplyChoice1(songObject);
+        }else{
+            indexCounter.push(i);
+            const artist = songObject.tracks[i].artistName;
+            const artist1 = artist.split('(')[0]||artist.split('[')[0];
+            const track = songObject.tracks[i].name;
+            const track1 = track.split('(')[0]||track.split('[')[0];
+            const multiAnswer1 = track1+' by '+artist1;
+            return multiAnswer1;
+        }
+        return multiAnswer1
+    }   
+    
 }
 
 //gets 2nd multiple choice answer - multi choice game
 function getDummyMuliplyChoice2(songObject) {
     const i = Math.floor((Math.random() * songObject.tracks.length));
-    if(indexCounter.includes(i)){
-        getDummyMuliplyChoice1(songObject);
-    }else{
-        indexCounter.push(i);
-        const artist = songObject.tracks[i].artistName;
-        const artist2 = artist.split('(')[0]||artist.split('[')[0];
-        const track = songObject.tracks[i].name;
-        const track2 = track.split('(')[0]||track.split('[')[0];
-        const multiAnswer2 = track2+' by '+artist2;
-        return multiAnswer2;
+    while(true){
+        if(indexCounter.includes(i)){
+            getDummyMuliplyChoice1(songObject);
+        }else{
+            indexCounter.push(i);
+            const artist = songObject.tracks[i].artistName;
+            const artist2 = artist.split('(')[0]||artist.split('[')[0];
+            const track = songObject.tracks[i].name;
+            const track2 = track.split('(')[0]||track.split('[')[0];
+            const multiAnswer2 = track2+' by '+artist2;
+            return multiAnswer2;
+        }
+        return multiAnswer2
     }
-    return multiAnswer2;
 }
 
 //gets 3rd multiple choice answer - multi choice game
 function getDummyMuliplyChoice3(songObject) {
     const i = Math.floor((Math.random() * songObject.tracks.length));
-    if(indexCounter.includes(i)){
-        getDummyMuliplyChoice3(songObject);
-    }else{
-        indexCounter.push(i);
-        const artist = songObject.tracks[i].artistName;
-        const artist3 = artist.split('(')[0]||artist.split('[')[0];
-        const track = songObject.tracks[i].name;
-        const track3 = track.split('(')[0]||track.split('[')[0];
-        const multiAnswer3 = track3+' by '+artist3;
-        return multiAnswer3;
+    while(true) {
+        if(indexCounter.includes(i)){
+            getDummyMuliplyChoice3(songObject);
+        }else{
+            indexCounter.push(i);
+            const artist = songObject.tracks[i].artistName;
+            const artist3 = artist.split('(')[0]||artist.split('[')[0];
+            const track = songObject.tracks[i].name;
+            const track3 = track.split('(')[0]||track.split('[')[0];
+            const multiAnswer3 = track3+' by '+artist3;
+            return multiAnswer3;
+        }
+        return multiAnswer3
     }
-    return multiAnswer3;
 }
 
 //gets song info - multi choice game
@@ -1266,7 +1273,8 @@ function getMultiChoiceSongInfo(songObject, selectedGenre) {
     const multiChoiceOption2 = getDummyMuliplyChoice2(songObject)
     const multiChoiceOption3 = getDummyMuliplyChoice3(songObject)
     multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
-} 
+
+}
 
 //fetchs API Object - multi choice game
 function getMultiChoiceTracks(selectedGenre) {
