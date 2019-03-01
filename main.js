@@ -121,7 +121,7 @@ function checkUserEntryRoundNum(userArtistAnswer, userSongAnswer, correctArtistA
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
         $('#nextSong').off('click').on('click', event => {
-            getTrack(genreNum);
+            getUserEntryTrack(genreNum);
         });
     }
     else{
@@ -516,7 +516,7 @@ function getGenreId(genreObject) {
     const i = generateRandomGenreNum(genreObject);
     console.log(`Random Genre Index Num: ${i}`);
     const genreNum = genreObject.genres[i].id;
-    getTrack(genreNum);
+    getUserEntryTrack(genreNum);
 }
 
 //fetches the genre API object - roll the dice
@@ -1235,7 +1235,7 @@ function multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOpti
     console.log(b)
     console.log(c)
     console.log(d)
-    $('.loader').addClass('hidden');
+    $('div.loader').addClass('hidden');
     $('.container').empty();
     $('.container').append(
         `<div class="questionAnimation">
@@ -1295,7 +1295,6 @@ function getDummyMuliplyChoice1(songObject) {
             const multiAnswer1 = track1+' by '+artist1;
             return multiAnswer1;
         }
-        return multiAnswer1
     }   
     
 }
@@ -1315,7 +1314,6 @@ function getDummyMuliplyChoice2(songObject) {
             const multiAnswer2 = track2+' by '+artist2;
             return multiAnswer2;
         }
-        return multiAnswer2
     }
 }
 
@@ -1334,7 +1332,6 @@ function getDummyMuliplyChoice3(songObject) {
             const multiAnswer3 = track3+' by '+artist3;
             return multiAnswer3;
         }
-        return multiAnswer3
     }
 }
 
