@@ -108,6 +108,13 @@ button.menubtn {
     0% {transform: translateY(250%);}
     100% {transform: translateY(0);}
 }
+@keyframes diceRoll {
+    0% {transform: rotate(150deg);}
+    25% {transform: rotate(-200deg);}
+    50% {transform: rotate(150deg);}
+    75% {transform: rotate(-150deg);}
+    100% {transform: rotate(300deg);}
+}
 
 .bottomAnimation {
     animation: 1s ease-in 0s 1 slideInFromBottom;
@@ -158,7 +165,7 @@ button.menubtn {
     -webkit-transition: width 1s, height 1s, -webkit-transform 1s;
     transition: width 1s, height 1s, transform 1s;
 }
-.homeRecord:hover {
+.homeRecord >img:hover {
     width: 200px;
     height: 200px;
     -webkit-transform: rotate(1100deg);
@@ -211,6 +218,7 @@ select {
     width: 200px;
     height: 35px;
     border-radius: 50px 50px 50px 50px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 20px;
     font-size: 14px;
     margin-bottom: 5px;
@@ -222,17 +230,28 @@ select {
 }
 
 #keywordSearchBtn:hover {
-    width: 250px;
-    height: 50px;
-    font-size: 18px;
+    width: 300px;
+    height: 40px;
+    font-size: 15px;
 }
 
+
+.dice {
+    width: 15%;
+    margin-top: 5%;
+}
+
+.dice:hover {
+    cursor: pointer;
+    animation: 1s ease-in-out 0s 1 diceRoll;
+}
 .randomBtn {
     width: 200px;
     height: 35px;
     border-radius: 50px 50px 50px 50px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 20px;
-    font-size: 14px;
+    font-size: 15px;
     margin-bottom: 5px;
     background-color: white;
     cursor: pointer;
@@ -242,9 +261,9 @@ select {
 }
 
 .randomBtn:hover {
-    width: 250px;
-    height: 50px;
-    font-size: 18px;
+    width: 300px;
+    height: 40px;
+    font-size: 15px;
 }
 
 
@@ -289,6 +308,7 @@ select {
     width: 200px;
     height: 35px;
     border-radius: 50px 50px 50px 50px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 20px;
     font-size: 14px;
     margin-bottom: 5px;
@@ -309,6 +329,7 @@ select {
     width: 250px;
     height: 60px;
     border-radius: 50px 50px 50px 50px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 10px;
     font-size: 16px;
     margin-bottom: 5px;
@@ -337,6 +358,7 @@ select {
     width: 200px;
     height: 35px;
     border-radius: 50px 50px 50px 50px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 15px;
     font-size: 14px;
     margin-bottom: 10px;
@@ -357,6 +379,7 @@ select {
     width: 200px;
     height: 35px;
     border-radius: 50px 50px 50px 50px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 15px;
     font-size: 14px;
     margin-bottom: 20px;
@@ -382,6 +405,7 @@ select {
     width: 200px;
     height: 35px;
     border-radius: 50px 50px 50px 50px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 15px;
     font-size: 14px;
     margin-bottom: 20px;
@@ -402,6 +426,7 @@ select {
     width: 200px;
     height: 35px;
     border-radius: 50px 50px 50px 50px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 15px;
     font-size: 14px;
     margin-bottom: 20px;
