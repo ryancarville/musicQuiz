@@ -1693,9 +1693,8 @@ function instructionsEntryGame() {
         2. Press the play button to load the first song.  Song will play for 30 seconds.<br><br>
         3. For Enter the Artist and Song Game, enter the answers into the designated input box and click sumbit.<br>You can choose to skip a round by clicking the skip button.  Answers are not 
         case-sensitive and punctuation does not effect your answers.<br>To replay the song just click the play button again.<br><br>
-        4. If playing the multiple choice game, just click the answer you would like to submit.<br>
-        To replay the song just click the play button again.<br><br>
-        5. You will be told what the correct answer was on the next page along with your current score is.<br><br>
+        4. To replay the song just click the play button again.<br><br>
+        5. You will be told what the correct answer was on the next page along with your current score.<br><br>
         6. Press the next song button to load the next song or the quit game button to retun to the home page.<br><br>
         7. Repeat steps 2 thru 6 for the 10 rounds.<br><br>
         8. At the end of the 10 rounds you will be given your total score out of the possible <br>20 points for the enter your own answers game and 10 for the multiple choice game.<br><br>
@@ -1713,11 +1712,9 @@ function instructionsMultiGame() {
         <h2>Game Instructions</h2><br>
         1. Choose a catagory or enter a search keyword.<br><br>
         2. Press the play button to load the first song.  Song will play for 30 seconds.<br><br>
-        3. For Enter the Artist and Song Game, enter the answers into the designated input box and click sumbit.<br>You can choose to skip a round by clicking the skip button.  Answers are not 
-        case-sensitive and punctuation does not effect your answers.<br>To replay the song just click the play button again.<br><br>
-        4. If playing the multiple choice game, just click the answer you would like to submit.<br>
-        To replay the song just click the play button again.<br><br>
-        5. You will be told what the correct answer was on the next page along with your current score is.<br><br>
+        3. Click the answer you would like to submit.<br><br><br>
+        4. To replay the song just click the play button again.<br><br>
+        5. You will be told what the correct answer was on the next page along with your current score.<br><br>
         6. Press the next song button to load the next song or the quit game button to retun to the home page.<br><br>
         7. Repeat steps 2 thru 6 for the 10 rounds.<br><br>
         8. At the end of the 10 rounds you will be given your total score out of the possible <br>20 points for the enter your own answers game and 10 for the multiple choice game.<br><br>
@@ -1735,15 +1732,10 @@ function instructionsQuizMasterGame() {
         <h2>Quiz Master Game Instructions</h2><br>
         1. Choose a catagory or enter a search keyword.<br><br>
         2. Press the play button to load the first song.  Song will play for 30 seconds.<br><br>
-        3. For Enter the Artist and Song Game, enter the answers into the designated input box and click sumbit.<br>You can choose to skip a round by clicking the skip button.  Answers are not 
-        case-sensitive and punctuation does not effect your answers.<br>To replay the song just click the play button again.<br><br>
-        4. If playing the multiple choice game, just click the answer you would like to submit.<br>
-        To replay the song just click the play button again.<br><br>
-        5. You will be told what the correct answer was on the next page along with your current score is.<br><br>
-        6. Press the next song button to load the next song or the quit game button to retun to the home page.<br><br>
-        7. Repeat steps 2 thru 6 for the 10 rounds.<br><br>
-        8. At the end of the 10 rounds you will be given your total score out of the possible <br>20 points for the enter your own answers game and 10 for the multiple choice game.<br><br>
-        Good luck at testing your musical knowledge!<br>
+        3. The correct answer will be shown below the play button.
+        4. If you friends get it right, press the "Add point and goto next song" button and a point will be add.  Else press next song.<br><br>
+        5. Play for as many rounds as you wish.  Your runing score will be displayed at the top of the screen along with total number of rounds.<br><br>
+        Best o fluck, Quiz Master!
         <button type="button" id="home" class="nextSong" value="backToHome" onclick="selectQuizMasterGenre();">Back to Game</button>
         </div>`
         );
