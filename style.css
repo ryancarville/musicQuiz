@@ -111,6 +111,30 @@ button.menubtn {
     75% {transform: rotate(-150deg);}
     100% {transform: rotate(300deg);}
 }
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader {
+    justify-content: center;
+    align-content: center;
+    width: 300px;
+    display: block;
+    font-size: 16px;
+    text-align: center;
+}
+.loader > img {
+    margin-left: -25px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
 
 .bottomAnimation {
     animation: 1s ease-in 0s 1 slideInFromBottom;
@@ -241,6 +265,8 @@ select {
     cursor: pointer;
     animation: 1s ease-in-out 0s 1 diceRoll;
 }
+
+
 .randomBtn {
     width: 200px;
     height: 35px;

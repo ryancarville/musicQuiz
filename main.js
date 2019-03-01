@@ -113,7 +113,6 @@ function playSong(song) {
     }
 }
 
-
 ////////////////////////////////////////////////////////////////////////////
 //USER ENTRY CATAGORY GAME FUNCTIONS BELOW
 
@@ -122,7 +121,7 @@ function checkRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, co
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
         $('#nextSong').off('click').on('click', event => {
-            gameStart(genreNum);
+            getTrack(genreNum);
         });
     }
     else{
@@ -291,8 +290,26 @@ function userSkippedAnswer(correctArtistAnswer, correctSongAnswer, correctAnswer
     checkRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum);
 }
 
-//event lisener on the submit button for the user answer - catagory game
-function userSubmitAnswer (song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum) {
+//load and initalized - catagory game
+function gameStart(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum) {
+    $('.container').empty();
+    $('.container').append(
+        `<div class="questionAnimation">
+        <br>
+        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
+        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
+        <a><br><br>Press play to start the song.<br></a>
+        <form autocomplete="off">
+            <fieldset>
+                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" required>
+                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" required>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" class="userAnswerBtn" value="userAnswerBtn">Submit</button>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
+            </fieldset>
+        </form>
+        </div>`
+    );
+    playSong(song);
     if (userAnswerBtn.addEventListener('click', event => {
         event.preventDefault();
         song.currentTime = 30;
@@ -381,19 +398,21 @@ function getSongInfo(songObject, genreNum) {
     const correctArtistAnswer = correctArtist.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?@'\^&\*;:{}=\-_`~()]/g,"");
     const correctSongAnswer = correctSong.toLowerCase().replace(/\s/g, '').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
     const song = getSongPreview(songObject, i);
-    playSong(song);
     console.log(`Correct Artist: ${correctArtist}`);
     console.log(`Correct Song: ${correctSong}`);
     console.log('Correct Answer after char uniformity is:');
     console.log(`Artist = ${correctArtistAnswer}`);
     console.log(`Song = ${correctSongAnswer}`);
     getAlbumCover (songObject, i);
-    userSubmitAnswer(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum);
-    
+    gameStart(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum);
 }
 
 //fetches the song API object - catagory game
-function getTrack (genreNum) {
+function getTrack(genreNum) {
+    $('.container').empty();
+    $('.container').append(
+        `<div class="loader"><img src="images/record.png" alt"loader">
+        <p>Great choice! We are loading your quiz now.</p></div>`)
     console.log(`Napster Genre Number: ${genreNum}`);
     let url = 'https://api.napster.com/v2.2/genres/'+genreNum+'/tracks/top?limit=200&apikey='+apiKey;
     console.log('API url: '+url);
@@ -409,28 +428,77 @@ function getTrack (genreNum) {
     .catch(err => failureCallback(err))
 }
 
-//load and initalized - catagory game
-function gameStart(genreNum) {
+//keyword search and genre catagory menu with event listener - main function
+function selectGenre() {
     $('.container').empty();
     $('.container').append(
-        `<div class="questionAnimation">
-        <br>
-        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
-        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start the song.<br></a>
-        <form autocomplete="off">
+        `<div class="animation">
+        <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsEntryGame();">Instructions</button>
+        <h2>Enter a Keyoword</h2>
+        <form id='keywordSearch'>
             <fieldset>
-                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" required>
-                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" required>
-                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" class="userAnswerBtn" value="userAnswerBtn">Submit</button>
-                <button type="submit" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
+                <label for='keywordSearch'></label>
+                <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
+                <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startSearchGame();">Search Songs</button><br>
             </fieldset>
         </form>
+        <h2>or</h2>
+        <form id='genreMenu'>
+            <fieldset>
+                <label for='genreMenu'>select a catagory</label>
+                <br><br>
+                <select id="userSelectGenre" class="userSelectGenre" name='genres'>
+                    <option value="">Select a Decade or Genre:</option>
+                    <optgroup label="Decades">
+                        <option value="g.438,g.407,g.155,g.446,g.4,g.299">50's</option>
+                        <option value="g.438,g.446,g.5,g.299">60's</option>
+                        <option value="g.194,g.115,g.446,g.5">70's</option>
+                        <option value="g.146,g.115,g.5,g.33">80's</option>
+                        <option value="g.146,g.115,g.5,g.33">90's</option>
+                        <option value="g.146,g.115,g.5,g.33">2000's</options>
+                        <option value="g.146,g.115,g.5,g.33">2010's</option>
+                    </optgroup>
+                    <optgroup label="Genres">
+                        <option value="g.33,g.28,g.72,g.129,g.154,g.201,g.203,g.204,g.219,g.239,g.241,g.314,g.315,g.393,g.397,g.320,g.428,g.1056">Alternative</option>
+                        <option value="g.438,g.26,g.53,g.54,g.55,g.76,g.94,g.101,g.103,g.104,g.105,g.106,g.108,g.110,g.143,g.144,g.145,g.233,g.274,g.293,g.301,g.302">Blues</option>
+                        <option value="g.470,g.2083,g.2085,g.2093,g.2096,g.2099,g.388">Children</option>
+                        <option value="g.75,g.514,g.100,g.387,g.416,g.415,g.417,g.418,g.445,g.516">Christian</option>
+                        <option value="g.21,g.472,g.473,g.6,g.513,g.180,g.119,g.7,g.48">Classical</option>
+                        <option value="g.407,g.27,g.85,g.126,g.127,g.128,g.130,g.131,g.132,g.196,g.262,g.292,g.335,g.337,g.376">Country</option>
+                        <option value="g.71,g.178,g.64,g.135,g.136,g.213,g.214,g.215,g.285,g.287,g.468,g.8222">Dance/Electronic</option>
+                        <option value="g.446,g.116,g.117,g.118,g.147,g.148,g.150,g.151,g.206,g.207,g.297,g.350,g.381,g.400,g.478,g.486,g.489">Folk</option>
+                        <option value="g.146,g.1027,g.16,g.38,g.448,g.173,g.174,g.175,g.249,g.250,g.309,g.365">Hip-Hop</option>
+                        <option value="g.299,g.9,g.24,g.34,g.35,g.52,g.56,g.77,g.84,g.86,g.87,g.231,g.232,g.266,g.346,g.487">Jazz</option>
+                        <option value="g.510,g.437,g.422,g.209,g.248,g.339,g.341,g.343,g.359,g.373,g.375,g.462,g.505,g.506,g.507,g.508,g.509,g.515">Latin</option>
+                        <option value="g.394,g.133,g.134,g.141,g.142,g.183,g.184,g.185,g.186,g.282,g.312,g.457,g.465,g.187">Metal</option>
+                        <option value="g.453,g.191,g.223,g.228,g.259,g.277,g.349,g.364,g.455,g.456,g.492,g.497,g.190">New Age</option>
+                        <option value="g.4,g.43,g.66,g.155,g.441,g.202,g.153,g.430">Oldies</option>
+                        <option value="g.290,g.463,g.10,g.115">Pop</option>
+                        <option value="g.146">Rap</option>
+                        <option value="g.383,g.11,g.410,g.451,g.452,g.459,g.495,g.496,g.450,g.494">Reggae</option>
+                        <option value="g.194,g.36,g.57,g.58,g.93,g.216,g.253">RnB/Soul</option>
+                        <option value="g.5,g.1,g.42,g.44,g.45,g.111,g.112,g.113,g.199,g.352,g.409,g.454,g.458,g.460,g.464">Rock</option>
+                        <option value="g.246,g.197,g.304,g.305">Soundtracks</option>  
+                        <option value="g.488,g.222,g.225,g.226,g.229,g.257,g.281,g.479,g.482,g.490,g.491">World</option>
+                    </optgroup>
+                </select>
+            </fieldset>
+        </form>
+        <h2>or</h2>
+        <label for="randomGenre">choose a random genre by rolling the dice</label>
+        <div class="randomGenre">
+        <img src="images/dice1.png" class="dice" alt="dice1" onclick="getGenreNum();">
+        <img src="images/dice2.png" class="dice" alt="dice1" onclick="getGenreNum();">
+        </div>
+        <button type="button" id="home" class="randomBtn" value="backToHome" onclick="start();">Back to Home</button>
         </div>`
-    );
-    getTrack(genreNum);
+    )
+    
+    $('select').on('change', event => {
+        let selectedGenre = $('select').val();
+        getTrack(selectedGenre); 
+    });
 }
-
 
 ////////////////////////////////////////////////////////////////////////////
 //ROLL THE DICE FUNCTIONS BELOW
@@ -447,11 +515,15 @@ function getGenreId(genreObject) {
     const i = generateRandomGenreNum(genreObject);
     console.log(`Random Genre Index Num: ${i}`);
     const genreNum = genreObject.genres[i].links.childGenres.ids;
-    gameStart(genreNum);
+    getTrack(genreNum);
 }
 
 //fetches the genre API object - roll the dice
 function getGenreNum() {
+    $('.container').empty();
+    $('.container').append(
+        `<div class="loader"><img src="images/record.png" alt"loader">
+        <p>Great choice! We are loading your quiz now.</p></div>`)
     let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
     console.log(url);
     fetch(url)
@@ -465,6 +537,7 @@ function getGenreNum() {
     .then(responseJson => getGenreId(responseJson))
     .catch(err => failureCallback(err))
 }
+
 
 ////////////////////////////////////////////////////////////////////////////
 //USER ENTRY KEYWORD GAME FUNCTIONS BELOW
@@ -748,6 +821,10 @@ function getKeywordSongInfo(songObject, keyword) {
 
 //fetchs API Object - keyword game
 function getKeywordTracks(keyword) {
+    $('.container').empty();
+    $('.container').append(
+        `<div class="loader"><img src="images/record.png" alt"loader">
+        <p>Great choice! We are loading your quiz now.</p></div>`)
     const url = 'https://api.napster.com/v2.2/search/verbose?apikey='+apiKey2+'&per_type_limit=200&query='+keyword+'&type=tracks';
     console.log(url);
     fetch(url)
@@ -794,8 +871,10 @@ function startSearchGame() {
     loadKeywordSpace(keyword);
 }
 
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-//keyword multiple choice game
+//MULTIPLE CHOICE GAME - KEYWORD
 
 //checks the round number and directs to the next song or the final results page - keyword multi game
 function checkMultiKeywordRoundNum(correctAnswer, userMultiAnswer, selectedGenre) {
@@ -1000,6 +1079,10 @@ function getMultiKeywordSongInfo(songObject, selectedGenre) {
 
 //fetchs API Object - keyword multi game
 function getMultiKeywordTrack(keyword) {
+    $('.container').empty();
+    $('.container').append(
+        `<div class="loader"><img src="images/record.png" alt"loader">
+        <p>Great choice! We are loading your quiz now.</p></div>`)
     const url = 'https://api.napster.com/v2.2/search/verbose?apikey='+apiKey2+'&per_type_limit=200&query='+keyword+'&type=tracks';
     console.log(url);
     fetch(url)
@@ -1023,7 +1106,7 @@ function startMultiSearchGame() {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-//multiple choice game
+//MULTIPL CHOICE GAME
 
 //checks the final score nd appends the approriate results - multi choice and keyword multi
 function finalMultiResults() {
@@ -1278,6 +1361,10 @@ function getMultiChoiceSongInfo(songObject, selectedGenre) {
 
 //fetchs API Object - multi choice game
 function getMultiChoiceTracks(selectedGenre) {
+    $('.container').empty();
+    $('.container').append(
+        `<div class="loader"><img src="images/record.png" alt"loader">
+        <p>Great choice! We are loading your quiz now.</p></div>`)
     console.log(`Napster Genre Number: ${selectedGenre}`);
     let url = 'https://api.napster.com/v2.2/genres/'+selectedGenre+'/tracks/top?limit=200&apikey='+apiKey;
     console.log('API url: '+url);
@@ -1293,149 +1380,7 @@ function getMultiChoiceTracks(selectedGenre) {
     .catch(err => failureCallback(err))
 }
 
-
-/////////////////////////////////////////////////////////////////////////////////
-//QUIZ MASTER FUNTIONS
-
-function quizMasterGameStart(song, correctAnswer, selectedGenre) {
-    console.log(correctAnswer)
-    $('.container').empty();
-    $('.container').append(
-        `<div class="questionAnimation">
-        <br>
-        Current Score: ${userScore}<br>Round Number: ${roundNum}<br>
-        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start the song.<br></a><br>
-        <a><br><br>The correct answer is<br></a>
-        <div class="quizMasterAnswer">${correctAnswer}</div>
-        <button type="button" name="addPoint" id ="addPoint" class="addPoint" value="addPoint">Add point and go to next song</button>
-        <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
-        <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
-        </div>`
-    )
-    playSong(song);
-    $('#addPoint').off('click').on('click', event => {
-        event.preventDefault();
-        userScore++
-        roundNum++
-        song.currentTime = 30;
-        getQuizMasterTracks(selectedGenre);
-    });
-    $('#nextSong').off('click').on('click', event => {
-        event.preventDefault();
-        roundNum++
-        song.currentTime = 30;
-        getQuizMasterTracks(selectedGenre);
-    });
-}
-
-function getQuizMasterInfo(songObject, selectedGenre) {
-    console.log(songObject);
-    const i = getRandomIndex(songObject);
-    const artist = songObject.tracks[i].artistName;
-    const track = songObject.tracks[i].name;
-    const correctArtist = artist.split('(')[0]||artist.split('[')[0];
-    const correctSong = track.split('(')[0]||track.split('[')[0];
-    const correctAnswer = correctSong+' by '+correctArtist;
-    console.log(`Correct Answer: ${correctAnswer}`);
-    const song = getSongPreview(songObject, i);
-    getAlbumCover (songObject, i);
-    quizMasterGameStart(song, correctAnswer, selectedGenre)
-}
-
-
-function getQuizMasterTracks(selectedGenre) {
-    console.log(`Napster Genre Number: ${selectedGenre}`);
-    let url = 'https://api.napster.com/v2.2/genres/'+selectedGenre+'/tracks/top?limit=200&apikey='+apiKey;
-    console.log('API url: '+url);
-    fetch(url)
-    .then(response => {
-        if(!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
-    .then(response => response.json())
-    .then(responseJson => getQuizMasterInfo(responseJson, selectedGenre))
-    .catch(err => failureCallback(err))
-}
-
-//loads keyword and select genre interface - multi choice and keyword multi
-function selectQuizMasterGenre() {
-    $('.container').empty();
-    $('.container').append(
-        `<div class="animation">
-        <h1>Quiz Master</h1>
-        <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsQuizMasterGame();">Instructions</button>
-        <h2>Enter a Keyoword</h2>
-        <form id='keywordSearch'>
-            <fieldset>
-                <label for='keywordSearch'></label>
-                <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
-                <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startMultiSearchGame();">Search Songs</button><br>
-            </fieldset>
-        </form>
-        <h2>or</h2>
-        <form id='genreMenu'>
-            <fieldset>
-                <label for='genreMenu'>select a catagory</label>
-                <br><br>
-                <select id="userSelectGenre" class="userSelectGenre" name='genres'>
-                    <option value="">Select a Decade or Genre:</option>
-                    <optgroup label="Decades">
-                        <option value="g.438,g.407,g.155,g.446,g.4,g.299">50's</option>
-                        <option value="g.438,g.446,g.5,g.299">60's</option>
-                        <option value="g.194,g.115,g.446,g.5">70's</option>
-                        <option value="g.146,g.115,g.5,g.33">80's</option>
-                        <option value="g.146,g.115,g.5,g.33">90's</option>
-                        <option value="g.146,g.115,g.5,g.33">2000's</options>
-                        <option value="g.146,g.115,g.5,g.33">2010's</option>
-                    </optgroup>
-                    <optgroup label="Genres">
-                        <option value="g.33,g.28,g.72,g.129,g.154,g.201,g.203,g.204,g.219,g.239,g.241,g.314,g.315,g.393,g.397,g.320,g.428,g.1056">Alternative</option>
-                        <option value="g.438,g.26,g.53,g.54,g.55,g.76,g.94,g.101,g.103,g.104,g.105,g.106,g.108,g.110,g.143,g.144,g.145,g.233,g.274,g.293,g.301,g.302">Blues</option>
-                        <option value="g.470,g.2083,g.2085,g.2093,g.2096,g.2099,g.388">Children</option>
-                        <option value="g.75,g.514,g.100,g.387,g.416,g.415,g.417,g.418,g.445,g.516">Christian</option>
-                        <option value="g.21,g.472,g.473,g.6,g.513,g.180,g.119,g.7,g.48">Classical</option>
-                        <option value="g.407,g.27,g.85,g.126,g.127,g.128,g.130,g.131,g.132,g.196,g.262,g.292,g.335,g.337,g.376">Country</option>
-                        <option value="g.71,g.178,g.64,g.135,g.136,g.213,g.214,g.215,g.285,g.287,g.468,g.8222">Dance/Electronic</option>
-                        <option value="g.446,g.116,g.117,g.118,g.147,g.148,g.150,g.151,g.206,g.207,g.297,g.350,g.381,g.400,g.478,g.486,g.489">Folk</option>
-                        <option value="g.146,g.1027,g.16,g.38,g.448,g.173,g.174,g.175,g.249,g.250,g.309,g.365">Hip-Hop</option>
-                        <option value="g.299,g.9,g.24,g.34,g.35,g.52,g.56,g.77,g.84,g.86,g.87,g.231,g.232,g.266,g.346,g.487">Jazz</option>
-                        <option value="g.510,g.437,g.422,g.209,g.248,g.339,g.341,g.343,g.359,g.373,g.375,g.462,g.505,g.506,g.507,g.508,g.509,g.515">Latin</option>
-                        <option value="g.394,g.133,g.134,g.141,g.142,g.183,g.184,g.185,g.186,g.282,g.312,g.457,g.465,g.187">Metal</option>
-                        <option value="g.453,g.191,g.223,g.228,g.259,g.277,g.349,g.364,g.455,g.456,g.492,g.497,g.190">New Age</option>
-                        <option value="g.4,g.43,g.66,g.155,g.441,g.202,g.153,g.430">Oldies</option>
-                        <option value="g.290,g.463,g.10,g.115">Pop</option>
-                        <option value="g.146">Rap</option>
-                        <option value="g.383,g.11,g.410,g.451,g.452,g.459,g.495,g.496,g.450,g.494">Reggae</option>
-                        <option value="g.194,g.36,g.57,g.58,g.93,g.216,g.253">RnB/Soul</option>
-                        <option value="g.5,g.1,g.42,g.44,g.45,g.111,g.112,g.113,g.199,g.352,g.409,g.454,g.458,g.460,g.464">Rock</option>
-                        <option value="g.246,g.197,g.304,g.305">Soundtracks</option>  
-                        <option value="g.488,g.222,g.225,g.226,g.229,g.257,g.281,g.479,g.482,g.490,g.491">World</option>
-                    </optgroup>
-                </select>
-            </fieldset>
-        </form>
-        <h2>or</h2>
-        <label for="randomGenre">choose a random genre by rolling the dice</label>
-        <div class="randomGenre">
-        <img src="images/dice1.png" class="dice" alt="dice1" onclick="getMultiGenreNum();">
-        <img src="images/dice2.png" class="dice" alt="dice1" onclick="getMultiGenreNum();">
-        </div>
-        <button type="button" id="home" class="randomBtn" value="backToHome" onclick="start();">Back to Home</button>
-        </div>`
-    )
-    $('select').on('change', event => {
-        let selectedGenre = $('select').val();
-        getQuizMasterTracks(selectedGenre);
-    })
-        
-}
-
-/////////////////////////////////////////////////////////////////////////////////
-//RANDOM GENERE FUNTIONS
-
+//RANDOM GENERE FUNTIONS FOR MULTI
 //generates random genres for multi choice game - roll the dice multi choice game
 function generateMultiRandomGenreNum(genreObject) {
     let num = Math.floor((Math.random() * genreObject.genres.length));
@@ -1453,6 +1398,10 @@ function getMultiGenreId(genreObject) {
 
 //fetches the genre API object - roll the dice multi choice game
 function getMultiGenreNum() {
+    $('.container').empty();
+    $('.container').append(
+        `<div class="loader"><img src="images/record.png" alt"loader">
+        <p>Great choice! We are loading your quiz now.</p></div>`)
     let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
     console.log(url);
     fetch(url)
@@ -1465,86 +1414,6 @@ function getMultiGenreNum() {
     .then(response => response.json())
     .then(responseJson => getMultiGenreId(responseJson))
     .catch(err => failureCallback(err))
-}
-
-////////////////////////////////////////////////////////////////////////////
-//home functions
-
-//keyword search and genre catagory menu with event listener - main function
-function selectGenre() {
-    $('.container').empty();
-    $('.container').append(
-        `<div class="animation">
-        <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsEntryGame();">Instructions</button>
-        <h2>Enter a Keyoword</h2>
-        <form id='keywordSearch'>
-            <fieldset>
-                <label for='keywordSearch'></label>
-                <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
-                <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startSearchGame();">Search Songs</button><br>
-            </fieldset>
-        </form>
-        <h2>or</h2>
-        <form id='genreMenu'>
-            <fieldset>
-                <label for='genreMenu'>select a catagory</label>
-                <br><br>
-                <select id="userSelectGenre" class="userSelectGenre" name='genres'>
-                    <option value="">Select a Decade or Genre:</option>
-                    <optgroup label="Decades">
-                        <option value="g.438,g.407,g.155,g.446,g.4,g.299">50's</option>
-                        <option value="g.438,g.446,g.5,g.299">60's</option>
-                        <option value="g.194,g.115,g.446,g.5">70's</option>
-                        <option value="g.146,g.115,g.5,g.33">80's</option>
-                        <option value="g.146,g.115,g.5,g.33">90's</option>
-                        <option value="g.146,g.115,g.5,g.33">2000's</options>
-                        <option value="g.146,g.115,g.5,g.33">2010's</option>
-                    </optgroup>
-                    <optgroup label="Genres">
-                        <option value="g.33,g.28,g.72,g.129,g.154,g.201,g.203,g.204,g.219,g.239,g.241,g.314,g.315,g.393,g.397,g.320,g.428,g.1056">Alternative</option>
-                        <option value="g.438,g.26,g.53,g.54,g.55,g.76,g.94,g.101,g.103,g.104,g.105,g.106,g.108,g.110,g.143,g.144,g.145,g.233,g.274,g.293,g.301,g.302">Blues</option>
-                        <option value="g.470,g.2083,g.2085,g.2093,g.2096,g.2099,g.388">Children</option>
-                        <option value="g.75,g.514,g.100,g.387,g.416,g.415,g.417,g.418,g.445,g.516">Christian</option>
-                        <option value="g.21,g.472,g.473,g.6,g.513,g.180,g.119,g.7,g.48">Classical</option>
-                        <option value="g.407,g.27,g.85,g.126,g.127,g.128,g.130,g.131,g.132,g.196,g.262,g.292,g.335,g.337,g.376">Country</option>
-                        <option value="g.71,g.178,g.64,g.135,g.136,g.213,g.214,g.215,g.285,g.287,g.468,g.8222">Dance/Electronic</option>
-                        <option value="g.446,g.116,g.117,g.118,g.147,g.148,g.150,g.151,g.206,g.207,g.297,g.350,g.381,g.400,g.478,g.486,g.489">Folk</option>
-                        <option value="g.146,g.1027,g.16,g.38,g.448,g.173,g.174,g.175,g.249,g.250,g.309,g.365">Hip-Hop</option>
-                        <option value="g.299,g.9,g.24,g.34,g.35,g.52,g.56,g.77,g.84,g.86,g.87,g.231,g.232,g.266,g.346,g.487">Jazz</option>
-                        <option value="g.510,g.437,g.422,g.209,g.248,g.339,g.341,g.343,g.359,g.373,g.375,g.462,g.505,g.506,g.507,g.508,g.509,g.515">Latin</option>
-                        <option value="g.394,g.133,g.134,g.141,g.142,g.183,g.184,g.185,g.186,g.282,g.312,g.457,g.465,g.187">Metal</option>
-                        <option value="g.453,g.191,g.223,g.228,g.259,g.277,g.349,g.364,g.455,g.456,g.492,g.497,g.190">New Age</option>
-                        <option value="g.4,g.43,g.66,g.155,g.441,g.202,g.153,g.430">Oldies</option>
-                        <option value="g.290,g.463,g.10,g.115">Pop</option>
-                        <option value="g.146">Rap</option>
-                        <option value="g.383,g.11,g.410,g.451,g.452,g.459,g.495,g.496,g.450,g.494">Reggae</option>
-                        <option value="g.194,g.36,g.57,g.58,g.93,g.216,g.253">RnB/Soul</option>
-                        <option value="g.5,g.1,g.42,g.44,g.45,g.111,g.112,g.113,g.199,g.352,g.409,g.454,g.458,g.460,g.464">Rock</option>
-                        <option value="g.246,g.197,g.304,g.305">Soundtracks</option>  
-                        <option value="g.488,g.222,g.225,g.226,g.229,g.257,g.281,g.479,g.482,g.490,g.491">World</option>
-                    </optgroup>
-                </select>
-            </fieldset>
-        </form>
-        <h2>or</h2>
-        <label for="randomGenre">choose a random genre by rolling the dice</label>
-        <div class="randomGenre">
-        <img src="images/dice1.png" class="dice" alt="dice1" onclick="getGenreNum();">
-        <img src="images/dice2.png" class="dice" alt="dice1" onclick="getGenreNum();">
-        </div>
-        <button type="button" id="home" class="randomBtn" value="backToHome" onclick="start();">Back to Home</button>
-        </div>`
-    )
-    
-    $('select').on('change', event => {
-        let selectedGenre = $('select').val();
-        if(selectedGenre.length == 3) {
-            loadKeywordSpace(selectedGenre);
-        }
-        else{
-            gameStart(selectedGenre);
-        }
-    });
 }
 
 //loads keyword and select genre interface - multi choice and keyword multi
@@ -1615,6 +1484,194 @@ function selectMultiChoiceGenre() {
     $('select').on('change', event => {
         let selectedGenre = $('select').val();
         getMultiChoiceTracks(selectedGenre);
+    })
+        
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+//QUIZ MASTER FUNTIONS
+
+function quizMasterGameStart(song, correctAnswer, selectedGenre) {
+    console.log(correctAnswer)
+    $('.container').empty();
+    $('.container').append(
+        `<div class="questionAnimation">
+        <br>
+        Current Score: ${userScore}<br>Round Number: ${roundNum}<br>
+        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
+        <a><br><br>Press play to start the song.<br></a><br>
+        <a><br><br>The correct answer is<br></a>
+        <div class="quizMasterAnswer">${correctAnswer}</div>
+        <button type="button" name="addPoint" id ="addPoint" class="addPoint" value="addPoint">Add point and go to next song</button>
+        <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
+        <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
+        </div>`
+    )
+    playSong(song);
+    $('#addPoint').off('click').on('click', event => {
+        event.preventDefault();
+        userScore++
+        roundNum++
+        song.currentTime = 30;
+        getQuizMasterTracks(selectedGenre);
+    });
+    $('#nextSong').off('click').on('click', event => {
+        event.preventDefault();
+        roundNum++
+        song.currentTime = 30;
+        getQuizMasterTracks(selectedGenre);
+    });
+}
+
+function getQuizMasterInfo(songObject, selectedGenre) {
+    console.log(songObject);
+    const i = getRandomIndex(songObject);
+    const artist = songObject.tracks[i].artistName;
+    const track = songObject.tracks[i].name;
+    const correctArtist = artist.split('(')[0]||artist.split('[')[0];
+    const correctSong = track.split('(')[0]||track.split('[')[0];
+    const correctAnswer = correctSong+' by '+correctArtist;
+    console.log(`Correct Answer: ${correctAnswer}`);
+    const song = getSongPreview(songObject, i);
+    getAlbumCover (songObject, i);
+    quizMasterGameStart(song, correctAnswer, selectedGenre)
+}
+
+function getQuizMasterTracks(selectedGenre) {
+    $('.container').empty();
+    $('.container').append(
+        `<div class="loader"><img src="images/record.png" alt"loader">
+        <p>Great choice! We are loading your quiz now.</p></div>`)
+    console.log(`Napster Genre Number: ${selectedGenre}`);
+    let url = 'https://api.napster.com/v2.2/genres/'+selectedGenre+'/tracks/top?limit=200&apikey='+apiKey;
+    console.log('API url: '+url);
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then(responseJson => getQuizMasterInfo(responseJson, selectedGenre))
+    .catch(err => failureCallback(err))
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+//RANDOM GENERE FUNTIONS FOR QUIZ MASTER
+
+//generates random genres for multi choice game - roll the dice Quiz Master game
+function generateQuizMasterRandomGenreNum(genreObject) {
+    let num = Math.floor((Math.random() * genreObject.genres.length));
+    return num;
+}
+
+//gets the genre number from the genre API object - roll the dice Quiz Master game
+function getQuizMasterGenreId(genreObject) {
+    console.log(genreObject);
+    const i = generateMultiRandomGenreNum(genreObject);
+    console.log(`Random Genre Index Num: ${i}`);
+    const genreNum = genreObject.genres[i].links.childGenres.ids;
+    getQuizMasterTracks(genreNum);
+}
+
+//fetches the genre API object - roll the dice Quiz Master game
+function getQuizMasterGenreNum() {
+    $('.container').empty();
+    $('.container').append(
+        `<div class="loader"><img src="images/record.png" alt"loader">
+        <p>Great choice! We are loading your quiz now.</p></div>`)
+    let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
+    console.log(url);
+    fetch(url)
+    .then(response => {
+        if(!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then(responseJson => getQuizMasterGenreId(responseJson))
+    .catch(err => failureCallback(err))
+}
+
+
+////////////////////////////////////////////////////////////////////////////
+//home functions
+
+
+
+
+
+//loads keyword and select genre interface - multi choice and keyword multi
+function selectQuizMasterGenre() {
+    $('.container').empty();
+    $('.container').append(
+        `<div class="animation">
+        <h1>Quiz Master</h1>
+        <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsQuizMasterGame();">Instructions</button>
+        <h2>Enter a Keyoword</h2>
+        <form id='keywordSearch'>
+            <fieldset>
+                <label for='keywordSearch'></label>
+                <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
+                <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startMultiSearchGame();">Search Songs</button><br>
+            </fieldset>
+        </form>
+        <h2>or</h2>
+        <form id='genreMenu'>
+            <fieldset>
+                <label for='genreMenu'>select a catagory</label>
+                <br><br>
+                <select id="userSelectGenre" class="userSelectGenre" name='genres'>
+                    <option value="">Select a Decade or Genre:</option>
+                    <optgroup label="Decades">
+                        <option value="g.438,g.407,g.155,g.446,g.4,g.299">50's</option>
+                        <option value="g.438,g.446,g.5,g.299">60's</option>
+                        <option value="g.194,g.115,g.446,g.5">70's</option>
+                        <option value="g.146,g.115,g.5,g.33">80's</option>
+                        <option value="g.146,g.115,g.5,g.33">90's</option>
+                        <option value="g.146,g.115,g.5,g.33">2000's</options>
+                        <option value="g.146,g.115,g.5,g.33">2010's</option>
+                    </optgroup>
+                    <optgroup label="Genres">
+                        <option value="g.33,g.28,g.72,g.129,g.154,g.201,g.203,g.204,g.219,g.239,g.241,g.314,g.315,g.393,g.397,g.320,g.428,g.1056">Alternative</option>
+                        <option value="g.438,g.26,g.53,g.54,g.55,g.76,g.94,g.101,g.103,g.104,g.105,g.106,g.108,g.110,g.143,g.144,g.145,g.233,g.274,g.293,g.301,g.302">Blues</option>
+                        <option value="g.470,g.2083,g.2085,g.2093,g.2096,g.2099,g.388">Children</option>
+                        <option value="g.75,g.514,g.100,g.387,g.416,g.415,g.417,g.418,g.445,g.516">Christian</option>
+                        <option value="g.21,g.472,g.473,g.6,g.513,g.180,g.119,g.7,g.48">Classical</option>
+                        <option value="g.407,g.27,g.85,g.126,g.127,g.128,g.130,g.131,g.132,g.196,g.262,g.292,g.335,g.337,g.376">Country</option>
+                        <option value="g.71,g.178,g.64,g.135,g.136,g.213,g.214,g.215,g.285,g.287,g.468,g.8222">Dance/Electronic</option>
+                        <option value="g.446,g.116,g.117,g.118,g.147,g.148,g.150,g.151,g.206,g.207,g.297,g.350,g.381,g.400,g.478,g.486,g.489">Folk</option>
+                        <option value="g.146,g.1027,g.16,g.38,g.448,g.173,g.174,g.175,g.249,g.250,g.309,g.365">Hip-Hop</option>
+                        <option value="g.299,g.9,g.24,g.34,g.35,g.52,g.56,g.77,g.84,g.86,g.87,g.231,g.232,g.266,g.346,g.487">Jazz</option>
+                        <option value="g.510,g.437,g.422,g.209,g.248,g.339,g.341,g.343,g.359,g.373,g.375,g.462,g.505,g.506,g.507,g.508,g.509,g.515">Latin</option>
+                        <option value="g.394,g.133,g.134,g.141,g.142,g.183,g.184,g.185,g.186,g.282,g.312,g.457,g.465,g.187">Metal</option>
+                        <option value="g.453,g.191,g.223,g.228,g.259,g.277,g.349,g.364,g.455,g.456,g.492,g.497,g.190">New Age</option>
+                        <option value="g.4,g.43,g.66,g.155,g.441,g.202,g.153,g.430">Oldies</option>
+                        <option value="g.290,g.463,g.10,g.115">Pop</option>
+                        <option value="g.146">Rap</option>
+                        <option value="g.383,g.11,g.410,g.451,g.452,g.459,g.495,g.496,g.450,g.494">Reggae</option>
+                        <option value="g.194,g.36,g.57,g.58,g.93,g.216,g.253">RnB/Soul</option>
+                        <option value="g.5,g.1,g.42,g.44,g.45,g.111,g.112,g.113,g.199,g.352,g.409,g.454,g.458,g.460,g.464">Rock</option>
+                        <option value="g.246,g.197,g.304,g.305">Soundtracks</option>  
+                        <option value="g.488,g.222,g.225,g.226,g.229,g.257,g.281,g.479,g.482,g.490,g.491">World</option>
+                    </optgroup>
+                </select>
+            </fieldset>
+        </form>
+        <h2>or</h2>
+        <label for="randomGenre">choose a random genre by rolling the dice</label>
+        <div class="randomGenre">
+        <img src="images/dice1.png" class="dice" alt="dice1" onclick="getMultiGenreNum();">
+        <img src="images/dice2.png" class="dice" alt="dice1" onclick="getMultiGenreNum();">
+        </div>
+        <button type="button" id="home" class="randomBtn" value="backToHome" onclick="start();">Back to Home</button>
+        </div>`
+    )
+    $('select').on('change', event => {
+        let selectedGenre = $('select').val();
+        getQuizMasterTracks(selectedGenre);
     })
         
 }
@@ -1724,5 +1781,3 @@ function reload() {
 $(document).ready(function(){
     start(); 
 })
-
-
