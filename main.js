@@ -1004,7 +1004,6 @@ function getKeywordMuliplyChoice1(songObject) {
         const multiAnswer1 = track1+' by '+artist1;
         return multiAnswer1;
     }
-    return multiAnswer1;
 }
 
 //gets 2nd multiple choice answer - keyword multi game
@@ -1021,7 +1020,7 @@ function getKeywordMuliplyChoice2(songObject) {
         const multiAnswer2 = track2+' by '+artist2;
         return multiAnswer2;
     }
-    return multiAnswer2;
+
 }
 
 //gets 3rd multiple choice answer - keyword multi game
@@ -1038,7 +1037,7 @@ function getKeywordMuliplyChoice3(songObject) {
         const multiAnswer3 = track3+' by '+artist3;
         return multiAnswer3;
     }
-    return multiAnswer3;
+    
 }
 
 //gets random index num - keyword multi game

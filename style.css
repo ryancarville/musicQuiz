@@ -4,8 +4,8 @@
 
 body {
     box-sizing: border-box;
-    font-size: 20px;
     min-height: 100vh;
+    font-size: 20px;
     margin: 0;
     background-image: linear-gradient(yellow, white);
     
@@ -47,6 +47,7 @@ button.menubtn {
     display: none;
     position: absolute;
     min-width: 250px;
+    min-height: 150px;
     background-color: white;
     box-shadow: 0px 10px 26px 0px rgba(0,0,0,0.2);
 }
@@ -59,7 +60,7 @@ button.menubtn {
     text-align: center;
     text-transform: uppercase;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .mobileMenu:hover .menuContent {
@@ -223,6 +224,11 @@ select {
     border: 1px solid black;
 }
 
+.animation a {
+    margin-top: -30px;
+    margin-bottom: 5px;
+}
+
 .userEnterKeyword {
     width: 300px;
     height: 35px;
@@ -311,11 +317,6 @@ select {
 .pauseSong {
     background-image: url('images/pauseButton.png');
     z-index: 1;
-}
-
-a {
-    margin-top: -30px;
-    margin-bottom: 5px;
 }
 
 .userAnswer {
