@@ -6,9 +6,7 @@ HTML, CSS, JavaScript and JQuery
 
 Live Link - https://ryancarville.github.io/musicQuiz/
 
-API App that uses the Napster API to play 30 second sound clips for a wide varity genres.
-
-<b>3 game play options</b>
+API App that uses the Napster API to play 30 second sound clips for a wide varity genres and 3 game play options.
 
 <b>Enter Artist/Song</b>
 
