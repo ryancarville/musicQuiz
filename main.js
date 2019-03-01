@@ -1560,7 +1560,6 @@ function selectQuizMasterGenre() {
     $('.container').empty();
     $('.container').append(
         `<div class="animation">
-        <h1>Quiz Master</h1>
         <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsQuizMasterGame();">Instructions</button>
         <h2>Enter a Keyword</h2>
         <form id='keywordSearch'>
