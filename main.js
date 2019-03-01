@@ -435,7 +435,7 @@ function selectUserEntryGenre() {
     $('.container').append(
         `<div class="animation">
         <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsEntryGame();">Instructions</button>
-        <h2>Enter a Keyoword</h2>
+        <h2>Enter a Keyword</h2>
         <form id='keywordSearch'>
             <fieldset>
                 <label for='keywordSearch'></label>
@@ -1385,7 +1385,7 @@ function selectMultiChoiceGenre() {
     $('.container').append(
         `<div class="animation">
         <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsMultiGame();">Instructions</button>
-        <h2>Enter a Keyoword</h2>
+        <h2>Enter a Keyword</h2>
         <form id='keywordSearch'>
             <fieldset>
                 <label for='keywordSearch'></label>
@@ -1566,7 +1566,7 @@ function selectQuizMasterGenre() {
         `<div class="animation">
         <h1>Quiz Master</h1>
         <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsQuizMasterGame();">Instructions</button>
-        <h2>Enter a Keyoword</h2>
+        <h2>Enter a Keyword</h2>
         <form id='keywordSearch'>
             <fieldset>
                 <label for='keywordSearch'></label>
