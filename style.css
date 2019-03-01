@@ -112,6 +112,7 @@ button.menubtn {
 .bottomAnimation {
     animation: 1s ease-in 0s 1 slideInFromBottom;
 }
+
 .questionAnimation {
     display: flex;
     flex-direction: column;
@@ -135,6 +136,7 @@ button.menubtn {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    margin-top: -15px;
     animation: 1s ease-in 0s 1 slideInFromRight;
 }
 
