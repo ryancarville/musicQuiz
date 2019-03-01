@@ -225,6 +225,7 @@ button.menubtn {
     box-shadow: 10px 10px 6px 0px rgba(0,0,0,0.5);
     margin: 10px;
     font-size: 18px;
+    cursor: pointer;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     -webkit-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
