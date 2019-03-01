@@ -460,27 +460,26 @@ function selectUserEntryGenre() {
                         <option value="g.146,g.115,g.5,g.33">2010's</option>
                     </optgroup>
                     <optgroup label="Genres">
-                        <option value="g.33">Alternative</option>
-                        <option value="g.438">Blues</option>
-                        <option value="g.470">Children</option>
-                        <option value="g.75">Christian</option>
-                        <option value="g.21">Classical</option>
-                        <option value="g.407">Country</option>
-                        <option value="g.71">Dance/Electronic</option>
-                        <option value="g.446">Folk</option>
-                        <option value="g.146">Hip-Hop</option>
-                        <option value="g.299">Jazz</option>
-                        <option value="g.510">Latin</option>
-                        <option value="g.394">Metal</option>
-                        <option value="g.453">New Age</option>
-                        <option value="g.4">Oldies</option>
-                        <option value="g.115">Pop</option>
-                        <option value="g.146">Rap</option>
-                        <option value="g.383">Reggae</option>
-                        <option value="g.194">RnB/Soul</option>
-                        <option value="g.5">Rock</option>
-                        <option value="g.246">Soundtracks</option>  
-                        <option value="g.488">World</option>
+                        <option value="g.33,g.28,g.129,g.72">Alternative</option>
+                        <option value="g.438,g.53,g.103,g.26">Blues</option>
+                        <option value="g.470,g.2083,g.388,g.2093">Children</option>
+                        <option value="g.75,g.100,g.387,g.445">Christian</option>
+                        <option value="g.21,g.6,g.48,g.513">Classical</option>
+                        <option value="g.407,g.126,g.292,g.85">Country</option>
+                        <option value="g.71,g.64,g.136,g.214">Dance/Electronic</option>
+                        <option value="g.446,g.150,g.116,g.350">Folk</option>
+                        <option value="g.146,g.16,g.173,g.250">Hip-Hop</option>
+                        <option value="g.299,g.9,g.52,g.84">Jazz</option>
+                        <option value="g.510,g.373,g.508,g.341">Latin</option>
+                        <option value="g.394,g.134,g.282,g.142">Metal</option>
+                        <option value="g.453,g.191,g.277,g.456">New Age</option>
+                        <option value="g.4,g.43,g.441,g.202">Oldies</option>
+                        <option value="g.115,g.10,g290">Pop</option>
+                        <option value="g.383,g.452,g.450,g.11">Reggae</option>
+                        <option value="g.194,g.36,g.58,g.93">RnB/Soul</option>
+                        <option value="g.5,g.1,g.42,g.111,">Rock</option>
+                        <option value="g.246,g.197,g.304,g.305">Soundtracks</option>  
+                        <option value="g.488,g.281,g.225,g.281">World</option>
                     </optgroup>
                 </select>
             </fieldset>
@@ -1235,7 +1234,7 @@ function multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOpti
     console.log(b)
     console.log(c)
     console.log(d)
-    $('div.loader').addClass('hidden');
+    $('loader').addClass('hidden');
     $('.container').empty();
     $('.container').append(
         `<div class="questionAnimation">
@@ -1404,27 +1403,26 @@ function selectMultiChoiceGenre() {
                         <option value="g.146,g.115,g.5,g.33">2010's</option>
                     </optgroup>
                     <optgroup label="Genres">
-                        <option value="g.33">Alternative</option>
-                        <option value="g.438">Blues</option>
-                        <option value="g.470">Children</option>
-                        <option value="g.75">Christian</option>
-                        <option value="g.21">Classical</option>
-                        <option value="g.407">Country</option>
-                        <option value="g.71">Dance/Electronic</option>
-                        <option value="g.446">Folk</option>
-                        <option value="g.146">Hip-Hop</option>
-                        <option value="g.299">Jazz</option>
-                        <option value="g.510">Latin</option>
-                        <option value="g.394">Metal</option>
-                        <option value="g.453">New Age</option>
-                        <option value="g.4">Oldies</option>
-                        <option value="g.115">Pop</option>
-                        <option value="g.146">Rap</option>
-                        <option value="g.383">Reggae</option>
-                        <option value="g.194">RnB/Soul</option>
-                        <option value="g.5">Rock</option>
-                        <option value="g.246">Soundtracks</option>  
-                        <option value="g.488">World</option>
+                        <option value="g.33,g.28,g.129,g.72">Alternative</option>
+                        <option value="g.438,g.53,g.103,g.26">Blues</option>
+                        <option value="g.470,g.2083,g.388,g.2093">Children</option>
+                        <option value="g.75,g.100,g.387,g.445">Christian</option>
+                        <option value="g.21,g.6,g.48,g.513">Classical</option>
+                        <option value="g.407,g.126,g.292,g.85">Country</option>
+                        <option value="g.71,g.64,g.136,g.214">Dance/Electronic</option>
+                        <option value="g.446,g.150,g.116,g.350">Folk</option>
+                        <option value="g.146,g.16,g.173,g.250">Hip-Hop</option>
+                        <option value="g.299,g.9,g.52,g.84">Jazz</option>
+                        <option value="g.510,g.373,g.508,g.341">Latin</option>
+                        <option value="g.394,g.134,g.282,g.142">Metal</option>
+                        <option value="g.453,g.191,g.277,g.456">New Age</option>
+                        <option value="g.4,g.43,g.441,g.202">Oldies</option>
+                        <option value="g.115,g.10,g290">Pop</option>
+                        <option value="g.383,g.452,g.450,g.11">Reggae</option>
+                        <option value="g.194,g.36,g.58,g.93">RnB/Soul</option>
+                        <option value="g.5,g.1,g.42,g.111,">Rock</option>
+                        <option value="g.246,g.197,g.304,g.305">Soundtracks</option>  
+                        <option value="g.488,g.281,g.225,g.281">World</option>
                     </optgroup>
                 </select>
             </fieldset>
@@ -1586,27 +1584,26 @@ function selectQuizMasterGenre() {
                         <option value="g.146,g.115,g.5,g.33">2010's</option>
                     </optgroup>
                     <optgroup label="Genres">
-                        <option value="g.33">Alternative</option>
-                        <option value="g.438">Blues</option>
-                        <option value="g.470">Children</option>
-                        <option value="g.75">Christian</option>
-                        <option value="g.21">Classical</option>
-                        <option value="g.407">Country</option>
-                        <option value="g.71">Dance/Electronic</option>
-                        <option value="g.446">Folk</option>
-                        <option value="g.146">Hip-Hop</option>
-                        <option value="g.299">Jazz</option>
-                        <option value="g.510">Latin</option>
-                        <option value="g.394">Metal</option>
-                        <option value="g.453">New Age</option>
-                        <option value="g.4">Oldies</option>
-                        <option value="g.115">Pop</option>
-                        <option value="g.146">Rap</option>
-                        <option value="g.383">Reggae</option>
-                        <option value="g.194">RnB/Soul</option>
-                        <option value="g.5">Rock</option>
-                        <option value="g.246">Soundtracks</option>  
-                        <option value="g.488">World</option>
+                        <option value="g.33,g.28,g.129,g.72">Alternative</option>
+                        <option value="g.438,g.53,g.103,g.26">Blues</option>
+                        <option value="g.470,g.2083,g.388,g.2093">Children</option>
+                        <option value="g.75,g.100,g.387,g.445">Christian</option>
+                        <option value="g.21,g.6,g.48,g.513">Classical</option>
+                        <option value="g.407,g.126,g.292,g.85">Country</option>
+                        <option value="g.71,g.64,g.136,g.214">Dance/Electronic</option>
+                        <option value="g.446,g.150,g.116,g.350">Folk</option>
+                        <option value="g.146,g.16,g.173,g.250">Hip-Hop</option>
+                        <option value="g.299,g.9,g.52,g.84">Jazz</option>
+                        <option value="g.510,g.373,g.508,g.341">Latin</option>
+                        <option value="g.394,g.134,g.282,g.142">Metal</option>
+                        <option value="g.453,g.191,g.277,g.456">New Age</option>
+                        <option value="g.4,g.43,g.441,g.202">Oldies</option>
+                        <option value="g.115,g.10,g290">Pop</option>
+                        <option value="g.383,g.452,g.450,g.11">Reggae</option>
+                        <option value="g.194,g.36,g.58,g.93">RnB/Soul</option>
+                        <option value="g.5,g.1,g.42,g.111,">Rock</option>
+                        <option value="g.246,g.197,g.304,g.305">Soundtracks</option>  
+                        <option value="g.488,g.281,g.225,g.281">World</option>
                     </optgroup>
                 </select>
             </fieldset>
