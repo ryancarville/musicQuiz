@@ -461,8 +461,7 @@ function selectUserEntryGenre() {
         <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsEntryGame();">Instructions</button>
         <form id='genreMenu'>
             <fieldset>
-                <label for='genreMenu'>select a catagory</label>
-                <br><br>
+                <label for='genreMenu'>select a catagory</label><br>
                 <select id="userSelectGenre" class="userSelectGenre" name='genres'>
                     <option value="">Select a Decade or Genre:</option>
                     <optgroup label="Decades">
@@ -502,7 +501,7 @@ function selectUserEntryGenre() {
         <br>
         <form id='keywordSearch'>
             <fieldset>
-                <label for='keywordSearch'>enter a keyword</label>
+                <label for='keywordSearch'>enter a keyword</label><br>
                 <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
                 <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startSearchGame();">Search Songs</button><br>
             </fieldset>
@@ -1416,7 +1415,7 @@ function selectMultiChoiceGenre() {
         <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsMultiGame();">Instructions</button>
         <form id='genreMenu'>
             <fieldset>
-                <label for='genreMenu'>select a catagory</label>
+                <label for='genreMenu'>select a catagory</label><br>
                 <select id="userSelectGenre" class="userSelectGenre" name='genres'>
                     <option value="">Select a Decade or Genre:</option>
                     <optgroup label="Decades">
@@ -1456,7 +1455,7 @@ function selectMultiChoiceGenre() {
         <br>
         <form id='keywordSearch'>
             <fieldset>
-                <label for='keywordSearch'>enter a keyword</label>
+                <label for='keywordSearch'>enter a keyword</label><br>
                 <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
                 <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startMultiSearchGame();">Search Songs</button><br>
             </fieldset>
@@ -1596,7 +1595,7 @@ function selectQuizMasterGenre() {
         <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsQuizMasterGame();">Instructions</button>
         <form id='genreMenu'>
             <fieldset>
-                <label for='genreMenu'>select a catagory</label>
+                <label for='genreMenu'>select a catagory</label><br>
                 <select id="userSelectGenre" class="userSelectGenre" name='genres'>
                     <option value="">Select a Decade or Genre:</option>
                     <optgroup label="Decades">
@@ -1636,7 +1635,7 @@ function selectQuizMasterGenre() {
         <br>
         <form id='keywordSearch'>
             <fieldset>
-                <label for='keywordSearch'>enter a keyword</label>
+                <label for='keywordSearch'>enter a keyword</label><br>
                 <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
                 <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startMultiSearchGame();">Search Songs</button><br>
             </fieldset>
