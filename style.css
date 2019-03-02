@@ -4,7 +4,7 @@
 
 body {
     box-sizing: border-box;
-    min-height: 110vh;
+    min-height: 105vh;
     font-size: 20px;
     margin: 0;
     background-image: linear-gradient(yellow, white);
