@@ -1789,11 +1789,9 @@ function start() {
         <div class="homeRecord"><img class="homeRecord" src="images/record.png" alt="record"></div>
         <br><br>
         <div class="home">
-            <div class="home">
-                <button type="button" id="homePlay" class="homeBtn" value="homePlayBtn" onclick="selectUserEntryGenre();">Enter Artist/Song Game</button>
-                <button type="button" id="homePlayMC" class="homeBtn" value="homePlayBtn" onclick="selectMultiChoiceGenre();">Multiple Choice Game</button>
-                <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="selectQuizMasterGenre();">Quiz Master</button>
-            </div>
+            <button type="button" id="homePlay" class="homeBtn" value="homePlayBtn" onclick="selectUserEntryGenre();">Enter Artist/Song Game</button>
+            <button type="button" id="homePlayMC" class="homeBtn" value="homePlayBtn" onclick="selectMultiChoiceGenre();">Multiple Choice Game</button>
+            <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="selectQuizMasterGenre();">Quiz Master</button>
         </div>`)
 }
 
