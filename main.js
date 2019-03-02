@@ -947,7 +947,6 @@ function checkMultiKeywordRoundNum(correctAnswer, userMultiAnswer, selectedGenre
 
 //checks if the users answer matches the correct answer - keyword multi game
 function checkUserMultiKeywordAnswer(correctAnswer, userMultiAnswer, selectedGenre) {
-    console.log(selectedGenre)
     if (userMultiAnswer == correctAnswer){
         userScore++;
         $('.userInfo').empty();
@@ -983,7 +982,6 @@ function checkUserMultiKeywordAnswer(correctAnswer, userMultiAnswer, selectedGen
 
 //calls the interface - keyword multi game
 function multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre) {
-    console.log(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3)
     let multiChoiceShuffle = shuffle(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3);
     let a = multiChoiceShuffle.splice(0, 1)
     let b = multiChoiceShuffle.splice(0, 1)
@@ -993,10 +991,10 @@ function multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiCho
     b = b.toString()
     c = c.toString()
     d = d.toString()
-    console.log(a)
-    console.log(b)
-    console.log(c)
-    console.log(d)
+    console.log('Choice a: '+a)
+    console.log('Choice b: '+b)
+    console.log('Choice c: '+c)
+    console.log('Choice d: '+d)
     $('.userInfo').empty();
     $('.userInfo').append(
         `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
@@ -1016,7 +1014,8 @@ function multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiCho
         event.preventDefault();
         song.currentTime = 30;
         let userMultiAnswer = $(this).val();
-        console.log(userMultiAnswer)
+        console.log('Users choice: '+userMultiAnswer)
+        console.log('Correct answer: '+correctAnswer)
         checkUserMultiKeywordAnswer(correctAnswer, userMultiAnswer, selectedGenre);
     })
     
@@ -1026,6 +1025,7 @@ function multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiCho
 function getKeywordMuliplyChoice1(songObject) {
     const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
     if(indexCounter.includes(i)){
+        console.log('Index num aldread used: '+i);
         getKeywordMuliplyChoice1(songObject);
     }else{
         indexCounter.push(i);
@@ -1042,6 +1042,7 @@ function getKeywordMuliplyChoice1(songObject) {
 function getKeywordMuliplyChoice2(songObject) {
     const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
     if(indexCounter.includes(i)){
+        console.log('Index num aldread used: '+i);
         getKeywordMuliplyChoice2(songObject);
     }else{
         indexCounter.push(i);
@@ -1059,6 +1060,7 @@ function getKeywordMuliplyChoice2(songObject) {
 function getKeywordMuliplyChoice3(songObject) {
     const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
     if(indexCounter.includes(i)){
+        console.log('Index num aldread used: '+i);
         getKeywordMuliplyChoice3(songObject);
     }else{
         indexCounter.push(i);
@@ -1078,16 +1080,17 @@ function getKeywordMultiRandomIndex(songObject) {
     let indexCallNum = indexCounter.length+1
     const i = Math.floor((Math.random() * songObject.search.data.tracks.length));
     console.log(indexCallNum+' :num of unique index nums');
-    console.log(indexCallCounter+' :num of times index has been called');
+    console.log(indexCallCounter+' :num of times correct song index has been called');
     console.log(i+' :current index num');
     if(indexCounter.includes(i)){
+        console.log('Index num aldread used: '+i);
         getKeywordRandomIndex();
     }else{
         indexCounter.push(i);
+        return i;
     }
-    console.log('Array of index nums: '+indexCounter);
-    return i;
 }
+    
 
 //extracts all needed data from API object - keyword multi game
 function getMultiKeywordSongInfo(songObject, selectedGenre) {
@@ -1098,12 +1101,14 @@ function getMultiKeywordSongInfo(songObject, selectedGenre) {
     const correctArtist = artist.split('(')[0]||artist.split('[')[0];
     const correctSong = track.split('(')[0]||track.split('[')[0];
     const correctAnswer = correctSong+' by '+correctArtist;
-    console.log(`Correct Answer: ${correctAnswer}`);
+    
     const song = getKeywordSongPreview(songObject, i);
-    getKeywordAlbumCover (songObject, i);
     const multiChoiceOption1 = getKeywordMuliplyChoice1(songObject);
     const multiChoiceOption2 = getKeywordMuliplyChoice2(songObject);
     const multiChoiceOption3 = getKeywordMuliplyChoice3(songObject);
+    console.log('Used index nums: '+indexCounter);
+    console.log(`Correct Answer: ${correctAnswer}`);
+    getKeywordAlbumCover (songObject, i);
     setTimeout(function() {
         multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
     }, 2000)
