@@ -399,16 +399,13 @@ function getRandomIndex(songObject) {
     console.log(indexCallNum+' :num of unique index nums');
     console.log(indexCallCounter+' :num of times correct song index generator has been called');
     const i = Math.floor((Math.random() * songObject.tracks.length));
-    while(true){
-        if(indexCounter.includes(i)){
-            console.log('Index num already used: '+i)
-            getRandomIndex();
-        }else{
-            indexCounter.push(i);
-            console.log(`Current Correct Index Number: ${i}`);
-            return i;
-        }
-        
+    if(indexCounter.includes(i)){
+        console.log('Index num already used: '+i)
+        getRandomIndex();
+    }else{
+        indexCounter.push(i);
+        console.log(`Current Correct Index Number: ${i}`);
+        return i;
     }
 }
 
@@ -1325,61 +1322,54 @@ function shuffle(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiCho
 //gets 1st multiple choice answer - multi choice game
 function getDummyMuliplyChoice1(songObject) {
     const i = Math.floor((Math.random() * songObject.tracks.length), 0);
-    while(true) {
-        if(indexCounter.includes(i)){
-            console.log('Index num already used: '+i)
-            getDummyMuliplyChoice1(songObject);
-        }
-        else{
-            indexCounter.push(i);
-            const artist = songObject.tracks[i].artistName;
-            const artist1 = artist.split('(')[0]||artist.split('[')[0];
-            const track = songObject.tracks[i].name;
-            const track1 = track.split('(')[0]||track.split('[')[0];
-            const multiAnswer1 = track1+' by '+artist1;
-            return multiAnswer1;
-        }
-    }   
-    
+    if(indexCounter.includes(i)){
+        console.log('Index num already used: '+i)
+        getDummyMuliplyChoice1(songObject);
+    }
+    else{
+        indexCounter.push(i);
+        const artist = songObject.tracks[i].artistName;
+        const artist1 = artist.split('(')[0]||artist.split('[')[0];
+        const track = songObject.tracks[i].name;
+        const track1 = track.split('(')[0]||track.split('[')[0];
+        const multiAnswer1 = track1+' by '+artist1;
+        return multiAnswer1;
+    }
 }
 
 //gets 2nd multiple choice answer - multi choice game
 function getDummyMuliplyChoice2(songObject) {
     const i = Math.floor((Math.random() * songObject.tracks.length), 0);
-    while(true){
-        if(indexCounter.includes(i)){
-            console.log('Index num already used: '+i)
-            getDummyMuliplyChoice1(songObject);
-        }
-        else{
-            indexCounter.push(i);
-            const artist = songObject.tracks[i].artistName;
-            const artist2 = artist.split('(')[0]||artist.split('[')[0];
-            const track = songObject.tracks[i].name;
-            const track2 = track.split('(')[0]||track.split('[')[0];
-            const multiAnswer2 = track2+' by '+artist2;
-            return multiAnswer2;
-        }
+    if(indexCounter.includes(i)){
+        console.log('Index num already used: '+i)
+        getDummyMuliplyChoice1(songObject);
+    }
+    else{
+        indexCounter.push(i);
+        const artist = songObject.tracks[i].artistName;
+        const artist2 = artist.split('(')[0]||artist.split('[')[0];
+        const track = songObject.tracks[i].name;
+        const track2 = track.split('(')[0]||track.split('[')[0];
+        const multiAnswer2 = track2+' by '+artist2;
+        return multiAnswer2;
     }
 }
 
 //gets 3rd multiple choice answer - multi choice game
 function getDummyMuliplyChoice3(songObject) {
     const i = Math.floor((Math.random() * songObject.tracks.length), 0);
-    while(true) {
-        if(indexCounter.includes(i)){
-            console.log('Index num already used: '+i)
-            getDummyMuliplyChoice3(songObject);
-        }
-        else{
-            indexCounter.push(i);
-            const artist = songObject.tracks[i].artistName;
-            const artist3 = artist.split('(')[0]||artist.split('[')[0];
-            const track = songObject.tracks[i].name;
-            const track3 = track.split('(')[0]||track.split('[')[0];
-            const multiAnswer3 = track3+' by '+artist3;
-            return multiAnswer3;
-        }
+    if(indexCounter.includes(i)){
+        console.log('Index num already used: '+i)
+        getDummyMuliplyChoice3(songObject);
+    }
+    else{
+        indexCounter.push(i);
+        const artist = songObject.tracks[i].artistName;
+        const artist3 = artist.split('(')[0]||artist.split('[')[0];
+        const track = songObject.tracks[i].name;
+        const track3 = track.split('(')[0]||track.split('[')[0];
+        const multiAnswer3 = track3+' by '+artist3;
+        return multiAnswer3;
     }
 }
 
