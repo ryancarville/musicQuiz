@@ -1736,7 +1736,7 @@ function instructionsEntryGame() {
         5. You will be told what the correct answer was on the next page along with your current score.<br><br>
         6. Press the next song button to load the next song or the quit game button to retun to the home page.<br><br>
         7. Repeat steps 2 thru 6 for the 10 rounds.<br><br>
-        8. At the end of the 10 rounds you will be given your total score out of the possible <br>20 points for the enter your own answers game and 10 for the multiple choice game.<br><br>
+        8. At the end of the 10 rounds you will be given your total score out of the possible <br>20 points.<br><br>
         Good luck at testing your musical knowledge!<br>
         <button type="button" id="home" class="nextSong" value="backToHome" onclick="selectUserEntryGenre();">Back to Game</button>
         </div>`
@@ -1756,7 +1756,7 @@ function instructionsMultiGame() {
         5. You will be told what the correct answer was on the next page along with your current score.<br><br>
         6. Press the next song button to load the next song or the quit game button to retun to the home page.<br><br>
         7. Repeat steps 2 thru 6 for the 10 rounds.<br><br>
-        8. At the end of the 10 rounds you will be given your total score out of the possible <br>20 points for the enter your own answers game and 10 for the multiple choice game.<br><br>
+        8. At the end of the 10 rounds you will be given your total score out of the possible <br>10 points.<br><br>
         Good luck at testing your musical knowledge!<br>
         <button type="button" id="home" class="nextSong" value="backToHome" onclick="selectMultiChoiceGenre();">Back to Game</button>
         </div>`
