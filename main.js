@@ -397,18 +397,18 @@ function getRandomIndex(songObject) {
     indexCallCounter++;
     let indexCallNum = indexCounter.length+1
     console.log(indexCallNum+' :num of unique index nums');
-    console.log(indexCallCounter+' :num of times index generator has been called');
+    console.log(indexCallCounter+' :num of times correct song index generator has been called');
     const i = Math.floor((Math.random() * songObject.tracks.length));
     while(true){
         if(indexCounter.includes(i)){
+            console.log('Index num already used: '+i)
             getRandomIndex();
         }else{
             indexCounter.push(i);
+            console.log(`Current Correct Index Number: ${i}`);
+            return i;
         }
-        console.log(`Current Index Number: ${i}`);
-        console.log('Used index nums '+indexCounter);
-        console.log(songObject);
-        return i;
+        
     }
 }
 
@@ -1222,7 +1222,7 @@ function checkMultiRoundNum(correctAnswer, userMultiAnswer, selectedGenre) {
 
 //checks if the users answer matches the correct answer - multi choice game
 function checkUserMultiAnswer (correctAnswer, userMultiAnswer, selectedGenre) {
-    console.log(selectedGenre)
+    console.log('Correct answer: '+correctAnswer)
     if (userMultiAnswer == correctAnswer){
         userScore++;
         $('.userInfo').empty();
@@ -1258,7 +1258,6 @@ function checkUserMultiAnswer (correctAnswer, userMultiAnswer, selectedGenre) {
 
 //loads multi choice interface - multi choice
 function multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre) {
-    console.log(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3)
     let multiChoiceShuffle = shuffle(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3);
     let a = multiChoiceShuffle.splice(0, 1)
     let b = multiChoiceShuffle.splice(0, 1)
@@ -1268,10 +1267,10 @@ function multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOpti
     b = b.toString()
     c = c.toString()
     d = d.toString()
-    console.log(a)
-    console.log(b)
-    console.log(c)
-    console.log(d)
+    console.log('Chocie a: '+a)
+    console.log('Chocie b: '+b)
+    console.log('Chocie c: '+c)
+    console.log('Chocie d: '+d)
     $('loader').addClass('hidden');
     $('.userInfo').empty();
     $('.userInfo').append(
@@ -1292,7 +1291,7 @@ function multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOpti
         event.preventDefault();
         song.currentTime = 30;
         let userMultiAnswer = $(this).val();
-        console.log(userMultiAnswer)
+        console.log('User Choice: '+userMultiAnswer)
         checkUserMultiAnswer(correctAnswer, userMultiAnswer, selectedGenre);
     })
     
@@ -1320,9 +1319,10 @@ function shuffle(correctAnswer, multiChoiceOption1, multiChoiceOption2, multiCho
 
 //gets 1st multiple choice answer - multi choice game
 function getDummyMuliplyChoice1(songObject) {
-    const i = Math.floor((Math.random() * songObject.tracks.length));
+    const i = Math.floor((Math.random() * songObject.tracks.length), 0);
     while(true) {
         if(indexCounter.includes(i)){
+            console.log('Index num already used: '+i)
             getDummyMuliplyChoice1(songObject);
         }else{
             indexCounter.push(i);
@@ -1339,9 +1339,10 @@ function getDummyMuliplyChoice1(songObject) {
 
 //gets 2nd multiple choice answer - multi choice game
 function getDummyMuliplyChoice2(songObject) {
-    const i = Math.floor((Math.random() * songObject.tracks.length));
+    const i = Math.floor((Math.random() * songObject.tracks.length), 0);
     while(true){
         if(indexCounter.includes(i)){
+            console.log('Index num already used: '+i)
             getDummyMuliplyChoice1(songObject);
         }else{
             indexCounter.push(i);
@@ -1357,9 +1358,10 @@ function getDummyMuliplyChoice2(songObject) {
 
 //gets 3rd multiple choice answer - multi choice game
 function getDummyMuliplyChoice3(songObject) {
-    const i = Math.floor((Math.random() * songObject.tracks.length));
+    const i = Math.floor((Math.random() * songObject.tracks.length), 0);
     while(true) {
         if(indexCounter.includes(i)){
+            console.log('Index num already used: '+i)
             getDummyMuliplyChoice3(songObject);
         }else{
             indexCounter.push(i);
@@ -1382,12 +1384,14 @@ function getMultiChoiceSongInfo(songObject, selectedGenre) {
     const correctArtist = artist.split('(')[0]||artist.split('[')[0];
     const correctSong = track.split('(')[0]||track.split('[')[0];
     const correctAnswer = correctSong+' by '+correctArtist;
-    console.log(`Correct Answer: ${correctAnswer}`);
+    
     const song = getSongPreview(songObject, i);
-    getAlbumCover (songObject, i);
     const multiChoiceOption1 = getDummyMuliplyChoice1(songObject)
     const multiChoiceOption2 = getDummyMuliplyChoice2(songObject)
     const multiChoiceOption3 = getDummyMuliplyChoice3(songObject)
+    console.log('Used index nums '+indexCounter);
+    console.log(`Correct Answer: ${correctAnswer}`);
+    getAlbumCover (songObject, i);
     setTimeout(function() {
         multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
     }, 2000)
