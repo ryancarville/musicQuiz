@@ -16,7 +16,7 @@ function failureCallback(errMessage) {
     $('.container').empty();
     console.log(errMessage)
     $('.container').append(
-        `We are sorry but something went wrong.<br><br> ${errMessage}`)
+        `We are sorry but something went terribly wrong. But we can assure you it wasn't your fault. ;)<br><br> ${errMessage}`)
 }
 
 //displays the final results for a round, different language loads dependant on the users final score - BOTH GAMES USE THIS
