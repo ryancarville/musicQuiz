@@ -546,7 +546,7 @@ function checkKeywordRoundNum(userArtistAnswer, userSongAnswer, correctArtistAns
     if (roundNum <= 10) {
         console.log(`User Current Score: ${userScore}`);
         $('#nextSong').off('click').on('click', event => {
-            loadKeywordSpace(keyword);
+            getKeywordTracks(keyword);
         });
     }
     else{
@@ -716,8 +716,29 @@ function userKeywordSkippedAnswer(correctArtistAnswer, correctSongAnswer, correc
 
 }
 
-//event lisener on the submit button for the user answer - keyword game
-function userKeywordSubmitAnswer (song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, keyword) {
+//load interface and calls the API function - keyword game
+function loadKeywordSpace(keyword, song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay) {
+    const userKeyword = keyword;
+    console.log('User Entered keyword: '+userKeyword);
+    $('.loader').addClass('hidden');
+    $('.container').empty();
+    $('.container').append(
+        `<div class="questionAnimation">
+        <br>
+        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
+        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
+        <a><br><br>Press play to start the song.<br></a>
+        <form autocomplete="off">
+            <fieldset>
+                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" required>
+                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" required>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" class="userAnswerBtn" value="userAnswerBtn">Submit</button>
+                <button type="submit" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
+            </fieldset>
+        </form>
+        </div>`
+    )
+    playSong(song);
     if (userAnswerBtn.addEventListener('click', event => {
         event.preventDefault();
         song.currentTime = 30;
@@ -728,7 +749,6 @@ function userKeywordSubmitAnswer (song, correctArtistAnswer, correctSongAnswer, 
         song.currentTime = 30;
         userKeywordSkippedAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, keyword);
     }));
-    
 }
 
 //final function to fetch album cover image via a seperate API - keyword game
@@ -812,10 +832,8 @@ function getKeywordSongInfo(songObject, keyword) {
     console.log(`Artist = ${correctArtistAnswer}`);
     console.log(`Song = ${correctSongAnswer}`);
     const song = getKeywordSongPreview(songObject, i);
-    playSong(song);
-    
     getKeywordAlbumCover (songObject, i);
-    userKeywordSubmitAnswer(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, keyword);
+    loadKeywordSpace(keyword, song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay);
 } 
 
 //fetchs API object - keyword game
@@ -838,37 +856,12 @@ function getKeywordTracks(keyword) {
     .catch(err => failureCallback(err))
 }
 
-//load interface and calls the API function - keyword game
-function loadKeywordSpace(keyword) {
-    const userKeyword = keyword;
-    console.log('User Entered keyword: '+userKeyword);
-    $('.loader').addClass('hidden');
-    $('.container').empty();
-    $('.container').append(
-        `<div class="questionAnimation">
-        <br>
-        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
-        <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start the song.<br></a>
-        <form autocomplete="off">
-            <fieldset>
-                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" required>
-                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" required>
-                <button type="submit" name="userAnswerBtn" id="userAnswerBtn" class="userAnswerBtn" value="userAnswerBtn">Submit</button>
-                <button type="submit" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
-            </fieldset>
-        </form>
-        </div>`
-    )
-    getKeywordTracks(userKeyword);
-}
-
 //converts users keyword to proper url format and starts game - keyword game
 function startSearchGame() {
     event.preventDefault();
     let keyword = $('.userEnterKeyword').val();
     keyword = keyword.toLowerCase().replace(/\s/g, '+').replace(/[.,\/+#!$%?'\^&\*@;:{}=\-_`~()]/g,"");
-    loadKeywordSpace(keyword);
+    getKeywordTracks(keyword);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
