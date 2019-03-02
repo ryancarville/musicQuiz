@@ -25,11 +25,11 @@ Unlimited Rounds
 
 <b>Screenshots</b>
 
-![alt text](https://raw.githubusercontent.com/ryancarville/musicQuiz/master/images/whoDatMusicQuiz_1.png)
-![alt text](https://raw.githubusercontent.com/ryancarville/musicQuiz/master/images/whoDatMusicQuiz_2.png)
-![alt text](https://raw.githubusercontent.com/ryancarville/musicQuiz/master/images/whoDatMusicQuiz_3.png)
-![alt text](https://raw.githubusercontent.com/ryancarville/musicQuiz/master/images/whoDatMusicQuiz_4.png)
-![alt text](https://raw.githubusercontent.com/ryancarville/musicQuiz/master/images/whoDatMusicQuiz_5.png)
+![alt text](https://raw.githubusercontent.com/ryancarville/musicQuiz/master/images/whoDatMusicQuiz_1.png)<br>
+![alt text](https://raw.githubusercontent.com/ryancarville/musicQuiz/master/images/whoDatMusicQuiz_2.png)<br>
+![alt text](https://raw.githubusercontent.com/ryancarville/musicQuiz/master/images/whoDatMusicQuiz_3.png)<br>
+![alt text](https://raw.githubusercontent.com/ryancarville/musicQuiz/master/images/whoDatMusicQuiz_4.png)<br>
+![alt text](https://raw.githubusercontent.com/ryancarville/musicQuiz/master/images/whoDatMusicQuiz_5.png)<br>
 ![alt text](https://raw.githubusercontent.com/ryancarville/musicQuiz/master/images/whoDatMusicQuiz_6.png)
 
 
