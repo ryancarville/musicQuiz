@@ -10,6 +10,7 @@ body {
     background-image: linear-gradient(yellow, white);
 }
 
+/*nav elements*/
 nav {
     width: 100%;
     height: 60px;
@@ -69,6 +70,15 @@ button.menubtn {
     background-color: yellow;
 }
 
+.userInfo {
+    float: right;
+    width: 175px;
+    height: 60px;
+    background-color: transparent;
+    font-size: 17px;
+}
+
+/*main area content*/
 .container {
     display: flex;
     flex-direction: column;
@@ -81,6 +91,7 @@ button.menubtn {
     color: midnightblue;
 }
 
+/*animations*/
 @-webkit-keyframes slideInFromTop {
     0% {-webkit-transform: translateY(-120%);}
     100% {-webkit-transform: translateY(0);}
@@ -147,7 +158,26 @@ button.menubtn {
     100% { transform: rotate(360deg); }
 }
 
+.animation {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    -webkit-animation: 1s ease-in 0s 1 slideInFromTop;
+    animation: 1s ease-in 0s 1 slideInFromTop;
+}
+
+.animation a {
+    margin-top: -30px;
+    margin-bottom: 5px;
+}
+
 .bottomAnimation {
+    font-size: 16px;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-bottom: 15%;
     -webkit-animation: 1s ease-in 0s 1 slideInFromBottom;
     animation: 1s ease-in 0s 1 slideInFromBottom;
 }
@@ -161,15 +191,6 @@ button.menubtn {
     -webkit-animation: 1s ease-in 0s 1 slideInFromLeft;
     animation: 1s ease-in 0s 1 slideInFromLeft;
 }
-.animation {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    -webkit-animation: 1s ease-in 0s 1 slideInFromTop;
-    animation: 1s ease-in 0s 1 slideInFromTop;
-}
 
 .answerAnimation {
     display: flex;
@@ -182,6 +203,8 @@ button.menubtn {
     animation: 1s ease-in 0s 1 slideInFromRight;
 }
 
+
+/*home page elements*/
 .homeRecord {
     width: 200px;
     margin-top: 10px;
@@ -189,24 +212,10 @@ button.menubtn {
     animation: spin 2s linear infinite;
 }
 
-.loader {
-    justify-content: center;
-    align-content: center;
-    width: 250px;
-    display: block;
-    font-size: 20px;
-    text-align: center;
-}
-.loader > img {
-    margin-left: -50px;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-}
-
 .home {  
     width: 100%;
     height: 300px;
-    margin-bottom: 125px;
+    margin-bottom: 160px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -240,6 +249,23 @@ button.menubtn {
     background-color: black;
 }
 
+
+/*loader*/
+.loader {
+    justify-content: center;
+    align-content: center;
+    width: 250px;
+    display: block;
+    font-size: 20px;
+    text-align: center;
+}
+.loader > img {
+    margin-left: -50px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+/*genre select elements*/
 h2 {
     margin-bottom: -5px;
 }
@@ -255,11 +281,6 @@ select {
     width: 300px;
     height: 30px;
     border: 1px solid black;
-}
-
-.animation a {
-    margin-top: -30px;
-    margin-bottom: 5px;
 }
 
 .userEnterKeyword {
@@ -327,6 +348,7 @@ select {
     font-size: 15px;
 }
 
+/*question page*/
 .playSong {
     background-image: url('images/playButton.png');
     background-repeat: no-repeat;
@@ -432,26 +454,9 @@ select {
     text-align: center;
 }
 
-.nextSong {
-    width: 200px;
-    height: 35px;
-    border-radius: 50px 50px 50px 50px;
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
-    margin-top: 15px;
-    font-size: 15px;
-    margin-bottom: 5px;
-    background-color: white;
-    cursor: pointer;
-    -webkit-transition-timing-function: ease-in-out;
-    transition-timing-function: ease-in-out;
-    -webkit-transition: width 1.5s, height 1.5s, -webkit-transform 1.5s; /* Safari */
-    transition: width 1.5s, height 1.5s, transform 1.5s;
-}
-
-.nextSong:hover {
+/*answer page*/
+.albumCoverImg {
     width: 250px;
-    height: 50px;
-    font-size: 15px;
 }
 
 .addPoint {
@@ -475,15 +480,14 @@ select {
     height: 50px;
     font-size: 15px;
 }
-
-.finalResultsBtn {
+.nextSong {
     width: 200px;
     height: 35px;
     border-radius: 50px 50px 50px 50px;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 15px;
     font-size: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     background-color: white;
     cursor: pointer;
     -webkit-transition-timing-function: ease-in-out;
@@ -492,34 +496,7 @@ select {
     transition: width 1.5s, height 1.5s, transform 1.5s;
 }
 
-.finalResultsBtn:hover {
-    width: 250px;
-    height: 50px;
-}
-
-.finalResults {
-    height: 200px;
-    font-size: 20px;
-    margin-top: 30%;
-}
-
-.gameOver {
-    width: 200px;
-    height: 35px;
-    border-radius: 50px 50px 50px 50px;
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
-    margin-top: 15px;
-    font-size: 15px;
-    margin-bottom: 20px;
-    background-color: white;
-    cursor: pointer;
-    -webkit-transition-timing-function: ease-in-out;
-    transition-timing-function: ease-in-out;
-    -webkit-transition: width 1.5s, height 1.5s, -webkit-transform 1.5s; /* Safari */
-    transition: width 1.5s, height 1.5s, transform 1.5s;
-}
-
-.gameOver:hover {
+.nextSong:hover {
     width: 250px;
     height: 50px;
     font-size: 15px;
@@ -547,10 +524,64 @@ select {
     font-size: 15px;
 }
 
-.albumCoverImg {
+/*final results page*/
+.finalResultsBtn {
+    width: 200px;
+    height: 35px;
+    border-radius: 50px 50px 50px 50px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
+    margin-top: 15px;
+    font-size: 15px;
+    margin-bottom: 20px;
+    background-color: white;
+    cursor: pointer;
+    -webkit-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: width 1.5s, height 1.5s, -webkit-transform 1.5s; /* Safari */
+    transition: width 1.5s, height 1.5s, transform 1.5s;
+}
+
+.finalResultsBtn:hover {
     width: 250px;
+    height: 50px;
+}
+
+.finalResults {
+    height: 200px;
+    font-size: 20px;
+    margin-top: 30%;
+}
+
+/*game over page*/
+.gameOver {
+    width: 200px;
+    height: 35px;
+    border-radius: 50px 50px 50px 50px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
+    margin-top: 15px;
+    font-size: 15px;
+    margin-bottom: 20px;
+    background-color: white;
+    cursor: pointer;
+    -webkit-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: width 1.5s, height 1.5s, -webkit-transform 1.5s; /* Safari */
+    transition: width 1.5s, height 1.5s, transform 1.5s;
+}
+
+.gameOver:hover {
+    width: 250px;
+    height: 50px;
+    font-size: 15px;
 }
 
 .hidden {
     display: none;
+}
+
+/*media query for desktops*/
+@media only screen and (min-width: 750px){
+
+
+
 }

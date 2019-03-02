@@ -128,6 +128,9 @@ function checkUserEntryRoundNum(userArtistAnswer, userSongAnswer, correctArtistA
         if (userArtistAnswer == correctArtistAnswer && userSongAnswer == correctSongAnswer){
             userScore++;
             userScore++;
+            $('.userInfo').empty();
+            $('.userInfo').append(
+            `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
             $('.container').empty();
             $('.container').append(
                 `<div class="answerAnimation">
@@ -141,6 +144,9 @@ function checkUserEntryRoundNum(userArtistAnswer, userSongAnswer, correctArtistA
         }
         else if (userArtistAnswer == correctArtistAnswer  && userSongAnswer != correctSongAnswer) {
             userScore++;
+            $('.userInfo').empty();
+            $('.userInfo').append(
+                `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
             $('.container').empty();
             $('.container').append(
                 `<div class="answerAnimation">
@@ -154,6 +160,9 @@ function checkUserEntryRoundNum(userArtistAnswer, userSongAnswer, correctArtistA
         }
         else if (userArtistAnswer != correctArtistAnswer  && userSongAnswer == correctSongAnswer) {
             userScore++;
+            $('.userInfo').empty();
+            $('.userInfo').append(
+                `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
             $('.container').empty();
             $('.container').append(
                 `<div class="answerAnimation">
@@ -197,23 +206,25 @@ function checkUserEntryRoundNum(userArtistAnswer, userSongAnswer, correctArtistA
 
 //checks if the users answer matches the correct answer - catagory game
 function checkUserEntryAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum) {
-    const correctArtistAndSongResults = `The answer was<br></br>${correctAnswerDisplay}`;
+    const correctArtistAndSongResults = `${correctAnswerDisplay}`;
     const userArtistAnswer = getUserAnswerArtist();
     const userSongAnswer = getUserAnswerSong();
     const userArtistDisplayAnswer = getUserAnswerArtistDispaly();
     const userSongDisplayAnswer = getUserAnswerSongDispaly();
     const userAnswerResults = `Your answer was<br>Artist: ${userArtistDisplayAnswer}<br>Song: ${userSongDisplayAnswer}`;
     console.log(`Users Answer: ${userSongDisplayAnswer} by ${userArtistDisplayAnswer}`);
-    roundNum++;
     if (userArtistAnswer == correctArtistAnswer && userSongAnswer == correctSongAnswer){
         userScore++;
         userScore++;
+        $('.userInfo').empty();
+        $('.userInfo').append(
+            `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
         $('.container').empty();
         $('.container').append(
             `<div class="answerAnimation">
             <div class="answerResult">
-            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
-            <br><br>Current score is:<br> ${userScore}<br>
+            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
+            <br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>
@@ -222,12 +233,15 @@ function checkUserEntryAnswer(correctArtistAnswer, correctSongAnswer, correctAns
     }
     else if (userArtistAnswer == correctArtistAnswer  && userSongAnswer != correctSongAnswer) {
         userScore++;
+        $('.userInfo').empty();
+        $('.userInfo').append(
+            `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
         $('.container').empty();
         $('.container').append(
             `<div class="answerAnimation">
             <div class="answerResult">
-            Not Bad.<br>You got the artist right but missed the song.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
-            <br><br>Current score is:<br> ${userScore}<br>
+            Not Bad.<br>You got the artist right but missed the song.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+            <br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>
@@ -236,12 +250,15 @@ function checkUserEntryAnswer(correctArtistAnswer, correctSongAnswer, correctAns
     }
     else if (userArtistAnswer != correctArtistAnswer  && userSongAnswer == correctSongAnswer) {
         userScore++;
+        $('.userInfo').empty();
+        $('.userInfo').append(
+            `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
         $('.container').empty();
         $('.container').append(
             `<div class="answerAnimation">
             <div class="answerResult">
-            Not Bad.<br>You got the song right but missed the artist.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
-            <br><br>Current score is:<br> ${userScore}<br>
+            Not Bad.<br>You got the song right but missed the artist.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+            <br>Current score is:<br> ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>
@@ -253,14 +270,15 @@ function checkUserEntryAnswer(correctArtistAnswer, correctSongAnswer, correctAns
         $('.container').append(
             `<div class="answerAnimation">
             <div class="answerResult">
-            Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
-            <br><br>Current score is:<br> ${userScore}<br>
+            Bummer! You answered incorrectly.<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
+            <br>Current score is: ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
             </div>
             </div>`
         )
     }
+    roundNum++;
     checkUserEntryRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum);
 }
 
@@ -275,31 +293,35 @@ function userSkippedUserEntryAnswer(correctArtistAnswer, correctSongAnswer, corr
     console.log(`Users Skipped Round`);
     console.log(userArtistAnswer);
     console.log(userSongAnswer);
-    roundNum++;
+    $('.userInfo').empty();
+    $('.userInfo').append(
+            `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
     $('.container').empty();
     $('.container').append(
         `<div class="answerAnimation">
         <div class="answerResult">
-        Bummer! You gave up.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>You get 0 points this round.
-        <br><br>Current score is:<br> ${userScore}<br>
+        Bummer! You gave up.<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctArtistAndSongResults}<br><br>You get 0 points this round.
+        <br>Current score is: ${userScore}<br>
         <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
         <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>
         </div>`
     )
+    roundNum++;
     checkUserEntryRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, genreNum);
 }
 
 //load and initalized - catagory game
 function gameUserEntryStart(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum) {
     $('.loader').addClass('hidden');
+    $('.userInfo').empty();
+    $('.userInfo').append(
+        `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
     $('.container').empty();
     $('.container').append(
         `<div class="questionAnimation">
-        <br>
-        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start the song.<br></a>
+        <a>Press play to start the song<br>and again to pause.<br></a>
         <form autocomplete="off">
             <fieldset>
                 <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" required>
@@ -435,15 +457,6 @@ function selectUserEntryGenre() {
     $('.container').append(
         `<div class="animation">
         <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsEntryGame();">Instructions</button>
-        <h2>Enter a Keyword</h2>
-        <form id='keywordSearch'>
-            <fieldset>
-                <label for='keywordSearch'></label>
-                <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
-                <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startSearchGame();">Search Songs</button><br>
-            </fieldset>
-        </form>
-        <h2>or</h2>
         <form id='genreMenu'>
             <fieldset>
                 <label for='genreMenu'>select a catagory</label>
@@ -484,8 +497,15 @@ function selectUserEntryGenre() {
                 </select>
             </fieldset>
         </form>
-        <h2>or</h2>
-        <label for="randomGenre">choose a random genre by rolling the dice</label>
+        <br>
+        <form id='keywordSearch'>
+            <fieldset>
+                <label for='keywordSearch'>enter a keyword</label>
+                <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
+                <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startSearchGame();">Search Songs</button><br>
+            </fieldset>
+        </form>
+        <label for="randomGenre">choose a random genre<br>by rolling the dice</label>
         <div class="randomGenre">
         <img src="images/dice1.png" class="dice" alt="dice1" onclick="getGenreNum();">
         <img src="images/dice2.png" class="dice" alt="dice1" onclick="getGenreNum();">
@@ -622,23 +642,25 @@ function checkKeywordRoundNum(userArtistAnswer, userSongAnswer, correctArtistAns
 
 //checks the answers of the user - keyword game
 function checkKeywordUserAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, keyword) {
-    const correctArtistAndSongResults = `The answer was<br></br>${correctAnswerDisplay}`;
+    const correctArtistAndSongResults = `${correctAnswerDisplay}`;
     const userArtistAnswer = getUserAnswerArtist();
     const userSongAnswer = getUserAnswerSong();
     const userArtistDisplayAnswer = getUserAnswerArtistDispaly();
     const userSongDisplayAnswer = getUserAnswerSongDispaly();
     const userAnswerResults = `Your answer was<br>Artist: ${userArtistDisplayAnswer}<br>Song: ${userSongDisplayAnswer}`;
     console.log(`Users Answer: ${userSongDisplayAnswer} by ${userArtistDisplayAnswer}`);
-    roundNum++;
     if (userArtistAnswer == correctArtistAnswer && userSongAnswer == correctSongAnswer){
         userScore++;
         userScore++;
+        $('.userInfo').empty();
+        $('.userInfo').append(
+            `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
         $('.container').empty();
         $('.container').append(
             `<div class="answerAnimation">
             <div class="answerResult">
-            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
-            <br><br>Current score is:<br> ${userScore}<br>
+            Well Done!<br>You got it all right!<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 2 point this round.
+            <br>Current score is: ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>
@@ -647,12 +669,15 @@ function checkKeywordUserAnswer(correctArtistAnswer, correctSongAnswer, correctA
     }
     else if (userArtistAnswer == correctArtistAnswer  && userSongAnswer != correctSongAnswer) {
         userScore++;
+        $('.userInfo').empty();
+        $('.userInfo').append(
+            `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
         $('.container').empty();
         $('.container').append(
             `<div class="answerAnimation">
             <div class="answerResult">
-            Not Bad.<br>You got the artist right but missed the song.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
-            <br><br>Current score is:<br> ${userScore}<br>
+            Not Bad.<br>You got the artist right but missed the song.<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+            <br>Current score is: ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>
@@ -661,12 +686,15 @@ function checkKeywordUserAnswer(correctArtistAnswer, correctSongAnswer, correctA
     }
     else if (userArtistAnswer != correctArtistAnswer  && userSongAnswer == correctSongAnswer) {
         userScore++;
+        $('.userInfo').empty();
+        $('.userInfo').append(
+            `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
         $('.container').empty();
         $('.container').append(
             `<div class="answerAnimation">
             <div class="answerResult">
-            Not Bad.<br>You got the song right but missed the artist.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
-            <br><br>Current score is:<br> ${userScore}<br>
+            Not Bad.<br>You got the song right but missed the artist.<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 1 point this round.
+            <br>Current score is: ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>
@@ -678,40 +706,44 @@ function checkKeywordUserAnswer(correctArtistAnswer, correctSongAnswer, correctA
         $('.container').append(
             `<div class="answerAnimation">
             <div class="answerResult">
-            Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
-            <br><br>Current score is:<br> ${userScore}<br>
+            Bummer! You answered incorrectly.<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctArtistAndSongResults}<br><br>${userAnswerResults}<br><br>You get 0 points this round.
+            <br>Current score is: ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
             </div>
             </div>`
         )
     }
+    roundNum++;
     checkKeywordRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, keyword);
 }
 
 //if user skips a round this appends the correct results - keyword game
 function userKeywordSkippedAnswer(correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, keyword){
-    const correctArtistAndSongResults = `The answer was<br></br>${correctAnswerDisplay}`;
+    const correctArtistAndSongResults = `${correctAnswerDisplay}`;
     const userArtistAnswer = getUserAnswerArtist();
     const userSongAnswer = getUserAnswerSong();
     const userArtistDisplayAnswer = getUserAnswerArtistDispaly();
     const userSongDisplayAnswer = getUserAnswerSongDispaly();
-    const userAnswerResults = `Your answer was<br>Artist: ${userArtistDisplayAnswer}<br>Song: ${userSongDisplayAnswer}`;
+    const userAnswerResults = `${userArtistDisplayAnswer}${userSongDisplayAnswer}`;
     console.log(`Users Skipped Round`);
     console.log(userArtistAnswer);
     console.log(userSongAnswer);
-    roundNum++;
+    $('.userInfo').empty();
+        $('.userInfo').append(
+            `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
     $('.container').empty();
     $('.container').append(
         `<div class="answerAnimation">
         <div class="answerResult">
-        Bummer! You gave up.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctArtistAndSongResults}<br><br>You get 0 points this round.
-        <br><br>Current score is:<br> ${userScore}<br>
+        Bummer! You gave up.<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctArtistAndSongResults}<br><br>You get 0 points this round.
+        <br><br>Current score is: ${userScore}<br>
         <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
         <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>
         </div>`
     )
+    roundNum++;
     checkKeywordRoundNum(userArtistAnswer, userSongAnswer, correctArtistAnswer, correctSongAnswer, correctArtistAndSongResults, userAnswerResults, keyword);
 
 }
@@ -721,11 +753,12 @@ function loadKeywordSpace(keyword, song, correctArtistAnswer, correctSongAnswer,
     const userKeyword = keyword;
     console.log('User Entered keyword: '+userKeyword);
     $('.loader').addClass('hidden');
+    $('.userInfo').empty();
+    $('.userInfo').append(
+        `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
     $('.container').empty();
     $('.container').append(
         `<div class="questionAnimation">
-        <br>
-        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
         <a><br><br>Press play to start the song.<br></a>
         <form autocomplete="off">
@@ -909,10 +942,12 @@ function checkMultiKeywordRoundNum(correctAnswer, userMultiAnswer, selectedGenre
 
 //checks if the users answer matches the correct answer - keyword multi game
 function checkUserMultiKeywordAnswer(correctAnswer, userMultiAnswer, selectedGenre) {
-    roundNum++;
     console.log(selectedGenre)
     if (userMultiAnswer == correctAnswer){
         userScore++;
+        $('.userInfo').empty();
+        $('.userInfo').append(
+            `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
         $('.container').empty();
         $('.container').append(
             `<div class="answerAnimation">
@@ -938,6 +973,7 @@ function checkUserMultiKeywordAnswer(correctAnswer, userMultiAnswer, selectedGen
             </div>`
         )
     }
+    roundNum++;
     checkMultiKeywordRoundNum(correctAnswer, userMultiAnswer, selectedGenre)
 }
 
@@ -957,12 +993,12 @@ function multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiCho
     console.log(b)
     console.log(c)
     console.log(d)
-
+    $('.userInfo').empty();
+    $('.userInfo').append(
+        `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
     $('.container').empty();
     $('.container').append(
-        `<br>
-        <div class="questionAnimation">
-        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
+        `<div class="questionAnimation">
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
         <a><br><br>Press play to start the song.<br></a>
         <button type="submit" name="${a}" id="${a}" class="multiUserAnswerBtn" value="${a}">${a}</button>
@@ -1096,7 +1132,7 @@ function startMultiSearchGame() {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-//MULTIPL CHOICE GAME
+//MULTIPLE CHOICE GAME
 
 //checks the final score nd appends the approriate results - multi choice and keyword multi
 function finalMultiResults() {
@@ -1180,10 +1216,12 @@ function checkMultiRoundNum(correctAnswer, userMultiAnswer, selectedGenre) {
 
 //checks if the users answer matches the correct answer - multi choice game
 function checkUserMultiAnswer (correctAnswer, userMultiAnswer, selectedGenre) {
-    roundNum++;
     console.log(selectedGenre)
     if (userMultiAnswer == correctAnswer){
         userScore++;
+        $('.userInfo').empty();
+        $('.userInfo').append(
+            `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
         $('.container').empty();
         $('.container').append(
             `<div class="answerAnimation">
@@ -1208,6 +1246,7 @@ function checkUserMultiAnswer (correctAnswer, userMultiAnswer, selectedGenre) {
         </div>`
         )
     }
+    roundNum++;
     checkMultiRoundNum(correctAnswer, userMultiAnswer, selectedGenre)
 }
 
@@ -1228,11 +1267,12 @@ function multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOpti
     console.log(c)
     console.log(d)
     $('loader').addClass('hidden');
+    $('.userInfo').empty();
+    $('.userInfo').append(
+        `Current Score: ${userScore}<br>Round Number: ${roundNum}/10`)
     $('.container').empty();
     $('.container').append(
         `<div class="questionAnimation">
-        <br>
-        Current Score: ${userScore}<br>Round Number: ${roundNum}/10<br>
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
         <a><br><br>Press play to start the song.<br></a>
         <button type="submit" name="${a}" id="${a}" class="multiUserAnswerBtn" value="${a}">${a}</button>
@@ -1373,17 +1413,9 @@ function selectMultiChoiceGenre() {
     $('.container').append(
         `<div class="animation">
         <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsMultiGame();">Instructions</button>
-        <h2>Enter a Keyword</h2>
-        <form id='keywordSearch'>
-            <fieldset>
-                <label for='keywordSearch'></label>
-                <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
-                <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startMultiSearchGame();">Search Songs</button><br>
-            </fieldset>
-            <form id='genreMenu'>
+        <form id='genreMenu'>
             <fieldset>
                 <label for='genreMenu'>select a catagory</label>
-                <br><br>
                 <select id="userSelectGenre" class="userSelectGenre" name='genres'>
                     <option value="">Select a Decade or Genre:</option>
                     <optgroup label="Decades">
@@ -1420,8 +1452,16 @@ function selectMultiChoiceGenre() {
                 </select>
             </fieldset>
         </form>
-        <h2>or</h2>
-        <label for="randomGenre">choose a random genre by rolling the dice</label>
+        <br>
+        <form id='keywordSearch'>
+            <fieldset>
+                <label for='keywordSearch'>enter a keyword</label>
+                <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
+                <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startMultiSearchGame();">Search Songs</button><br>
+            </fieldset>
+        </form>
+        <br>
+        <label for="randomGenre">or choose a random genre<br>by rolling the dice</label>
         <div class="randomGenre">
         <img src="images/dice1.png" class="dice" alt="dice1" onclick="getMultiGenreNum();">
         <img src="images/dice2.png" class="dice" alt="dice1" onclick="getMultiGenreNum();">
@@ -1480,14 +1520,15 @@ function getMultiGenreNum() {
 function quizMasterGameStart(song, correctAnswer, selectedGenre) {
     console.log(correctAnswer)
     $('.loader').addClass('hidden');
+    $('.userInfo').empty();
+    $('.userInfo').append(
+        `Current Score: ${userScore}<br>Round Number: ${roundNum}`)
     $('.container').empty();
     $('.container').append(
         `<div class="questionAnimation">
-        <br>
-        Current Score: ${userScore}<br>Round Number: ${roundNum}<br>
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start the song.<br></a><br>
-        <a><br><br>The correct answer is<br></a>
+        <a>Press play to start the song.<br></a><br>
+        <a>The correct answer is<br></a>
         <div class="quizMasterAnswer">${correctAnswer}</div>
         <button type="button" name="addPoint" id ="addPoint" class="addPoint" value="addPoint">Add point and go to next song</button>
         <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button>
@@ -1552,19 +1593,9 @@ function selectQuizMasterGenre() {
     $('.container').append(
         `<div class="animation">
         <button type="button" id="homeInstructions" class="homeBtn" value="homeInstructionsBtn" onclick="instructionsQuizMasterGame();">Instructions</button>
-        <h2>Enter a Keyword</h2>
-        <form id='keywordSearch'>
-            <fieldset>
-                <label for='keywordSearch'></label>
-                <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
-                <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startMultiSearchGame();">Search Songs</button><br>
-            </fieldset>
-        </form>
-        <h2>or</h2>
         <form id='genreMenu'>
             <fieldset>
                 <label for='genreMenu'>select a catagory</label>
-                <br><br>
                 <select id="userSelectGenre" class="userSelectGenre" name='genres'>
                     <option value="">Select a Decade or Genre:</option>
                     <optgroup label="Decades">
@@ -1601,8 +1632,15 @@ function selectQuizMasterGenre() {
                 </select>
             </fieldset>
         </form>
-        <h2>or</h2>
-        <label for="randomGenre">choose a random genre by rolling the dice</label>
+        <br>
+        <form id='keywordSearch'>
+            <fieldset>
+                <label for='keywordSearch'>enter a keyword</label>
+                <input type="text" name="userEnterArtist" id="userEnterKeyword" class="userEnterKeyword" placeholder="Enter Your Keyword Here"><br>
+                <button type="submit" id="keywordSearchBtn" value="keywordSearch" onclick="startMultiSearchGame();">Search Songs</button><br>
+            </fieldset>
+        </form>
+        <label for="randomGenre">or choose a random genre<br>by rolling the dice</label>
         <div class="randomGenre">
         <img src="images/dice1.png" class="dice" alt="dice1" onclick="getQuizMasterGenreNum();">
         <img src="images/dice2.png" class="dice" alt="dice1" onclick="getQuizMasterGenreNum();">
@@ -1724,7 +1762,7 @@ function instructionsQuizMasterGame() {
         3. The correct answer will be shown below the play button.
         4. If you friends get it right, press the "Add point and goto next song" button and a point will be add.  Else press next song.<br><br>
         5. Play for as many rounds as you wish.  Your runing score will be displayed at the top of the screen along with total number of rounds.<br><br>
-        Best o fluck, Quiz Master!
+        Best of luck, Quiz Master!
         <button type="button" id="home" class="nextSong" value="backToHome" onclick="selectQuizMasterGenre();">Back to Game</button>
         </div>`
         );
@@ -1734,6 +1772,7 @@ function instructionsQuizMasterGame() {
 function start() {
     roundNum = 1;
     userScore = 0;
+    $('.userInfo').empty();
     $('.container').empty();
     $('.container').append(
         `<div class="animation"><img src="images/logo.png" alt="logo"></div>
