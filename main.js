@@ -439,7 +439,7 @@ function getUserEntryTrack(genreNum) {
     $('.container').empty();
     $('.container').append(
         `<div class="loader"><img src="images/record.png" alt"loader">
-        <p>Great choice! We are loading your quiz now.</p></div>`)
+        <p>Loading your song now.</p></div>`)
     console.log(`Napster Genre Number: ${genreNum}`);
     let url = 'https://api.napster.com/v2.2/genres/'+genreNum+'/tracks/top?limit=200&apikey='+apiKey;
     console.log('API url: '+url);
@@ -546,7 +546,7 @@ function getGenreNum() {
     $('.container').empty();
     $('.container').append(
         `<div class="loader"><img src="images/record.png" alt"loader">
-        <p>Great choice! We are loading your quiz now.</p></div>`)
+        <p>Loading your song now.</p></div>`)
     let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
     console.log(url);
     fetch(url)
@@ -879,7 +879,7 @@ function getKeywordTracks(keyword) {
     $('.container').empty();
     $('.container').append(
         `<div class="loader"><img src="images/record.png" alt"loader">
-        <p>Great choice! We are loading your quiz now.</p></div>`)
+        <p>Loading your song now.</p></div>`)
     const url = 'https://api.napster.com/v2.2/search/verbose?apikey='+apiKey2+'&per_type_limit=200&query='+keyword+'&type=tracks';
     console.log(url);
     fetch(url)
@@ -1114,7 +1114,7 @@ function getMultiKeywordTrack(keyword) {
     $('.container').empty();
     $('.container').append(
         `<div class="loader"><img src="images/record.png" alt"loader">
-        <p>Great choice! We are loading your quiz now.</p></div>`)
+        <p>Loading your song now.</p></div>`)
     const url = 'https://api.napster.com/v2.2/search/verbose?apikey='+apiKey2+'&per_type_limit=200&query='+keyword+'&type=tracks';
     console.log(url);
     fetch(url)
@@ -1399,7 +1399,7 @@ function getMultiChoiceTracks(selectedGenre) {
     $('.container').empty();
     $('.container').append(
         `<div class="loader"><img src="images/record.png" alt"loader">
-        <p>Great choice! We are loading your quiz now.</p></div>`)
+        <p>Loading your song now.</p></div>`)
     console.log(`Napster Genre Number: ${selectedGenre}`);
     let url = 'https://api.napster.com/v2.2/genres/'+selectedGenre+'/tracks/top?limit=200&apikey='+apiKey;
     console.log('API url: '+url);
@@ -1506,7 +1506,7 @@ function getMultiGenreNum() {
     $('.container').empty();
     $('.container').append(
         `<div class="loader"><img src="images/record.png" alt"loader">
-        <p>Great choice! We are loading your quiz now.</p></div>`)
+        <p>Loading your song now.</p></div>`)
     let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
     console.log(url);
     fetch(url)
@@ -1581,7 +1581,7 @@ function getQuizMasterTracks(selectedGenre) {
     $('.container').empty();
     $('.container').append(
         `<div class="loader"><img src="images/record.png" alt"loader">
-        <p>Great choice! We are loading your quiz now.</p></div>`)
+        <p>Loading your song now.</p></div>`)
     console.log(`Napster Genre Number: ${selectedGenre}`);
     let url = 'https://api.napster.com/v2.2/genres/'+selectedGenre+'/tracks/top?limit=200&apikey='+apiKey;
     console.log('API url: '+url);
@@ -1689,7 +1689,7 @@ function getQuizMasterGenreNum() {
     $('.container').empty();
     $('.container').append(
         `<div class="loader"><img src="images/record.png" alt"loader">
-        <p>Great choice! We are loading your quiz now.</p></div>`)
+        <p>Loading your song now.</p></div>`)
     let url = 'https://api.napster.com/v2.2/genres?apikey='+apiKey2;
     console.log(url);
     fetch(url)

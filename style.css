@@ -164,8 +164,8 @@ button.menubtn {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    -webkit-animation: 1s ease-in 0s 1 slideInFromTop;
-    animation: 1s ease-in 0s 1 slideInFromTop;
+    -webkit-animation: 1.5s 0s 1 slideInFromTop;
+    animation: 1.5s 0s 1 slideInFromTop;
 }
 
 .animation a {
@@ -178,8 +178,8 @@ button.menubtn {
     margin-left: 3%;
     margin-right: 3%;
     margin-bottom: 15%;
-    -webkit-animation: 1s ease-in 0s 1 slideInFromBottom;
-    animation: 1s ease-in 0s 1 slideInFromBottom;
+    -webkit-animation: 1s 0s 1 slideInFromBottom;
+    animation: 1s 0s 1 slideInFromBottom;
 }
 
 .questionAnimation {
@@ -188,8 +188,8 @@ button.menubtn {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    -webkit-animation: 1s ease-in 0s 1 slideInFromLeft;
-    animation: 1s ease-in 0s 1 slideInFromLeft;
+    -webkit-animation: 1s 0s 1 slideInFromLeft;
+    animation: 1s 0s 1 slideInFromLeft;
 }
 
 .answerAnimation {
@@ -199,10 +199,9 @@ button.menubtn {
     justify-content: center;
     align-items: center;
     margin-top: -15px;
-    -webkit-animation: 1s ease-in 0s 1 slideInFromRight;
-    animation: 1s ease-in 0s 1 slideInFromRight;
+    -webkit-animation: 1s 0s 1 slideInFromRight;
+    animation: 1s 0s 1 slideInFromRight;
 }
-
 
 /*home page elements*/
 .homeRecord {
@@ -451,7 +450,7 @@ select {
     border-radius: 50px 50px 50px 50px;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 10px;
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 15px;
     background-color: white;
     text-align: center;
@@ -583,7 +582,7 @@ select {
 }
 
 /*media query for desktops*/
-@media only screen and (min-width: 750px){
+@media only screen and (min-width: 660px){
 
 .home {
     margin-top: -100px;
