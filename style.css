@@ -410,7 +410,7 @@ select {
 .multiUserAnswerBtn {
     width: 300px;
     height: 80px;
-    padding: 5px;
+    padding: 10px;
     border-radius: 50px 50px 50px 50px;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 10px;
@@ -426,7 +426,7 @@ select {
 
 .multiUserAnswerBtn:hover {
     width: 300px;
-    height: 70px;
+    height: 90px;
     font-size: 16px;
 }
 
