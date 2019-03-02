@@ -16,7 +16,7 @@ function failureCallback(errMessage) {
     $('.container').empty();
     console.log(errMessage)
     $('.container').append(
-        `We are sorry but somthing went wrong.<br><br> ${errMessage}`)
+        `We are sorry but something went wrong.<br><br> ${errMessage}`)
 }
 
 //displays the final results for a round, different language loads dependant on the users final score - BOTH GAMES USE THIS
@@ -429,7 +429,9 @@ function getUserEntrySongInfo(songObject, genreNum) {
     console.log(`Artist = ${correctArtistAnswer}`);
     console.log(`Song = ${correctSongAnswer}`);
     getAlbumCover (songObject, i);
-    gameUserEntryStart(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum);
+    setTimeout(function() {
+        gameUserEntryStart(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum)
+    }, 2000)
 }
 
 //fetches the song API object - catagory game
@@ -867,7 +869,9 @@ function getKeywordSongInfo(songObject, keyword) {
     console.log(`Song = ${correctSongAnswer}`);
     const song = getKeywordSongPreview(songObject, i);
     getKeywordAlbumCover (songObject, i);
-    loadKeywordSpace(keyword, song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay);
+    setTimeout(function() {
+        loadKeywordSpace(keyword, song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay)
+    }, 2000)
 } 
 
 //fetchs API object - keyword game
@@ -1100,7 +1104,9 @@ function getMultiKeywordSongInfo(songObject, selectedGenre) {
     const multiChoiceOption1 = getKeywordMuliplyChoice1(songObject);
     const multiChoiceOption2 = getKeywordMuliplyChoice2(songObject);
     const multiChoiceOption3 = getKeywordMuliplyChoice3(songObject);
-    multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
+    setTimeout(function() {
+        multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
+    }, 2000)
 } 
 
 //fetchs API object - keyword multi game
@@ -1382,7 +1388,9 @@ function getMultiChoiceSongInfo(songObject, selectedGenre) {
     const multiChoiceOption1 = getDummyMuliplyChoice1(songObject)
     const multiChoiceOption2 = getDummyMuliplyChoice2(songObject)
     const multiChoiceOption3 = getDummyMuliplyChoice3(songObject)
-    multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
+    setTimeout(function() {
+        multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
+    }, 2000)
 
 }
 
@@ -1563,7 +1571,9 @@ function getQuizMasterInfo(songObject, selectedGenre) {
     console.log(`Correct Answer: ${correctAnswer}`);
     const song = getSongPreview(songObject, i);
     getAlbumCover (songObject, i);
-    quizMasterGameStart(song, correctAnswer, selectedGenre)
+    setTimeout(function() {
+        quizMasterGameStart(song, correctAnswer, selectedGenre)
+    }, 2000)
 }
 
 //gets song API object - quiz master game
