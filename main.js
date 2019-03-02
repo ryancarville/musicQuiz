@@ -399,15 +399,17 @@ function getRandomIndex(songObject) {
     console.log(indexCallNum+' :num of unique index nums');
     console.log(indexCallCounter+' :num of times index generator has been called');
     const i = Math.floor((Math.random() * songObject.tracks.length));
-    if(indexCounter.includes(i)){
-        getRandomIndex();
-    }else{
-        indexCounter.push(i);
+    while(true){
+        if(indexCounter.includes(i)){
+            getRandomIndex();
+        }else{
+            indexCounter.push(i);
+        }
+        console.log(`Current Index Number: ${i}`);
+        console.log('Used index nums '+indexCounter);
+        console.log(songObject);
+        return i;
     }
-    console.log(`Current Index Number: ${i}`);
-    console.log('Used index nums '+indexCounter);
-    console.log(songObject);
-    return i;
 }
 
 //extracts all needed data from API object - catagory game
@@ -915,8 +917,8 @@ function checkMultiKeywordRoundNum(correctAnswer, userMultiAnswer, selectedGenre
             $('.container').append(
                 `<div class="answerAnimation">
                 <div class="answerResult">
-                Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
-                <br><br>Current score is:<br> ${userScore}<br>
+                Well Done!<br>You got it all right!<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctAnswer}<br><br>You get 1 point this round.
+                <br><br>Current score is: ${userScore}<br>
                 <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
             </div>
             </div>`
@@ -927,8 +929,8 @@ function checkMultiKeywordRoundNum(correctAnswer, userMultiAnswer, selectedGenre
             $('.container').append(
                 `<div class="answerAnimation">
                 <div class="answerResult">
-                Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
-                <br><br>Current score is:<br> ${userScore}<br>
+                Bummer! You answered incorrectly.<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctAnswer}<br><br>You get 0 points this round.
+                <br><br>Current score is: ${userScore}<br>
                 <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
                 </div>
                 </div>`
@@ -952,12 +954,11 @@ function checkUserMultiKeywordAnswer(correctAnswer, userMultiAnswer, selectedGen
         $('.container').append(
             `<div class="answerAnimation">
             <div class="answerResult">
-            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
-            <br><br>Current score is:<br> ${userScore}<br>
+            Well Done!<br>You got it all right!<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctAnswer}<br><br>You get 1 point this round.
+            <br><br>Current score is: ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
-            </div>
-            </div>`
+        </div>`
         )
     }
     else {
@@ -965,12 +966,12 @@ function checkUserMultiKeywordAnswer(correctAnswer, userMultiAnswer, selectedGen
         $('.container').append(
             `<div class="answerAnimation">
             <div class="answerResult">
-            Bummer! You got it wrong.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
-            <br><br>Current score is:<br> ${userScore}<br>
+            Bummer! You got it wrong.<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctAnswer}<br><br>You get 0 points this round.
+            <br><br>Current score is: ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
-            </div>
-            </div>`
+        </div>
+        </div>`
         )
     }
     roundNum++;
@@ -1000,7 +1001,7 @@ function multiKeywordGameStart(song, correctAnswer, multiChoiceOption1, multiCho
     $('.container').append(
         `<div class="questionAnimation">
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start the song.<br></a>
+        <a>Press play to start the song<br>and again to pause.<br></a>
         <button type="submit" name="${a}" id="${a}" class="multiUserAnswerBtn" value="${a}">${a}</button>
         <button type="submit" name="${b}" id="${b}" class="multiUserAnswerBtn" value="${b}">${b}</button>
         <button type="submit" name="${c}" id="${c}" class="multiUserAnswerBtn" value="${c}">${c}</button>
@@ -1189,8 +1190,8 @@ function checkMultiRoundNum(correctAnswer, userMultiAnswer, selectedGenre) {
             $('.container').append(
                 `<div class="answerAnimation">
                 <div class="answerResult">
-                Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
-                <br><br>Current score is:<br> ${userScore}<br>
+                Well Done!<br>You got it all right!<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctAnswer}<br><br>You get 1 point this round.
+                <br><br>Current score is: ${userScore}<br>
                 <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
             </div>
             </div>`
@@ -1201,8 +1202,8 @@ function checkMultiRoundNum(correctAnswer, userMultiAnswer, selectedGenre) {
             $('.container').append(
                 `<div class="answerAnimation">
                 <div class="answerResult">
-                Bummer! You answered incorrectly.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
-                <br><br>Current score is:<br> ${userScore}<br>
+                Bummer! You answered incorrectly.<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctAnswer}<br><br>You get 0 points this round.
+                <br><br>Current score is: ${userScore}<br>
                 <button type="button" name="finalResults" class="finalResultsBtn" value="finalResults">Final Results</button>
                 </div>
                 </div>`
@@ -1226,8 +1227,8 @@ function checkUserMultiAnswer (correctAnswer, userMultiAnswer, selectedGenre) {
         $('.container').append(
             `<div class="answerAnimation">
             <div class="answerResult">
-            Well Done!<br>You got it all right!<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 1 point this round.
-            <br><br>Current score is:<br> ${userScore}<br>
+            Well Done!<br>You got it all right!<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctAnswer}<br><br>You get 1 point this round.
+            <br><br>Current score is: ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>`
@@ -1238,8 +1239,8 @@ function checkUserMultiAnswer (correctAnswer, userMultiAnswer, selectedGenre) {
         $('.container').append(
             `<div class="answerAnimation">
             <div class="answerResult">
-            Bummer! You got it wrong.<br><br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br><br>${correctAnswer}<br><br>You get 0 points this round.
-            <br><br>Current score is:<br> ${userScore}<br>
+            Bummer! You got it wrong.<br><img src='${albumCover}' alt='albumCoverImage' class='albumCoverImg'><br>${correctAnswer}<br><br>You get 0 points this round.
+            <br><br>Current score is: ${userScore}<br>
             <button type="button" name="nextSong" id ="nextSong" class="nextSong" value="next">Next Song</button><br>
             <button type="button" name="quitGame" id="quitGame" value="quitGame" onclick="reload();">Quit Game</button>
         </div>
@@ -1274,7 +1275,7 @@ function multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOpti
     $('.container').append(
         `<div class="questionAnimation">
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a><br><br>Press play to start the song.<br></a>
+        <a>Press play to start the song<br>and again to pause.<br></a>
         <button type="submit" name="${a}" id="${a}" class="multiUserAnswerBtn" value="${a}">${a}</button>
         <button type="submit" name="${b}" id="${b}" class="multiUserAnswerBtn" value="${b}">${b}</button>
         <button type="submit" name="${c}" id="${c}" class="multiUserAnswerBtn" value="${c}">${c}</button>
@@ -1527,7 +1528,7 @@ function quizMasterGameStart(song, correctAnswer, selectedGenre) {
     $('.container').append(
         `<div class="questionAnimation">
         <button type="button" name="play" id="playSong" class="playSong" value="play"></button>
-        <a>Press play to start the song.<br></a><br>
+        <a>Press play to start the song<br>and again to pause.<br></a><br>
         <a>The correct answer is<br></a>
         <div class="quizMasterAnswer">${correctAnswer}</div>
         <button type="button" name="addPoint" id ="addPoint" class="addPoint" value="addPoint">Add point and go to next song</button>

@@ -410,8 +410,9 @@ select {
 }
 
 .multiUserAnswerBtn {
-    width: 250px;
-    height: 60px;
+    width: 300px;
+    height: 80px;
+    padding: 5px;
     border-radius: 50px 50px 50px 50px;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 10px;
@@ -434,6 +435,8 @@ select {
 .answerResult {
     height: 150px;
     margin-top: 5%;
+    margin-left: 3%;
+    margin-right: 3%;
     text-align: center;
     font-size: 20px;
 }
@@ -443,8 +446,9 @@ select {
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
-    width: 350px;
-    height: 60px;
+    padding: 5px;
+    width: 300px;
+    height: 80px;
     border-radius: 50px 50px 50px 50px;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 10px;
@@ -460,8 +464,8 @@ select {
 }
 
 .addPoint {
-    width: 200px;
-    height: 45px;
+    width: 300px;
+    height: 65px;
     border-radius: 50px 50px 50px 50px;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 15px;
@@ -481,8 +485,8 @@ select {
     font-size: 15px;
 }
 .nextSong {
-    width: 200px;
-    height: 35px;
+    width: 250px;
+    height: 45px;
     border-radius: 50px 50px 50px 50px;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.5);
     margin-top: 15px;
