@@ -324,8 +324,8 @@ function gameUserEntryStart(song, correctArtistAnswer, correctSongAnswer, correc
         <a>Press play to start the song<br>and again to pause.<br></a>
         <form autocomplete="off">
             <fieldset>
-                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" required>
-                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" required>
+                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" required/>
+                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" required/>
                 <button type="submit" name="userAnswerBtn" id="userAnswerBtn" class="userAnswerBtn" value="userAnswerBtn">Submit</button>
                 <button type="submit" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
             </fieldset>
@@ -766,10 +766,10 @@ function loadKeywordSpace(keyword, song, correctArtistAnswer, correctSongAnswer,
         <a><br><br>Press play to start the song.<br></a>
         <form autocomplete="off">
             <fieldset>
-                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" required>
-                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" required>
+                <input type="text" name="userAnswerArtist" id="userAnswerArtist" class="userAnswer" placeholder="Enter Artist Here" required/>
+                <input type="text" name="userAnswerSong" id="userAnswerSong" class="userAnswer" placeholder="Enter Song Title Here" required/>
                 <button type="submit" name="userAnswerBtn" id="userAnswerBtn" class="userAnswerBtn" value="userAnswerBtn">Submit</button>
-                <button type="submit" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
+                <button type="button" name="userAnswerBtn" id="userAnswerBtnSkip" class="userAnswerBtn" value="userAnswerBtnSkip">Skip</button>
             </fieldset>
         </form>
         </div>`
@@ -1329,7 +1329,8 @@ function getDummyMuliplyChoice1(songObject) {
         if(indexCounter.includes(i)){
             console.log('Index num already used: '+i)
             getDummyMuliplyChoice1(songObject);
-        }else{
+        }
+        else{
             indexCounter.push(i);
             const artist = songObject.tracks[i].artistName;
             const artist1 = artist.split('(')[0]||artist.split('[')[0];
@@ -1349,7 +1350,8 @@ function getDummyMuliplyChoice2(songObject) {
         if(indexCounter.includes(i)){
             console.log('Index num already used: '+i)
             getDummyMuliplyChoice1(songObject);
-        }else{
+        }
+        else{
             indexCounter.push(i);
             const artist = songObject.tracks[i].artistName;
             const artist2 = artist.split('(')[0]||artist.split('[')[0];
@@ -1368,7 +1370,8 @@ function getDummyMuliplyChoice3(songObject) {
         if(indexCounter.includes(i)){
             console.log('Index num already used: '+i)
             getDummyMuliplyChoice3(songObject);
-        }else{
+        }
+        else{
             indexCounter.push(i);
             const artist = songObject.tracks[i].artistName;
             const artist3 = artist.split('(')[0]||artist.split('[')[0];
