@@ -426,9 +426,7 @@ function getUserEntrySongInfo(songObject, genreNum) {
     console.log(`Artist = ${correctArtistAnswer}`);
     console.log(`Song = ${correctSongAnswer}`);
     getAlbumCover (songObject, i);
-    setTimeout(function() {
-        gameUserEntryStart(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum)
-    }, 2000)
+    gameUserEntryStart(song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay, genreNum)
 }
 
 //fetches the song API object - catagory game
@@ -866,9 +864,7 @@ function getKeywordSongInfo(songObject, keyword) {
     console.log(`Song = ${correctSongAnswer}`);
     const song = getKeywordSongPreview(songObject, i);
     getKeywordAlbumCover (songObject, i);
-    setTimeout(function() {
-        loadKeywordSpace(keyword, song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay)
-    }, 2000)
+    loadKeywordSpace(keyword, song, correctArtistAnswer, correctSongAnswer, correctAnswerDisplay)
 } 
 
 //fetchs API object - keyword game
@@ -1416,7 +1412,6 @@ function getMultiChoiceSongInfo(songObject, selectedGenre) {
     const correctArtist = artist.split('(')[0]||artist.split('[')[0];
     const correctSong = track.split('(')[0]||track.split('[')[0];
     const correctAnswer = correctSong+' by '+correctArtist;
-    
     const song = getSongPreview(songObject, i);
     const multiChoiceOption1 = getMultiChoice1(songObject)
     const multiChoiceOption2 = getMultiChoice2(songObject)
@@ -1424,10 +1419,7 @@ function getMultiChoiceSongInfo(songObject, selectedGenre) {
     console.log('Used index nums '+indexCounter);
     console.log(`Correct Answer: ${correctAnswer}`);
     getAlbumCover (songObject, i);
-    setTimeout(function() {
-        multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
-    }, 2000)
-
+    multiGameStart(song, correctAnswer, multiChoiceOption1, multiChoiceOption2, multiChoiceOption3, selectedGenre)
 }
 
 //fetchs API object - multi choice game
@@ -1607,9 +1599,7 @@ function getQuizMasterInfo(songObject, selectedGenre) {
     console.log(`Correct Answer: ${correctAnswer}`);
     const song = getSongPreview(songObject, i);
     getAlbumCover (songObject, i);
-    setTimeout(function() {
-        quizMasterGameStart(song, correctAnswer, selectedGenre)
-    }, 2000)
+    quizMasterGameStart(song, correctAnswer, selectedGenre)
 }
 
 //gets song API object - quiz master game
